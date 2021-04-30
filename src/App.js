@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useEffect, useState } from "react";
+import {BrowserRouter as Router} from "react-router-dom";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import user from "./helpers/sample";
+
+import userRoutes from './Routes/user.routes';
+import adminRoutes from './Routes/admin.routes';
+import anonRoutes from './Routes/anon.routes'
+
+const App = () => {
+  const [routes, setRoutes] = useState(null);
+
+  useEffect(() => {
+    switch (user.id) {
+      case 1:
+        setRoutes(userRoutes);
+        break;
+      case 2:
+        setRoutes(adminRoutes);
+        break;
+      default:
+        setRoutes(anonRoutes);
+        break;
+    }
+  }, []);
+
+  return <Router>{routes}</Router>;
+};
 
 export default App;

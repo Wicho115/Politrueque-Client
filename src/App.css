@@ -1,38 +1,410 @@
-.App {
-  text-align: center;
+/* ==================== GENERAL Y CUERPO ==================== */
+
+*{
+    font-family: 'Acme', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/*html {
+    min-height: 100%;
+    position: relative;
+}*/
+
+body{
+    background-color: #13283E;
+    /*margin: 0;*/
+    /*margin-bottom: 40px;*/
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* ==================== NAVEGACIONES ==================== */
+
+.navbar, .navbar-expand-lg, .navbar-light, .bg-light{
+    border-bottom: #930049;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.navegación_secundaria_1{
+    background-color: white;
+    border-radius: 1rem;
+    border: solid rgb(128,0,64);
+    margin: 1rem;
+    vertical-align: middle;
+    text-align: center;
+    color: rgb(100,0, 40);
 }
 
-.App-link {
-  color: #61dafb;
+.nav, .nav-pills, .nav-fill{
+    border-radius: 7.5px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.nav-logo{
+    /*background-color: gray;*/
+    display: inline-block;
+    text-align: left;
+    /*width: 20%;*/
 }
+
+.nav-1{
+    /*background-color: gray;*/
+    display: inline-block;
+    text-align: left;
+    width: 50%;
+}
+
+.nav-2{
+    /*background-color: darkgray;*/
+    display: inline-block;
+    text-align: right;
+    width: 30%;
+}
+
+.nav-3{
+    /*background-color: lightgray;*/
+    display: inline-block;
+    text-align: right;
+    width: 50%;
+}
+
+/* ==================== CONTENEDORES DEL BODY ==================== */
+
+.chiquito{
+    text-align: center;
+}
+
+.contenedor_general_1{
+    width: 87%;
+    border: 1.5px #E5EAFA;
+    border-radius: 5px;
+	background-color: #E5EAFA;
+	margin: 1rem;
+    vertical-align: middle;
+    display: inline-block;
+    text-align: center;
+}
+
+.conetnedor_secundario_1{
+    background-color: #930049;
+    border-radius: 2px;
+    margin: 1rem;
+    width: 20%;
+    vertical-align: top;
+    display: inline-block;
+    text-align: justify;
+}
+
+.conenedor_terciario_1{
+    margin: 1rem;
+    width: 70%;
+    border-color: lightgray;
+    vertical-align: middle;
+    display: inline-block;
+    text-align: justify;
+}
+
+/* ==================== NAVEGACIÓN RÁPIDA ==================== */
+
+.navegacion-rápida-contenedor-general{
+    max-width: 100%;
+    border: 2px solid rgb(128,0,64);
+}
+
+.navegacion-rápida-contenedor{
+    max-width: 100%;
+    border: 2px solid rgb(128,0,64);
+}
+
+.navegacion-rápida-título{
+    border: 2px solid rgb(128,0,64);
+    background-color: #B35683;
+    text-align: center;
+    color: white;
+}
+
+.navegacion-rápida-cuerpo{
+    border: 2px solid rgb(128,0,64);
+    background-color: #DFB9CB;
+}
+
+.navegacion-rápida-link{
+    text-align: left;
+}
+
+/* ==================== HIPERVÍNCULOS ==================== */
+
+a{
+    color: rgb(128,0, 64);
+}
+a:hover{
+    color: rgb(128,0, 64);
+}
+.enlace-artículo , .enlace-reporte{
+    color: black;
+}
+.enlace-artículo:hover , .enlace-reporte:hover{
+    color: black;
+    text-decoration: none;
+}
+.enlace:hover{
+    border: 1px solid #800040;
+    /*filter: opacity(.9);*/
+}
+
+/* ==================== FORMULARIOS ==================== */
+
+.formulario{
+    border: 2px solid #800040;
+    background-color: #FFFFFF;
+	margin: 1rem;
+    vertical-align: middle;
+}
+
+.form-group{
+	background-color: #FFFFFF;
+	margin: 1rem;
+    vertical-align: middle;
+}
+
+.columna_doble_fomulario{
+    text-align: center;
+}
+
+.columna_formulario{
+    border: 1.5px solid #000000;
+    margin: 1rem;
+    width: 45%;
+    border: 10px #000000;
+    vertical-align: middle;
+    display: inline-block;
+    text-align: justify;
+}
+
+.columna_formulario_2{
+    border: 1.5px solid #000000;
+    margin: 1rem;
+    width: 95%;
+    border: 10px #000000;
+    vertical-align: middle;
+    display: inline-block;
+    text-align: justify;
+}
+
+.conetnedor_secundario_2{
+    background-color: #E5EAFA;
+    width: 70%;
+    vertical-align: middle;
+    display: inline-block;
+    text-align: justify;
+}
+
+.add-img-1{
+    width: 70%;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: justify;
+}
+
+.edit-img-1{
+    width: 40%;
+    display: inline-block;
+    vertical-align: middle;
+}
+.edit-img-2{
+    width: 45%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* ==================== DANDO FORMATO O COLORES ==================== */
+
+.artículos_display{
+	margin: 1rem;
+    vertical-align: middle;
+}
+
+.justificar{
+    text-align: justify;
+}
+
+/* En realidad es alinear a la izquierda */
+.alinear-derecha{
+    text-align: left;
+}
+
+/* En realidad es alinear a la derecha */
+.alinear-izquierda{
+    text-align: right;
+}
+
+.centrar{
+    text-align: center;
+}
+
+.crear_cuenta{
+    border: 2px solid #800040;
+	background-color: #FFFFFF;
+	margin: 1rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.card, .mb-3{
+    background-color:  white;
+    max-width: 100%;
+}
+
+.card{
+    height: 100%;
+}
+
+.papel{
+    border: 1.5px solid #000000;
+    margin: 1rem;
+}
+
+.info-sección{
+    border: 2px solid #930049;
+    border-left: 10px solid #930049;
+    background-color: #E6C7D6;
+}
+
+.info-sección-1{
+    /*background-color: gray;*/
+    width: 25%;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+}
+
+.info-sección-2{
+    /*background-color: lightgray;*/
+    width: 70%;
+    display: inline-block;
+}
+
+.info-sección-3{
+    /*background-color: darkgray;*/
+    width: 100%;
+    display: inline-block;
+}
+
+.marcado{
+    border: 2px solid #EBD915;
+    border-left: 10px solid #EBD915;
+    background-color: #F3E97C;
+    text-align: center;
+    margin: 0.5rem;
+}
+
+/* ==================== FOOTER ==================== */
+
+footer{
+    background: #800040;
+    position: absolute;
+    width: 100%;
+    color: #800040;
+    vertical-align: middle;
+    text-align: center;
+    /*bottom: 0;*/
+}
+
+.contenedor_general_2{
+    /*border: 1.5px solid #ffffff;*/
+    border-radius: 0.5rem;
+    background: #800040;
+    margin: 1rem;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.contenedor_footer{
+    /*background: #800040;*/
+    display: inline-block;
+    color: #ffffff;
+    width: 33%;
+    vertical-align: middle;
+}
+
+/* ==================== MENSAJES Y/O ALERTAS ==================== */
+
+.alerta{
+    /*margin: 0.1rem;*/
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 5px;
+    border: solid #E5EAFA;
+}
+
+.alert{
+    margin: 0.5rem;
+    vertical-align: middle;
+    text-align: center;
+    /*border-radius: 1rem;*/
+}
+
+.alert-success{
+    background-color: rgb(137,235,87);
+    border: 2px solid rgb(61,163,10);
+    border-left: 6px solid rgb(61,163,10);
+}
+.alert-danger{
+    background-color: rgb(242,177,177);
+    border: 2px solid rgb(208,32,32);
+    border-left: 6px solid rgb(208,32,32);
+}
+
+/* ==================== IMÁGENES ==================== */
+
+.img-artículo{
+    align-items: center;
+    width: 200px;
+    height: 250px;
+}
+
+.img-artículo-display{
+    width: 200px;
+    height: auto;  
+    border-radius: 1rem;
+}
+
+.img-perfil{
+    width: 200px;
+    height: 200px;
+    border-radius:100px;
+    border: 5px solid #930049;
+}
+
+.img-editar-articulo{
+    border-radius: 1rem;
+}
+
+/* ==================== PÁGINA DE ERROR ==================== */
+
+.error{
+    background-color: #FFFFFF;
+	margin: 1rem;
+    vertical-align: middle;
+}
+
+.reintentar{
+    margin: 1rem;
+    text-align: center;
+}
+
+.error_contenedor{
+    width: 50%;
+}
+
+/* ==================== AGREGAR UNA IMAGEN ==================== */
+
+.img-previa{
+    /*border: solid red;*/
+    width: auto;
+    display: inline-block;
+    margin-right: 1rem;
+}
+
+.img-input{
+    /*border: solid blue;*/
+    width: 50%;
+    display: inline-block;
+}
+
+/* ==================== OTROS O SIN CLASIFICAR ==================== */
