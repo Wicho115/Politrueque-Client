@@ -2,7 +2,7 @@ import React from "react";
 
 const QuickNav = () => {
   return (
-    <>
+    <>      
       {/* Parte de la navegación Rápida */}
       <aside className="conetnedor_secundario_1">
         <div className="justificar">

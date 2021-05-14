@@ -8,7 +8,6 @@ import TermANDCond from '../pages/Index/term&cond';
 
 const anonRoutes = (
   <Switch>    
-
     <Route exact path="/">
       <Container>
         <Principal />

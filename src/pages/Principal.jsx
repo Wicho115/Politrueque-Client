@@ -8,22 +8,22 @@ import FileInput from '../components/inputs/FileInput'
 import {useQuery, gql} from '@apollo/client';
 
 
-const Principal = () => {   
+const Principal = () => {     
   
   const HELLO = gql`
-    query {
+    query{
       Hello      
     }
   `
 
   const {loading, error, data}  = useQuery(HELLO);
   
-  if(loading) return <p>sexo cargando</p>;
-  if(error) return <p>no sex, hubo error {error.stack}</p>
+  if(loading) return <p>cargando...</p>;
+  if(error) return <p>error: {error.message}</p>
   return (
-    <>
-      {console.log(data)}      
-      <QuickNav />
+    <>        
+    <p>{data.Hello}</p>
+      <QuickNav/>
       <article className="conenedor_terciario_1">
         <div className="navegación_secundaria_1">
           <nav className="nav nav-pills nav-fill">
@@ -100,7 +100,6 @@ const Principal = () => {
         </CardContainer>      
               
         <FileInput />
-
         
       </article>
     </>

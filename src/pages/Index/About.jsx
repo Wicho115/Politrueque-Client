@@ -33,7 +33,7 @@ const About = () => {
               Científicos y Tecnológicos num. 9 “Juan de Dios Batiz”. El
               objetivo, es crear un espacio seguro para la compra, venta y
               donación de artículos escolares múltiples, tales como circuitos,
-              laptops, y muchos mas.{" "}
+              laptops, y muchos mas.
             </p>
           </Card>
           <br/>
