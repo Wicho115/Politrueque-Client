@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import QuickNav from "../components/QuickNav";
 import CardContainer from "../components/cards/CardContainer";
@@ -8,21 +8,19 @@ import FileInput from '../components/inputs/FileInput'
 import {useQuery, gql} from '@apollo/client';
 
 
-const Principal = () => {     
-  
-  const HELLO = gql`
-    query{
-      Hello      
-    }
-  `
+const Principal = () => {
 
-  const {loading, error, data}  = useQuery(HELLO);
-  
-  if(loading) return <p>cargando...</p>;
-  if(error) return <p>error: {error.message}</p>
+  useEffect(() =>{
+    fetch("http://10.129.199.45:5000/")
+    .then((data) => {
+      return data.json();
+    })
+    .then((value) => {
+      console.log(value);
+    })
+  }, [])
   return (
-    <>        
-    <p>{data.Hello}</p>
+    <>
       <QuickNav/>
       <article className="conenedor_terciario_1">
         <div className="navegación_secundaria_1">
@@ -58,7 +56,7 @@ const Principal = () => {
               una puedes crearla de una manera muy rápida.
             </p>
 
-            <Button refer="/estoesunarefdeprueba">
+            <Button refer="/login">
               <i className="fa fa-sign-in" />
               &nbsp;Iniciar Sesión
             </Button>

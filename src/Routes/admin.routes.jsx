@@ -7,6 +7,13 @@ import About from "../pages/Index/About";
 import TermANDCond from "../pages/Index/term&cond";
 import User from "../pages/Users/User";
 import ArticlePage from "../pages/Articles/ArticlePage";
+import ArticlesPage from "../pages/Articles/Articles";
+import CreateArticle from "../pages/Articles/CreateArticle";
+import EditArticle from "../pages/Articles/EditArticle";
+import ReportPage from "../pages/Reports/ReportPage";
+import ReportsPage from "../pages/Reports/Reports";
+import LogIn from "../pages/Index/Login";
+import AdminLogIn from "../pages/Index/AdminLogin";
 
 const adminRoutes = (
   <Switch>
@@ -36,7 +43,51 @@ const adminRoutes = (
 
     <Route exact strict path="/article">
       <Container>
-        <ArticlePage />
+        <ArticlePage />        
+      </Container>
+    </Route>
+
+    {/* Rutas por Revisar */}
+
+    <Route exact strict path="/report">
+      <Container>
+        <ReportPage />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/articles">
+      <Container>
+        <ArticlesPage />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/article/new">
+      <Container>
+        <CreateArticle />        
+      </Container>
+    </Route>
+
+    <Route exact strict path="/article/edit">
+      <Container>
+        <EditArticle />        
+      </Container>
+    </Route>
+
+    <Route exact strict path="/reports">
+      <Container>
+        <ReportsPage />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/login">
+      <Container>
+        <LogIn />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/adminlogin">
+      <Container>
+        <AdminLogIn />
       </Container>
     </Route>
 
