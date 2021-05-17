@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link, Redirect } from "react-router-dom";
 
-import QuickNav from "../../components/QuickNav";
 import CardContainer from "../../components/cards/CardContainer";
 import SecondNav from "../../components/SecondNav";
-import ListPageEnd from "../../components/ListPageEnd";
-import ListPageBeg from "../../components/ListPageBeg";
-import ArticlesDis from "../../components/articles/ArticlesDis";
+import ArticleToVer from "../../components/articles/ArticleToVer";
 
 //importar json de articulo (DEV)
 import articlesJSON from "../../helpers/ArticlesSample";
@@ -30,7 +27,7 @@ const Articles = () => {
                     {/* Donde se imprime cada uno de los artículos */}
 
                     {articles.map((art) => {
-                        return (<ArticlesDis
+                        return (<ArticleToVer
                             to="/article"
                             img={art.img}
                             alt={art.name}
