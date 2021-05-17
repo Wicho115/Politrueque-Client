@@ -4,18 +4,30 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
+import {setContext} from '@apollo/client/link/context';
 import {createUploadLink} from 'apollo-upload-client';
 const localStorage = require('localStorage');
 
-const client = new ApolloClient({
-  link: createUploadLink({
+
+const uploadLink = createUploadLink({
     useGETForQueries : true,
     uri:'http://localhost:5000/graphql',
-    credentials : "include",
+    credentials : "include",   
+});
+
+const authLink = setContext((_, {headers}) =>{
+  const token = localStorage.getItem('token');
+
+  return{
     headers : {
-      authorization : `Bearer ${localStorage.getItem('access_token')}`
-    }       
-  }),
+      ...headers,
+      authorization : token ? `Bearer ${token}` : "",
+    }
+  }
+})
+
+const client = new ApolloClient({
+  link: authLink.concat(uploadLink),
   cache : new InMemoryCache()
 });
 

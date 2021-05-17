@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import QuickNav from "../../components/QuickNav";
 
 const Login = () => {
+
+    const [loginUser, setLoginUser] = useState({});
+    const [check, setCheck] = useState(false);
+
+    useEffect(() => {
+        console.log('El componente se monto');
+
+        return(() => {
+            console.log('El componente se fue');
+        });
+    }, [check]);    
+
+    const handleChange = (e) =>{        
+        setLoginUser({...loginUser, [e.target.name] : e.target.value});        
+    }
+
+    const handleTerms = (e) => {
+        setCheck(!check);
+    }
+
+    const submitHandle = (e) =>{
+        e.preventDefault();   
+        console.log(loginUser);  
+        console.log(check);        
+    }
 
     return (
         <>
@@ -23,29 +48,29 @@ const Login = () => {
                         </nav>
                     </div>
                     <div className="formulario">
-                        <form action="#" method="POST">
+                        <form onSubmit={submitHandle}>
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail1">Correo Electrónico</label>
-                                <input type="email" name="correo" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                <input onChange={handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Boleta</label>
-                                <input type="text" name="boleta" className="form-control" id="exampleInputPassword1" />
+                                <input onChange={handleChange} type="text" name="boleta" className="form-control" id="exampleInputPassword1" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Contraseña</label>
-                                <input type="password" name="contraseña" className="form-control" id="exampleInputPassword1" />
+                                <input onChange={handleChange} type="password" name="password" className="form-control" id="exampleInputPassword1" />
                             </div>
                             <div className="form-group">
                                 <div className="form-check">
-                                    <input name="AceptoTermCond" className="form-check-input" type="checkbox" defaultValue id="flexCheckDefault" />
+                                    <input onChange={handleTerms} value={check} name="AceptoTermCond" className="form-check-input" type="checkbox" id="flexCheckDefault" />
                                     <label className="form-check-label" htmlFor="flexCheckDefault">
                                         Acepto los <Link to="/terms">Términos y Condiciones</Link>, así como el <Link to="/terms">Aviso de Privacidad</Link>.
               </label>
                                 </div>
                             </div>
                             <div className="form-group">
-                                <button type="submit" className="btn btn-primary" style={{ backgroundColor: 'rgb(128,0, 64)', borderColor: 'rgb(128,0, 64)' }}>Iniciar sesión</button>
+                                <button className="btn btn-primary" style={{ backgroundColor: 'rgb(128,0, 64)', borderColor: 'rgb(128,0, 64)' }}>Iniciar sesión</button>
                             </div>
                         </form>
                     </div>

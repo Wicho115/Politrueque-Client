@@ -6,12 +6,13 @@ import Card from "../components/cards/Card";
 import Button from "../components/Button";
 import FileInput from '../components/inputs/FileInput'
 import {useQuery, gql} from '@apollo/client';
+const localStorage = require('localStorage');
 
 
 const Principal = () => {
 
-  useEffect(() =>{
-    fetch("http://10.129.199.45:5000/")
+  useEffect(() =>{    
+    fetch(`http://10.129.199.45:5000/login`)
     .then((data) => {
       return data.json();
     })
