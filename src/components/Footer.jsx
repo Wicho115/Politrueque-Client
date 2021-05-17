@@ -9,30 +9,30 @@ const Footer = () => {
       <div className="contenedor_general_2">
         <div className="contenedor_footer">
           Enlaces útiles: <br />
-          <Link href="#" style={{ color: "white" }}>
+          <Link to="/" style={{ color: "white" }}>
             Inicio
           </Link>
-          |
-          <Link href="#" style={{ color: "white" }}>
+          {" "}|{" "}
+          <Link to="/login" style={{ color: "white" }}>
             Iniciar Sesión
           </Link>
           <br />
-          <Link href="#" style={{ color: "white" }}>
+          <Link to="about" style={{ color: "white" }}>
             Acerca de Politrueque
           </Link>
-          |
-          <Link href="#" style={{ color: "white" }}>
+          {" "}|{" "}
+          <Link to="/terms" style={{ color: "white" }}>
             Téminos y Condiciones
           </Link>
           <br />
           <br />
-          <Link href="#" style={{ color: "white" }}>
+          <Link to="/accountrequest" style={{ color: "white" }}>
             Aún no tengo una cuenta
           </Link>
         </div>
         <div className="contenedor_footer">
           <p>
-            <Link href="#">
+            <Link to="/">
               <img src={Polifooter} width={200} height="auto" alt="Logo"/>
             </Link>
           </p>
@@ -42,15 +42,15 @@ const Footer = () => {
           </small>
         </div>
         <div className="contenedor_footer">
-          <Link href="#" style={{ color: "white" }}>
+          <Link to="/about" style={{ color: "white" }}>
             ¿Qué es Politruque?
           </Link>
           <br />
           <br />
           El creador de nuestros íconos <br />
-          <Link href="https://twitter.com/CH_Toons" style={{ color: "white" }}>
+          <a href="https://twitter.com/CH_Toons" target="_blank" style={{ color: "white" }}>
             NSC <i className="fa fa-twitter" />
-          </Link>
+          </a>
         </div>
       </div>
     </footer>

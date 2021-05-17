@@ -4,9 +4,10 @@ import SecondNav from "../../components/SecondNav";
 import FormsContainer from "../../components/FormsContainer";
 import FormInput from "../../components/inputs/FormInput";
 import DescriptionInput from "../../components/inputs/DescriptionInput";
+import FileInput from "../../components/inputs/FileInput";
 
 
-const CreateArticle = () => {
+const EditArticle = () => {
     return (
         <>
             {/* Contenedor para editar un artículo */}
@@ -15,15 +16,11 @@ const CreateArticle = () => {
                     <a className="nav-link">Modificar Artículo</a>
                 </SecondNav>
                 <FormsContainer>
-                    <form action="#" method="POST">
-                        <input type="hidden" name="_method" defaultValue="PUT" />
-                        {/* Aqui van los datos generales que se piden para un artículo */}
-                        <div className="columna_doble_fomulario">
-                            <div className="columna_formulario">
-                                <img src="https://lumen.com.mx/Content/Images/productPics_180x180/portalamina-k-e-tela-logo-bordado-52x37x9cm-marca-ke-sku-243595002.jpg" alt="Imágen seleccionada para el articulo" />
-                            </div>
-                        </div>
-                    </form>
+                    {/* Aqui van los datos generales que se piden para un artículo */}
+                    <div className="centrar">
+                        <FileInput instuctions="Esta es la imágen de su artículo" />
+                    </div>
+                    <hr />
                     <div className="columna_doble_fomulario">
                         <FormInput small="¿Qué es el artículo?" label="Nombre">
                             <input type="text" name="nombre" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" readOnly defaultValue="Nombre" />
@@ -70,7 +67,7 @@ const CreateArticle = () => {
                         </FormInput>
                         {/* Aqui es lo que depende de la acción que se vaya a hacer */}
                         <FormInput small="¿Cuánto costará tu artículo?" label="Precio">
-                            <input type="text" name="precio" className="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" defaultValue="500"/>
+                            <input type="text" name="precio" className="form-control" id="exampleInputEmail2" aria-describedby="emailHelp" defaultValue="500" />
                         </FormInput>
                     </div>
                     <div className="form-group centrar">
@@ -83,4 +80,4 @@ const CreateArticle = () => {
     );
 };
 
-export default CreateArticle;
+export default EditArticle;

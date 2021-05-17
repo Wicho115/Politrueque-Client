@@ -40,7 +40,7 @@ const Login = () => {
                                 <div className="form-check">
                                     <input name="AceptoTermCond" className="form-check-input" type="checkbox" defaultValue id="flexCheckDefault" />
                                     <label className="form-check-label" htmlFor="flexCheckDefault">
-                                        Acepto los <a href="#">Términos y Condiciones</a>, así como el <a href="#">Aviso de Privacidad</a>.
+                                        Acepto los <Link to="/terms">Términos y Condiciones</Link>, así como el <Link to="/terms">Aviso de Privacidad</Link>.
               </label>
                                 </div>
                             </div>
@@ -53,7 +53,7 @@ const Login = () => {
                         <div className="card-body">
                             <h5 className="card-title">¿Aún no tienes cuenta?</h5>
                             <p className="card-text">Envía una Solicitud en el enlace siguiente. Te mandaremos tu usuario y contraseña al correo que nos proporciones.</p>
-                            <a href="https://forms.gle/ntGsVWPuJnXM2vjy9" target="_blank" className="btn btn-primary" style={{ backgroundColor: 'rgb(128,0, 64)', borderColor: 'rgb(128,0, 64)' }}>¡Enviar mi Solicitud!</a>
+                            <a href="https://forms.gle/LKFd8gMFGCC3tt2N7" target="_blank" className="btn btn-primary" style={{ backgroundColor: 'rgb(128,0, 64)', borderColor: 'rgb(128,0, 64)' }}>¡Enviar mi Solicitud!</a>
                         </div>
                     </div>
                 </div>

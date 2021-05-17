@@ -47,7 +47,7 @@ const AdminLogin = () => {
                                 <div className="form-check">
                                     <input name="AceptoTermCond" className="form-check-input" type="checkbox" defaultValue id="flexCheckDefault" />
                                     <label className="form-check-label" htmlFor="flexCheckDefault">
-                                        Acepto los <a href="#">Términos y Condiciones</a>, así como el <a href="#">Aviso de Privacidad</a>.
+                                        Acepto los <Link to="/terms">Términos y Condiciones</Link>, así como el <Link to="/terms">Aviso de Privacidad</Link>.
               </label>
                                 </div>
                             </div>

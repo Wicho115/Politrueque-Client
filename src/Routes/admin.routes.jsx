@@ -10,10 +10,16 @@ import ArticlePage from "../pages/Articles/ArticlePage";
 import ArticlesPage from "../pages/Articles/Articles";
 import CreateArticle from "../pages/Articles/CreateArticle";
 import EditArticle from "../pages/Articles/EditArticle";
+import VerifyArticles from "../pages/Articles/VerifyArticles";
 import ReportPage from "../pages/Reports/ReportPage";
 import ReportsPage from "../pages/Reports/Reports";
+import CreateReport from "../pages/Reports/CreateReport";
+import EditReport from "../pages/Reports/EditReport";
 import LogIn from "../pages/Index/Login";
 import AdminLogIn from "../pages/Index/AdminLogin";
+import AccountRequest from "../pages/Index/AccountRequest";
+import RegisterUser from "../pages/Index/RegisterUser";
+import EditProfile from "../pages/Users/EditProfile";
 
 const adminRoutes = (
   <Switch>
@@ -49,6 +55,12 @@ const adminRoutes = (
 
     {/* Rutas por Revisar */}
 
+    <Route exact strict path="/user/edit">
+      <Container>
+        <EditProfile />
+      </Container>
+    </Route>
+
     <Route exact strict path="/report">
       <Container>
         <ReportPage />
@@ -58,6 +70,12 @@ const adminRoutes = (
     <Route exact strict path="/articles">
       <Container>
         <ArticlesPage />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/articles/verify">
+      <Container>
+        <VerifyArticles />
       </Container>
     </Route>
 
@@ -79,6 +97,18 @@ const adminRoutes = (
       </Container>
     </Route>
 
+    <Route exact strict path="/report/new">
+      <Container>
+        <CreateReport />        
+      </Container>
+    </Route>
+
+    <Route exact strict path="/report/edit">
+      <Container>
+        <EditReport />        
+      </Container>
+    </Route>
+
     <Route exact strict path="/login">
       <Container>
         <LogIn />
@@ -88,6 +118,18 @@ const adminRoutes = (
     <Route exact strict path="/adminlogin">
       <Container>
         <AdminLogIn />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/accountrequest">
+      <Container>
+        <AccountRequest />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/registeruser">
+      <Container>
+        <RegisterUser />
       </Container>
     </Route>
 

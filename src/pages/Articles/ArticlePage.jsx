@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../components/Button";
+import ReportBtn from "../../components/inputs/ReportBtn";
 
 import ArticleJSON from "../../helpers/ArticleSample";
 
 const ArticlePage = () => {
-  const [article, setArticle] = useState({}); 
+  const [article, setArticle] = useState({});
 
   useEffect(() => {
     setArticle(ArticleJSON);
@@ -12,16 +13,16 @@ const ArticlePage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setArticle({...article, avaliable : false});
+    setArticle({ ...article, avaliable: false });
   };
 
   const handleChange = (e) => {
     console.log(e.target);
   };
 
-  const handleArticle = () =>{
-    switch(article.action_id){
-      case 1:        
+  const handleArticle = () => {
+    switch (article.action_id) {
+      case 1:
         return (`Precio: $${article.price}`);
       case 2:
         return (`Intercambio por: ${article.exchange}`);
@@ -43,6 +44,7 @@ const ArticlePage = () => {
             </div>
           )}
 
+          <ReportBtn refer="/report/new?t=a" />
           <div className="row no-gutters" style={{ margin: "0.5rem" }}>
             <div className="col-ml-4">
               <img src={article.img} className="card-img img-artículo-display" alt={article.description} />
@@ -71,8 +73,8 @@ const ArticlePage = () => {
             &nbsp;&nbsp;
             <Button refer="/article/delete?art=">
               Eliminar &nbsp; <i className="fa fa-trash" />
-            </Button> 
-            &nbsp;&nbsp;&nbsp;         
+            </Button>
+            &nbsp;&nbsp;&nbsp;
           </div>
           {/* [C] Termina If */}
           <ul
@@ -96,7 +98,7 @@ const ArticlePage = () => {
           {/* [D] ELSE es el propietario */}
           {/* [E] Si no está marcado (Disponible) */}
           {article.avaliable ? (<div className="card-body">
-            <form onSubmit={handleSubmit}>              
+            <form onSubmit={handleSubmit}>
               <button
                 className="btn btn-primary"
                 style={{
@@ -108,7 +110,7 @@ const ArticlePage = () => {
               </button>
             </form>
           </div>) : null}
-          
+
           {/* [E] Termina If */}
           {/* [D] Termina If */}
         </div>

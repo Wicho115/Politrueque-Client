@@ -25,17 +25,9 @@ const Principal = () => {
       <article className="conenedor_terciario_1">
         <div className="navegación_secundaria_1">
           <nav className="nav nav-pills nav-fill">
-            <Link
-              className="nav-link active"
-              style={{
-                fontSize: 25,
-                backgroundColor: "rgb(128,0,64)",
-                borderRadius: "7.5px",
-              }}
-              to="/2"
-            >
+            <a className="nav-link active" style={{ fontSize: 25, backgroundColor: "rgb(128,0,64)", borderRadius: "7.5px" }}>
               ¡ Bienvenido a Politrueque !
-            </Link>
+            </a>
           </nav>
         </div>
 
@@ -60,7 +52,8 @@ const Principal = () => {
               <i className="fa fa-sign-in" />
               &nbsp;Iniciar Sesión
             </Button>
-            <Button refer="/Estaesotrarefdeprueba">
+            {" "}
+            <Button refer="/accountrequest">
               <i className="fa fa-address-book-o" />
               &nbsp;Regístrate
             </Button>
@@ -95,10 +88,7 @@ const Principal = () => {
               <i className="fa fa-info-circle" />
             </Button>
           </Card>
-        </CardContainer>      
-              
-        <FileInput />
-        
+        </CardContainer>        
       </article>
     </>
   );

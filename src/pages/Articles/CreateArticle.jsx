@@ -4,6 +4,7 @@ import SecondNav from "../../components/SecondNav";
 import FormsContainer from "../../components/FormsContainer";
 import FormInput from "../../components/inputs/FormInput";
 import DescriptionInput from "../../components/inputs/DescriptionInput";
+import FileInput from "../../components/inputs/FileInput";
 
 
 const CreateArticle = () => {
@@ -16,6 +17,11 @@ const CreateArticle = () => {
                 </SecondNav>
                 <FormsContainer>
                     <form action="#" method="POST" className="md-form">
+                        {/* Imágen del Artículo */}
+                        <div className="centrar">
+                            <FileInput instuctions="Por favor, seleccione la imágen del artículo:" />
+                        </div>
+                        <hr />
                         {/* Aqui van los datos generales que se piden para un artículo */}
                         <div className="columna_doble_fomulario">
                             <FormInput small="¿Qué es el artículo?" label="Nombre">

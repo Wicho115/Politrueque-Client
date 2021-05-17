@@ -1,32 +1,24 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import QuickNav from '../../components/QuickNav'
 
 const TermANDCond = () => {
   return (
-    <>      
-    <QuickNav/>
+    <>
+      <QuickNav />
       {/* Contenedor donde van los elementos de la página correspondiente */}
       <article className="conenedor_terciario_1">
         <div>
           <div className="navegación_secundaria_1">
             <nav className="nav nav-pills nav-fill">
-              <Link
-                className="nav-link active"
-                style={{
-                  fontSize: 25,
-                  backgroundColor: "rgb(128,0,64)",
-                  borderRadius: "7.5px",
-                }}
-              >
+              <a className="nav-link active" style={{ fontSize: 25,  backgroundColor: "rgb(128,0,64)", borderRadius: "7.5px" }}>
                 Términos y Condiciones y Aviso de Privacidad
-              </Link>
+              </a>
             </nav>
           </div>
           <div className="navegación_secundaria_1">
             <nav className="nav nav-pills nav-fill">
-              <Link className="nav-link">Términos y Condiciones</Link>
+              <a className="nav-link">Términos y Condiciones</a>
             </nav>
           </div>
           <div className="artículos_display">
@@ -34,14 +26,14 @@ const TermANDCond = () => {
               <div className="papel">
                 <div className="card-body">
                   <p>
-                    Esta página web es propiedad y está operado por NAUTILUS.
-                    Estos Términos establecen los términos y condiciones bajo
-                    los cuales tu puedes usar nuestra página web y servicios
-                    ofrecidos por nosotros. Esta página web ofrece a los
-                    visitantes compra, venta, donación e intercambios de
-                    materiales escolares. Al acceder o usar la página web de
-                    nuestro servicio, usted aprueba que haya leído, entendido y
-                    aceptado estar sujeto a estos Términos.
+                    Esta página web es propiedad y está operado por Politueque. 
+                    Estos términos establecen los términos y condiciones bajo 
+                    los cuales tu puedes usar nuestra página web y servicios 
+                    ofrecidos por nosotros. Esta página web ofrece a los visitantes 
+                    compra, venta, donación e intercambios de materiales escolares. 
+                    Al acceder o usar la página web de nuestro servicio, usted 
+                    aprueba que haya leído, entendido y aceptado estar sujeto a 
+                    estos Términos.
                   </p>
                   <p>
                     Para usar nuestra página web y / o recibir nuestros
@@ -60,15 +52,15 @@ const TermANDCond = () => {
                       antes de comprometerte a comprarlo.
                     </li>
                     <li>
-                      La empresa NAUTILUS no se hace responsable de probables
+                      La empresa Politruque no se hace responsable de probables
                       estafas por parte del vendedor o proveedor.
                     </li>
                     <li>
-                      La empresa NAUTILUS no se hace responsable de una mala
+                      La empresa Politruque no se hace responsable de una mala
                       disposición del servicio proporcionado.
                     </li>
                     <li>
-                      La empresa NAUTILUS no se hace responsable de la
+                      La empresa Politruque no se hace responsable de la
                       disponibilidad de los productos publicados por nuestros
                       usuarios.
                     </li>
@@ -84,13 +76,13 @@ const TermANDCond = () => {
                   <p>
                     Para solicitar una devolución o reembolso de un artículo,
                     deberás ponerte en contacto con tu vendedor y/o proveedor,
-                    la empresa NAUTILUS no se hace responsable de devoluciones y
+                    la empresa Politruque no se hace responsable de devoluciones y
                     reembolsos a los usuarios.
                   </p>
                   <h4>Garantías y responsabilidad por servicios y productos</h4>
                   <p>
                     Para garantías de un artículo, deberás ponerte en contacto
-                    con tu vendedor y/o proveedor, ya que la empresa NAUTILUS no
+                    con tu vendedor y/o proveedor, ya que la empresa Politruque no
                     se hace responsable por garantías de ningún producto ni por
                     las condiciones de estos.
                   </p>
@@ -102,7 +94,7 @@ const TermANDCond = () => {
                     servicio, derechos de autor, fotografías, audio, videos,
                     música y todos los Derechos de Propiedad Intelectual
                     relacionados con ellos, son la propiedad exclusiva de
-                    NAUTILUS. Salvo que se indique explícitamente en este
+                    Politruque. Salvo que se indique explícitamente en este
                     documento, no se considerará que nada en estos Términos crea
                     una licencia en o bajo ninguno de dichos Derechos de
                     Propiedad Intelectual, y tu aceptas no vender, licenciar,
@@ -152,7 +144,7 @@ const TermANDCond = () => {
           </div>
           <div className="navegación_secundaria_1">
             <nav className="nav nav-pills nav-fill">
-              <Link className="nav-link">Aviso de Privacidad</Link>
+              <a className="nav-link">Aviso de Privacidad</a>
             </nav>
           </div>
           <div className="artículos_display">
@@ -160,9 +152,9 @@ const TermANDCond = () => {
               <div className="papel">
                 <div className="card-body">
                   <p>
-                    La empresa Nautilus, desarrolladora de Politrueque, es la
-                    responsable del tratamiento de los datos personales que nos
-                    proporcione.{" "}
+                    La empresa Politruque, desarrolladora de esta misma platafoprma, 
+                    es la responsable del tratamiento de los datos personales 
+                    que nos proporcione.
                   </p>
                   <p>
                     Sus datos personales, serán utilizados para las siguientes

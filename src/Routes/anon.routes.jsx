@@ -7,6 +7,7 @@ import About from '../pages/Index/About';
 import TermANDCond from '../pages/Index/term&cond';
 import LogIn from "../pages/Index/Login";
 import AdminLogIn from "../pages/Index/AdminLogin";
+import AccountRequest from "../pages/Index/AccountRequest";
 
 const anonRoutes = (
   <Switch>
@@ -39,6 +40,12 @@ const anonRoutes = (
     <Route exact strict path="/adminlogin">
       <Container>
         <AdminLogIn />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/accountrequest">
+      <Container>
+        <AccountRequest />
       </Container>
     </Route>
 

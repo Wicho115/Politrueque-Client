@@ -3,7 +3,8 @@ const UserSample = {
     user: {
         name: "Wicho",
         img: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Procyon_lotor_%28Common_raccoon%29.jpg/1200px-Procyon_lotor_%28Common_raccoon%29.jpg",
-        mail: "luigialfmartin@gmai.com"
+        mail: "luigialfmartin@gmai.com",
+        password: "password"
     },
 
 

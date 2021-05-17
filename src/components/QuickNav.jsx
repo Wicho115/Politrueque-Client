@@ -36,25 +36,25 @@ const QuickNav = () => {
                 <div className="card-body navegacion-rápida-cuerpo">
                   {/* En caso de no tener una sesión */}
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/InicioSesion">Iniciar sesión</a>
+                    <a href="/login">Iniciar sesión</a>
                   </p>
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/Registro">Registrarse</a>
+                    <a href="/accountrequest">Registrarse</a>
                   </p>
                   {/* */}
                   {/* Teniendo una sesión */}
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/{{#unless user.idAdmin}}u{{else}}a{{/unless}}_{{user.id}}">
+                    <a href="/user">
                       Perfil
                     </a>
                   </p>
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/{{#unless user.idAdmin}}u{{else}}a{{/unless}}_{{user.id}}?articulos=true">
+                    <a href="/user/articles?u=algo">
                       Mis Artículos
                     </a>
                   </p>
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/CerrarSesion">Cerrar Sesión</a>
+                    <a href="/logout">Cerrar Sesión</a>
                   </p>
                   {/* */}
                 </div>
@@ -66,16 +66,16 @@ const QuickNav = () => {
                 </div>
                 <div className="card-body navegacion-rápida-cuerpo">
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/articulos/venta">Venta</a>
+                    <a href="/articles?t=sell">Venta</a>
                   </p>
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/articulos/intercambio">Intercambio</a>
+                    <a href="/articles?t=exchange">Intercambio</a>
                   </p>
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/articulos/donativo">Donativos</a>
+                    <a href="/articles?t=donate">Donativos</a>
                   </p>
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/articulo/agregar">Añadir Un Articulo</a>
+                    <a href="/article/new">Añadir Un Articulo</a>
                   </p>
                 </div>
               </div>
@@ -87,13 +87,13 @@ const QuickNav = () => {
                 </div>
                 <div className="card-body navegacion-rápida-cuerpo">
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/reportes/usuarios">Usuarios</a>
+                    <a href="/reports?t=user">Usuarios</a>
                   </p>
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/reportes/articulos">Artículos</a>
+                    <a href="/reports?t=articles">Artículos</a>
                   </p>
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/reporte/agregar">Añadir un Reporte</a>
+                    <a href="/report/new">Añadir un Reporte</a>
                   </p>
                 </div>
               </div>

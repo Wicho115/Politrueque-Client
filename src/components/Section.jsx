@@ -5,12 +5,12 @@ const Section = (props) =>{
     return(
         <>
         <nav className="nav nav-pills nav-fill">
-          <Link
+          <a
             className="nav-link active"
             style={{ backgroundColor: "rgb(128,0,64)" }}
           >
             {props.children}
-          </Link>
+          </a>
         </nav>
         <br />
         </>

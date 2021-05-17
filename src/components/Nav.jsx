@@ -76,6 +76,10 @@ const Nav = (props) => {
                       <i className="fa fa-plus-square-o" />
                       &nbsp;Añadir
                     </Link>
+                    <Link to="/articles/verify" className="dropdown-item" href="#">
+                      <i className="fa fa-check-square-o" />
+                      &nbsp;Verificar
+                    </Link>
                   </div>
                 </li>
                 {/* [A] Termina If */}
@@ -171,7 +175,7 @@ const Nav = (props) => {
                   </Link>
                 </li>
                 <li className="nav-item active">
-                  <Link to="/register" className="nav-link">
+                  <Link to="/accountrequest" className="nav-link">
                     <i className="fa fa-address-book-o" />
                     &nbsp;Registrarse
                   </Link>

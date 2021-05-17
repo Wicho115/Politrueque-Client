@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Files from 'react-files';
 import { useMutation, gql } from '@apollo/client'
 
-const FileInput = () => {
+const FileInput = ({ instuctions }) => {
 
     const [url, seturl] = useState("");
     const [image, setImage] = useState(null)
@@ -13,14 +13,15 @@ const FileInput = () => {
                 url
             }
         }
-`;
+    `;
+    
     const handleChange = (files) => {
         if (files[0] !== undefined) {
             console.log(files[0]);
             seturl(files[0].preview.url);
             setImage(files[0]);
         }
-    }    
+    }
 
     const handleError = (err, file) => {
         console.log(err);
@@ -28,8 +29,8 @@ const FileInput = () => {
 
     const [UploadFile] = useMutation(GET_FILE, {
         onCompleted: (data) => console.log(data),
-        onError: function(err){console.log(err)},
-        
+        onError: function (err) { console.log(err) },
+
     })
 
     const handleSub = () => {
@@ -38,34 +39,36 @@ const FileInput = () => {
         UploadFile({ variables: { file } })
     }
 
-    return (<>
+    return (
+        <>
+            <div className="add-img-1">
+                <div className="col-ml-4 img-previa">
+                    <img src={url} className="card-img img-thumbnail img-artículo" alt="" />
+                </div>
+                <div className="img-input centrar">
+                    <p>{instuctions}</p>
+                    <div className="custom-file" style={{ textAlign: 'left' }}>
 
-        <div className="col-ml-4 img-previa">
-            <img src={url} className="card-img img-thumbnail img-artículo" alt="" />
-        </div>
-        <div className="img-input">
-            <p>Por favor, seleccione su imagen:</p>
-            <div className="custom-file" style={{ textAlign: 'left' }}>
+                        <Files
+                            onChange={handleChange}
+                            onError={handleError}
+                            clickable
+                            accepts={['image/png', 'image/jpeg', 'image/jpg']}
+                            multiple={false}
+                            maxFileSize={5000000}
+                            minFileSize={3000}
+                        >
+                            <label className="custom-file-label">Seleccionar Archivo</label>
+                        </Files>
 
-                <Files
-                    onChange={handleChange}
-                    onError={handleError}
-                    clickable
-                    accepts={['image/png', 'image/jpeg', 'image/jpg']}
-                    multiple={false}
-                    maxFileSize={5000000}
-                    minFileSize={3000}
-                >
-                    <label className="custom-file-label">Seleccionar Archivo</label>
-                </Files>
-
+                    </div>
+                </div>
+                <button onClick={handleSub}>
+                    Submit?
+                </button>
             </div>
-        </div>
-        <button onClick={handleSub}>
-            Submit?
-        </button>
-
-    </>);
+        </>
+    );
 }
 
 export default FileInput;

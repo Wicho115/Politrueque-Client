@@ -8,8 +8,12 @@ import TermANDCond from "../pages/Index/term&cond";
 import User from "../pages/Users/User";
 import ArticlePage from "../pages/Articles/ArticlePage";
 import ArticlesPage from "../pages/Articles/Articles";
+import CreateArticle from "../pages/Articles/CreateArticle";
+import EditArticle from "../pages/Articles/EditArticle";
 import LogIn from "../pages/Index/Login";
 import AdminLogIn from "../pages/Index/AdminLogin";
+import AccountRequest from "../pages/Index/AccountRequest";
+import EditProfile from "../pages/Users/EditProfile";
 
 const userRoutes = (
   <Switch>
@@ -45,9 +49,27 @@ const userRoutes = (
 
     {/* Rutas por Revisar */}
 
+    <Route exact strict path="/user/edit">
+      <Container>
+        <EditProfile />
+      </Container>
+    </Route>
+
     <Route exact strict path="/articles">
       <Container>
         <ArticlesPage />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/article/new">
+      <Container>
+        <CreateArticle />        
+      </Container>
+    </Route>
+
+    <Route exact strict path="/article/edit">
+      <Container>
+        <EditArticle />        
       </Container>
     </Route>
 
@@ -60,6 +82,12 @@ const userRoutes = (
     <Route exact strict path="/adminlogin">
       <Container>
         <AdminLogIn />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/accountrequest">
+      <Container>
+        <AccountRequest />
       </Container>
     </Route>
 

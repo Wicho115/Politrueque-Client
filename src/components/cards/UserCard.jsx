@@ -1,10 +1,11 @@
 import React from 'react';
 
-import Button from '../Button'
+import Button from '../Button';
+import ReportBtn from "../../components/inputs/ReportBtn";
 
 const UserCard = ({user}) =>{
     return(
-        <div className="card mb-3">
+        <div className="card mb-3">          
           <div className="row no-gutters">
             <div className="col-ml-4" style={{ margin: "0.5rem" }}>
               <img
@@ -23,15 +24,19 @@ const UserCard = ({user}) =>{
                   <small className="text-muted">Escuela: CECYT no.9 JDB</small>
                 </p>
 
+                {/* NO se muestra si el perfil es del usuario */}
+                <ReportBtn refer="/report/new?t=u" userData={user.user}/>
+
                 {/* Si es el perfil del usuario */}
-                <Button refer="">
-                  Editar Perfil &nbsp; <i className="fa fa-file-image-o" />
+                <Button refer="/user/edit">
+                  Editar Foto de Perfil &nbsp; <i className="fa fa-file-image-o" />
                 </Button>
+                
               </div>
             </div>
-          </div>
+          </div>          
         </div>
     );
 }
 
-export default UserCard
+export default UserCard;
