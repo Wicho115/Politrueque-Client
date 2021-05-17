@@ -11,6 +11,7 @@ import ArticlesPage from "../pages/Articles/Articles";
 import CreateArticle from "../pages/Articles/CreateArticle";
 import EditArticle from "../pages/Articles/EditArticle";
 import VerifyArticles from "../pages/Articles/VerifyArticles";
+import VerifyArticlePage from "../pages/Articles/VerifyArticlePage";
 import ReportPage from "../pages/Reports/ReportPage";
 import ReportsPage from "../pages/Reports/Reports";
 import CreateReport from "../pages/Reports/CreateReport";
@@ -76,6 +77,12 @@ const adminRoutes = (
     <Route exact strict path="/articles/verify">
       <Container>
         <VerifyArticles />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/article/verify">
+      <Container>
+        <VerifyArticlePage />
       </Container>
     </Route>
 

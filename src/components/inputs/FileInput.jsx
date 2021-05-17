@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Files from 'react-files';
 import { useMutation, gql } from '@apollo/client'
 
-const FileInput = ({ instuctions }) => {
+const FileInput = ({ instuctions, defaultImg }) => {
 
-    const [url, seturl] = useState("");
+    const [url, seturl] = useState(defaultImg);
     const [image, setImage] = useState(null)
 
     const GET_FILE = gql`

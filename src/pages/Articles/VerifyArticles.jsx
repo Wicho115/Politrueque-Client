@@ -28,7 +28,7 @@ const Articles = () => {
 
                     {articles.map((art) => {
                         return (<ArticleToVer
-                            to="/article"
+                            to="/article/verify"
                             img={art.img}
                             alt={art.name}
                             name={art.name}

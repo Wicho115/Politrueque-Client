@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const ArticleToVer = ({ to, img, alt, name, description, propertary, category }) => {
 
     return (
-        <div className="enlace-artículo">
+        <Link to={to} className="enlace-artículo">
             <div className="card mb-3 enlace">
                 <div className="row no-gutters">
                     <div className="col-ml-4">
@@ -20,7 +20,7 @@ const ArticleToVer = ({ to, img, alt, name, description, propertary, category })
                     </div>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 
 }
