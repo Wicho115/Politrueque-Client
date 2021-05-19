@@ -43,7 +43,7 @@ const Reports = () => {
 
                             {reports.map((rpt) => {
                                 return (<ReportsDis
-                                            to="/report"
+                                            to="/report?t=u"
                                             title={rpt.title}
                                             author={rpt.author}
                                             content={rpt.content}
@@ -73,7 +73,7 @@ const Reports = () => {
 
                             {reports.map((rpt) => {
                                 return (<ReportsDis
-                                            to="/report"
+                                            to="/report?t=a"
                                             title={rpt.title}
                                             author={rpt.author}
                                             content={rpt.content}

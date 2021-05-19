@@ -19,7 +19,7 @@ const CreateArticle = () => {
                     <form action="#" method="POST" className="md-form">
                         {/* Imágen del Artículo */}
                         <div className="centrar">
-                            <FileInput instuctions="Por favor, seleccione la imágen del artículo:" />
+                            <FileInput instuctions="Por favor, seleccione la imágen del artículo:" defaultImg="none" imgFormat="new-article"/>
                         </div>
                         <hr />
                         {/* Aqui van los datos generales que se piden para un artículo */}

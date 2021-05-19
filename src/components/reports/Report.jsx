@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 const Report = ({report, user}) =>{
   const {title, content} = report;
     return(
-    <Link href="#" className="enlace-reporte">
+    <Link to="/report?t=u" className="enlace-reporte">
     <div className="card enlace">
       <div className="card-body">
         <h5 className="card-title">{title}</h5>

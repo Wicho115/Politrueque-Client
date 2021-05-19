@@ -1,6 +1,29 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+const handleCategory = (category) => {
+  switch (category) {
+      case 1:
+          return ("Matemáticas");
+      case 2:
+          return ("Química");
+      case 3:
+          return ("Física");
+      case 4:
+          return ("Inglés");
+      case 5:
+          return ("Dibujo Técnico");
+      case 6:
+          return ("Programación");
+      case 7:
+          return ("Máquinas con Sistemas Automatizados");
+      case 8:
+          return ("Sistemas Digitales");
+      default:
+          return ("Otro");
+  }
+}
+
 const Article = ({data, user}) =>{
 
     const {title, img, description, category} = data;
@@ -22,7 +45,7 @@ const Article = ({data, user}) =>{
                   <p className="card-text">{description}</p>
                   <p className="card-text">Propietario: {user}</p>
                   <p className="card-text">
-                    <small className="text-muted">Categoría: {category} </small>
+                    <small className="text-muted">Categoría: {handleCategory(category)} </small>
                   </p>
                 </div>
               </div>

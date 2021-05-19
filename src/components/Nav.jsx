@@ -109,11 +109,6 @@ const Nav = (props) => {
                       <i className="fa fa-shopping-bag" />
                       &nbsp;Artículos
                     </Link>
-                    <div className="dropdown-divider" />
-                    <Link to="/report/new" className="dropdown-item">
-                      <i className="fa fa-plus-square-o" />
-                      &nbsp;Añadir
-                    </Link>
                   </div>
                 </li>
                 {/* [B] Termina If */}

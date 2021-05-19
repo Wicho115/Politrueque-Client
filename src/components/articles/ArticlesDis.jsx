@@ -1,6 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+const handleCategory = (category) => {
+    switch (category) {
+        case 1:
+            return ("Matemáticas");
+        case 2:
+            return ("Química");
+        case 3:
+            return ("Física");
+        case 4:
+            return ("Inglés");
+        case 5:
+            return ("Dibujo Técnico");
+        case 6:
+            return ("Programación");
+        case 7:
+            return ("Máquinas con Sistemas Automatizados");
+        case 8:
+            return ("Sistemas Digitales");
+        default:
+            return ("Otro");
+    }
+}
+
 const ArticlesDis = ({ to, img, alt, name, description, propertary, category }) => {
 
     return (
@@ -15,7 +38,7 @@ const ArticlesDis = ({ to, img, alt, name, description, propertary, category }) 
                             <h5 className="card-title">{name}</h5>
                             <p className="card-text">{description}</p>
                             <p className="card-text">Propietario: {propertary}</p>
-                            <p className="card-text"><small className="text-muted">Categoría: {category}</small></p>
+                            <p className="card-text"><small className="text-muted">Categoría: {handleCategory(category)}</small></p>
                         </div>
                     </div>
                 </div>

@@ -12,12 +12,12 @@ const UserSample = {
         img: "https://lumen.com.mx/Content/Images/productPics_180x180/portalamina-k-e-tela-logo-bordado-52x37x9cm-marca-ke-sku-243595002.jpg",
         title: "Titulo de articulo",
         description: "descripcion de articulo",
-        category: "Dibujo"
+        category: 5
     }],
 
     reports: [{
         title: "Titulo Reporte",
-        content: "Este es un ejemplo de contenido en reporttte"
+        content: "Este es un ejemplo de contenido en reporte"
     }]
 }
 

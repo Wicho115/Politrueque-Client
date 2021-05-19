@@ -31,7 +31,7 @@ const EditProfile = () => {
 
           <Card title="Imágen de Perfil">
             <div className="centrar">
-              <FileInput instuctions="Seleccione una imágen de perfil" defaultImg={user.img} />
+              <FileInput instuctions="Seleccione una imágen de perfil" defaultImg={user.img} imgFormat="profile" />
             </div>
             <div className="centrar">
             <Button refer="/user" fill={true} >

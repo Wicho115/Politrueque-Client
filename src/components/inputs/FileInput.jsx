@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Files from 'react-files';
 import { useMutation, gql } from '@apollo/client'
 
-const FileInput = ({ instuctions, defaultImg }) => {
+const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
 
     const [url, seturl] = useState(defaultImg);
     const [image, setImage] = useState(null)
@@ -14,7 +14,7 @@ const FileInput = ({ instuctions, defaultImg }) => {
             }
         }
     `;
-    
+
     const handleChange = (files) => {
         if (files[0] !== undefined) {
             console.log(files[0]);
@@ -39,12 +39,52 @@ const FileInput = ({ instuctions, defaultImg }) => {
         UploadFile({ variables: { file } })
     }
 
+    const handleFormat = (imgFormat) => {
+        switch (imgFormat) {
+            case "profile":
+                return (
+                    <>
+                        <div className="col-ml-4 img-previa">
+                            <img src={url} className="card-img img-perfil" alt="" />
+                        </div>
+                    </>
+                );
+
+            case "article":
+                return (
+                    <>
+                        <div className="col-ml-4 img-previa">
+                            <img src={url} className="card-img img-thumbnail img-artículo" alt="" />
+                        </div>
+                    </>
+                );
+
+            case "new-article":
+                return (
+                    <>
+                        <div className="col-ml-4 img-previa">
+                            <img src={url} className="card-img img-thumbnail img-artículo" alt="" />
+                        </div>
+                    </>
+                );
+
+            default:
+                return (
+                    <>
+                        <div className="col-ml-4 img-previa">
+                            <p>c</p>
+                            <img src={url} className="card-img img-thumbnail img-artículo" alt="" />
+                        </div>
+                    </>
+                );
+
+        }
+    }
+
     return (
         <>
             <div className="add-img-1">
-                <div className="col-ml-4 img-previa">
-                    <img src={url} className="card-img img-thumbnail img-artículo" alt="" />
-                </div>
+                {handleFormat(imgFormat)}
                 <div className="img-input centrar">
                     <p>{instuctions}</p>
                     <div className="custom-file" style={{ textAlign: 'left' }}>

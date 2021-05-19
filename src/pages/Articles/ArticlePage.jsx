@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import Button from "../../components/Button";
 import ReportBtn from "../../components/inputs/ReportBtn";
 
@@ -33,6 +34,19 @@ const ArticlePage = () => {
     }
   }
 
+  const handleMark = () => {
+    switch (article.action_id) {
+      case 1:
+        return ("Vendido");
+      case 2:
+        return ("Intercambiado");
+      case 3:
+        return ("Donado");
+      default:
+        return (`???`);
+    }
+  }
+
   return (
     <article className="conenedor_terciario_1">
       <div className="artículos_display">
@@ -51,11 +65,6 @@ const ArticlePage = () => {
             </div>
             <div className="col-md-8">
               <div className="card-body">
-                <Button>
-                  Editar &nbsp; <i className="fa fa-file-image-o" />
-                </Button>
-                <p />
-
                 <h5 className="card-title">
                   Nombre de artículo: {article.name}
                 </h5>
@@ -67,14 +76,9 @@ const ArticlePage = () => {
           </div>
           {/* [C] Botones que solo salen si el artículo es del usuario */}
           <div className="alinear-izquierda">
-            <Button refer="/article/edit?art=">
-              Editar &nbsp; <i className="fa fa-pencil" />
-            </Button>
-            &nbsp;&nbsp;
             <Button refer="/article/delete?art=">
               Eliminar &nbsp; <i className="fa fa-trash" />
-            </Button>
-            &nbsp;&nbsp;&nbsp;
+            </Button>&nbsp;&nbsp;&nbsp;
           </div>
           {/* [C] Termina If */}
           <ul
@@ -106,7 +110,7 @@ const ArticlePage = () => {
                   borderColor: "rgb(128,0, 64)",
                 }}
               >
-                Marcar como Vendido o Donado o Intercambio
+                Marcar como {handleMark()}
               </button>
             </form>
           </div>) : null}

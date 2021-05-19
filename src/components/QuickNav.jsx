@@ -75,7 +75,7 @@ const QuickNav = () => {
                     <a href="/articles?t=donate">Donativos</a>
                   </p>
                   <p className="card-text navegacion-rápida-link">
-                    <a href="/article/new">Añadir Un Articulo</a>
+                    <a href="/article/new">Añadir un Articulo</a>
                   </p>
                 </div>
               </div>
@@ -91,9 +91,6 @@ const QuickNav = () => {
                   </p>
                   <p className="card-text navegacion-rápida-link">
                     <a href="/reports?t=articles">Artículos</a>
-                  </p>
-                  <p className="card-text navegacion-rápida-link">
-                    <a href="/report/new">Añadir un Reporte</a>
                   </p>
                 </div>
               </div>

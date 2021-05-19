@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Card from "../../components/cards/Card";
 import FormsContainer from "../../components/FormsContainer";
 import Comment from "../../components/articles/Comment";
+import Button from "../../components/Button";
 
 import articleJSON from "../../helpers/ArticleSample";
 import commentsJSON from "../../helpers/CommentSample";
@@ -55,6 +56,10 @@ const VerifyArticlePage = () => {
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
+                                <Button>
+                                    Editar &nbsp; <i className="fa fa-file-image-o" />
+                                </Button>
+                                <p />
                                 <h5 className="card-title">
                                     Nombre de artículo: {article.name}
                                 </h5>
@@ -64,6 +69,16 @@ const VerifyArticlePage = () => {
                             </div>
                         </div>
                     </div>
+
+                    <div className="alinear-izquierda">
+                        <Button refer="/article/edit?art=">
+                            Editar &nbsp; <i className="fa fa-pencil" />
+                        </Button>&nbsp;&nbsp;&nbsp;
+                        <Button refer="/article/delete?art=">
+                            Eliminar &nbsp; <i className="fa fa-trash" />
+                        </Button>&nbsp;&nbsp;&nbsp;
+                    </div>
+
                     <ul
                         className="list-group list-group-flush"
                         style={{ marginTop: "0.5rem" }}
@@ -79,7 +94,7 @@ const VerifyArticlePage = () => {
                 <div className="card mb-3">
                     <ul className="list-group list-group-flush" style={{ marginTop: "0.5rem" }}>
                         <li className="list-group-item">
-                            <p className="card-text">Comentarios</p>
+                            <h5 className="card-title">Comentarios</h5>
 
                             <Card>
                                 {comments.map((com) => {
@@ -111,6 +126,7 @@ const VerifyArticlePage = () => {
             </div>
         </article>
     );
+    
 };
 
 export default VerifyArticlePage;

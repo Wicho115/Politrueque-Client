@@ -27,7 +27,7 @@ const EditArticle = () => {
                 <FormsContainer>
                     {/* Aqui van los datos generales que se piden para un artículo */}
                     <div className="centrar">
-                        <FileInput instuctions="Esta es la imágen de su artículo" defaultImg={article.img}/>
+                        <FileInput instuctions="Esta es la imágen de su artículo" defaultImg={article.img} imgFormat="article"/>
                     </div>
                     <hr />
                     <div className="columna_doble_fomulario">
