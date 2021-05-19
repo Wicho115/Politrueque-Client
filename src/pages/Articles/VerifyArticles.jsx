@@ -5,6 +5,8 @@ import { Link, Redirect } from "react-router-dom";
 import CardContainer from "../../components/cards/CardContainer";
 import SecondNav from "../../components/SecondNav";
 import ArticleToVer from "../../components/articles/ArticleToVer";
+import QuickNav from "../../components/QuickNav";
+import ListPageEnd from "../../components/ListPageEnd";
 
 //importar json de articulo (DEV)
 import articlesJSON from "../../helpers/ArticlesSample";
@@ -19,9 +21,10 @@ const Articles = () => {
 
     return (
         <>
+            <QuickNav />
             <article className="conenedor_terciario_1">
                 <SecondNav>
-                    <a className="nav-link">Verificación de Artículos</a>
+                    <a className="nav-link active" style={{ backgroundColor: 'rgb(128,0,64)', borderRadius: '7.5px' }} >Verificación de Artículos</a>
                 </SecondNav>
                 <CardContainer>
                     {/* Donde se imprime cada uno de los artículos */}
@@ -39,6 +42,7 @@ const Articles = () => {
 
                     {/* */}
                 </CardContainer>
+                <ListPageEnd to="/article/new" category="ver-artículo"/>
             </article>
         </>
     );

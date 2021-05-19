@@ -24,7 +24,9 @@ const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
     }
 
     const handleError = (err, file) => {
-        console.log(err);
+        console.log("Archivo incompatible");
+        console.log(err.code);
+        console.log(err.message);
     }
 
     const [UploadFile] = useMutation(GET_FILE, {

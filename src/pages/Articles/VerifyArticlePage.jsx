@@ -5,8 +5,7 @@ import FormsContainer from "../../components/FormsContainer";
 import Comment from "../../components/articles/Comment";
 import Button from "../../components/Button";
 
-import articleJSON from "../../helpers/ArticleSample";
-import commentsJSON from "../../helpers/CommentSample";
+import articleJSON from "../../helpers/NonVerArticleSample";
 
 const VerifyArticlePage = () => {
     const [article, setArticle] = useState({});
@@ -14,7 +13,7 @@ const VerifyArticlePage = () => {
 
     useEffect(() => {
         setArticle(articleJSON);
-        setComments(commentsJSON);
+        setComments(articleJSON.comments);
     }, []);
 
     const handleSubmit = (e) => {
@@ -112,6 +111,7 @@ const VerifyArticlePage = () => {
                             <FormsContainer>
                                 <div style={{ margin: "1rem" }}>
                                     <textarea type="text" name="usuario" className="form-control" id="exampleInputName" aria-describedby="emailHelp" rows={3} />
+                                    <small id="emailHelp" className="form-text text-muted">Máximo 100 caracteres</small>
                                     <br />
                                     <div className="alinear-izquierda">
                                         <button className="btn btn-primary" style={{ backgroundColor: 'rgb(128,0, 64)', borderColor: 'rgb(128,0, 64)' }}>Comentar</button>

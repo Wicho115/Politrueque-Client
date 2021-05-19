@@ -28,6 +28,18 @@ const ListPageEnd = ({ to, category }) => {
                     </div>
                 </div>
             );
+
+            case 'ver-artículo':
+                return (
+                    <div className="card info-sección">
+                        <div className="card-body">
+                            <div className="info-sección-3">
+                                <p className="card-text">¡Vaya! Parece que has llegado al final de esta sección. Intenta recargar la página
+                                para ver si hay nuevos productos en espera.</p>
+                            </div>
+                        </div>
+                    </div>
+                );
     }
 
 }
