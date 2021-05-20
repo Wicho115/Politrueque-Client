@@ -126,7 +126,7 @@ const VerifyArticlePage = () => {
             </div>
         </article>
     );
-    
+
 };
 
 export default VerifyArticlePage;

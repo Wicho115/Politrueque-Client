@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import QuickNav from "../../components/QuickNav";
 
@@ -11,55 +13,74 @@ const Login = () => {
     useEffect(() => {
         console.log('El componente se monto');
 
-        return(() => {
+        return (() => {
             console.log('El componente se fue');
         });
-    }, [check]);    
+    }, [check]);
 
-    const handleChange = (e) =>{        
-        setLoginUser({...loginUser, [e.target.name] : e.target.value});        
+    const handleChange = (e) => {
+        setLoginUser({ ...loginUser, [e.target.name]: e.target.value });
     }
 
     const handleTerms = (e) => {
         setCheck(!check);
     }
 
-    const submitHandle = (e) =>{
-        e.preventDefault();   
-        console.log(loginUser);  
-        console.log(check);        
+    const submitHandle = (e) => {
+        e.preventDefault();
+        console.log(loginUser);
+        console.log(check);
+    }
+
+    const validateInputs = (e) => {
+        e.preventDefault();
+
+        const mail = document.getElementById("mail-input").value;
+        const boleta = document.getElementById("boleta-input").value;
+        const password = document.getElementById("password-input").value;
+
+        console.log(mail);
+        console.log(boleta);
+        console.log(password);
+
+        if (mail == "") {
+            toast.error("Por favor, proporciona un Correo");
+        }if (boleta == "") {
+            toast.error("Por favor, proporciona una Boleta");
+        }if (password == "") {
+            toast.error("Por favor, proporciona una Contraseña");
+        }
+
+        
+
     }
 
     return (
         <>
             <QuickNav />
             <article className="conenedor_terciario_1">
+                <ToastContainer />
                 <div>
                     <div className="navegación_secundaria_1">
                         <nav className="nav nav-pills nav-fill">
-                            <Link
-                                className="nav-link active"
-                                to="/login"
-                                style={{ backgroundColor: 'rgb(128, 0, 64)', borderRadius: '7.5px' }}
-                            >
-                                Miembro de la Comunidad
-                            </Link>
-                            <Link className="nav-link" to="/adminlogin">Administrador</Link>
+                            <a className="nav-link active" style={{ backgroundColor: 'rgb(128, 0, 64)', borderRadius: '7.5px' }}>
+                                Miembro de la Comunidad - Iniciar Sesión
+                            </a>
                         </nav>
                     </div>
                     <div className="formulario">
-                        <form onSubmit={submitHandle}>
+                        <form action="#" method="GET" onSubmit={validateInputs}>
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail1">Correo Electrónico</label>
-                                <input onChange={handleChange} type="email" name="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                                <input onChange={handleChange} type="email" name="email" className="form-control" id="mail-input" aria-describedby="emailHelp" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Boleta</label>
-                                <input onChange={handleChange} type="text" name="boleta" className="form-control" id="exampleInputPassword1" />
+                                <input onChange={handleChange} type="text" name="boleta" className="form-control" id="boleta-input" />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Contraseña</label>
-                                <input onChange={handleChange} type="password" name="password" className="form-control" id="exampleInputPassword1" />
+                                <input onChange={handleChange} type="password" name="password" className="form-control" id="password-input" />
                             </div>
                             <div className="form-group">
                                 <div className="form-check">

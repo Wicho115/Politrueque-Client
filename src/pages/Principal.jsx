@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {useQuery, gql} from '@apollo/client';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import QuickNav from "../components/QuickNav";
 import CardContainer from "../components/cards/CardContainer";
 import Card from "../components/cards/Card";
 import Button from "../components/Button";
 import FileInput from '../components/inputs/FileInput'
-import {useQuery, gql} from '@apollo/client';
+
 const localStorage = require('localStorage');
 
 
@@ -20,6 +24,11 @@ const Principal = () => {
       console.log(value);
     })
   }, [])
+
+  const notify = () => {
+    toast("Wow so easy !");
+  }
+
   return (
     <>
       <QuickNav/>
@@ -31,6 +40,9 @@ const Principal = () => {
             </a>
           </nav>
         </div>
+
+        <button onClick={notify}>Notify !</button>
+        <ToastContainer />
 
         <CardContainer>
           <Card title="Bienvenida" subtitle="Esto es Politrueque">
@@ -46,18 +58,26 @@ const Principal = () => {
             <p className="card-text">
               Para poder hacer uso completo de Politrueque, deberás tener una
               cuenta, si ya cuentas con una, inicia sesión. Si no cuentas con
-              una puedes crearla de una manera muy rápida.
+              una puedes solicitarla de una manera muy rápida.
             </p>
-
             <Button refer="/login">
               <i className="fa fa-sign-in" />
               &nbsp;Iniciar Sesión
             </Button>
             {" "}
-            <Button refer="/accountrequest">
-              <i className="fa fa-address-book-o" />
-              &nbsp;Regístrate
-            </Button>
+            <a
+              href="https://forms.gle/LKFd8gMFGCC3tt2N7"
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary"
+              style={{
+                backgroundColor: "rgb(255,255,255)",
+                borderColor: "rgb(128,0, 64)",
+                color: "rgb(128,0, 64)",
+              }} >
+              <i className="fa fa-envelope" />
+                &nbsp; ¡Enviar mi Solicitud!
+            </a>
           </Card>
           <Card title="Artículos Disponibles">
             <p className="card-text">
