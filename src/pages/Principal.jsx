@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import {useQuery, gql} from '@apollo/client';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import QuickNav from "../components/QuickNav";
 import CardContainer from "../components/cards/CardContainer";
 import Card from "../components/cards/Card";
 import Button from "../components/Button";
-import FileInput from '../components/inputs/FileInput'
 
 const localStorage = require('localStorage');
-
 
 const Principal = () => {
 
@@ -25,10 +20,6 @@ const Principal = () => {
     })
   }, [])
 
-  const notify = () => {
-    toast("Wow so easy !");
-  }
-
   return (
     <>
       <QuickNav/>
@@ -40,9 +31,6 @@ const Principal = () => {
             </a>
           </nav>
         </div>
-
-        <button onClick={notify}>Notify !</button>
-        <ToastContainer />
 
         <CardContainer>
           <Card title="Bienvenida" subtitle="Esto es Politrueque">

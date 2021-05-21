@@ -171,8 +171,8 @@ const Nav = (props) => {
                 </li>
                 <li className="nav-item active">
                   <Link to="/accountrequest" className="nav-link">
-                    <i className="fa fa-address-book-o" />
-                    &nbsp;Registrarse
+                    <i className="fa fa-envelope-o" />
+                    &nbsp;Solicitar Cuenta
                   </Link>
                 </li>
                 {/* [A] Termina If */}

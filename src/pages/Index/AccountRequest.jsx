@@ -33,6 +33,15 @@ const AccountRequest = () => {
                             </div>
                             <br />
                         </FormsContainer>
+                        <Card title="Ya cuento con una cuenta de Politrueque">
+                            <p className="card-text">¡Perfecto! Ahora solo debes iniciar sesión para comenzar a hacer uso de Politrueque. Nos alegra tenerte por aquí.</p>
+                        </Card>
+                        <FormsContainer>
+                            <div className="centrar">
+                                <Link to="/login" target="_blank" className="btn btn-primary" style={{ backgroundColor: 'rgb(128,0, 64)', borderColor: 'rgb(128,0, 64)' }}>¡Iniciar Sesión!</Link>
+                            </div>
+                            <br />
+                        </FormsContainer>
                     </CardContainer>
                 </FormsContainer>
             </div>

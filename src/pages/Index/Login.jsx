@@ -10,6 +10,10 @@ const Login = () => {
     const [loginUser, setLoginUser] = useState({});
     const [check, setCheck] = useState(false);
 
+    const boletaRegex = /^[2][0]([1-2][0-9])(([0][1-9])|([1][0-9]))\d{4}$/;
+    const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const passwordRegex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
+
     useEffect(() => {
         console.log('El componente se monto');
 
@@ -38,21 +42,32 @@ const Login = () => {
         const mail = document.getElementById("mail-input").value;
         const boleta = document.getElementById("boleta-input").value;
         const password = document.getElementById("password-input").value;
+        const terms = document.getElementById("terms").value;
 
-        console.log(mail);
-        console.log(boleta);
-        console.log(password);
+        toast.success(terms);
 
+        //Comprobamos datos vacíos
         if (mail == "") {
             toast.error("Por favor, proporciona un Correo");
-        }if (boleta == "") {
+        } if (boleta == "") {
             toast.error("Por favor, proporciona una Boleta");
-        }if (password == "") {
+        } if (password == "") {
             toast.error("Por favor, proporciona una Contraseña");
+        } if (!terms) {
+            toast.success(terms);
+            toast.error("Debes aceptar los Términos");
+        } else {
+            //Comprobamos datos válidos
+            if (mail != mailRegex){
+                toast.error("Correo no válido");
+            }if (boleta != boletaRegex){
+                toast.error("Boleta no válido");
+            }if (password != passwordRegex){
+                toast.error("Contraseña no válido");
+            } else {
+                toast("Campos válidos");
+            }
         }
-
-        
-
     }
 
     return (
@@ -76,7 +91,7 @@ const Login = () => {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Boleta</label>
-                                <input onChange={handleChange} type="text" name="boleta" className="form-control" id="boleta-input" />
+                                <input onChange={handleChange} type="text" name="boleta" className="form-control" id="boleta-input" maxlength={10} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Contraseña</label>
@@ -84,10 +99,10 @@ const Login = () => {
                             </div>
                             <div className="form-group">
                                 <div className="form-check">
-                                    <input onChange={handleTerms} value={check} name="AceptoTermCond" className="form-check-input" type="checkbox" id="flexCheckDefault" />
+                                    <input onChange={handleTerms} value={check} name="AceptoTermCond" className="form-check-input" type="checkbox" id="terms" />
                                     <label className="form-check-label" htmlFor="flexCheckDefault">
                                         Acepto los <Link to="/terms">Términos y Condiciones</Link>, así como el <Link to="/terms">Aviso de Privacidad</Link>.
-              </label>
+                                    </label>
                                 </div>
                             </div>
                             <div className="form-group">
