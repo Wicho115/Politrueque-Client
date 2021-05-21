@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -10,6 +10,7 @@ import FileInput from "../../components/inputs/FileInput";
 
 
 const CreateArticle = () => {
+    
 
     const handleChange = () => {
         const opciones = {
@@ -85,7 +86,7 @@ const CreateArticle = () => {
                     <a className="nav-link">Agregar un Nuevo Artículo</a>
                 </SecondNav>
                 <FormsContainer>
-                    <form action="#" method="GET" onSubmit={validateInputs}>
+                    <form onSubmit={validateInputs}>
                         {/* Imágen del Artículo */}
                         <div className="centrar">
                             <FileInput instuctions="Por favor, seleccione la imágen del artículo:" defaultImg="none" imgFormat="new-article" />

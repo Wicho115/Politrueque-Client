@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Files from 'react-files';
 import { useMutation, gql } from '@apollo/client'
 
@@ -6,6 +6,10 @@ const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
 
     const [url, seturl] = useState(defaultImg);
     const [image, setImage] = useState(null)
+
+    useEffect(() => {
+        seturl(defaultImg);
+    }, [])
 
     const GET_FILE = gql`
         mutation($file:Upload!){
@@ -105,9 +109,6 @@ const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
 
                     </div>
                 </div>
-                <button onClick={handleSub}>
-                    Submit?
-                </button>
             </div>
         </>
     );

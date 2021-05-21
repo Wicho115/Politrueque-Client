@@ -12,15 +12,6 @@ const Login = () => {
 
     const boletaRegex = /^[2][0]([1-2][0-9])(([0][1-9])|([1][0-9]))\d{4}$/;
     const mailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const passwordRegex = /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,16}$/;
-
-    useEffect(() => {
-        console.log('El componente se monto');
-
-        return (() => {
-            console.log('El componente se fue');
-        });
-    }, [check]);
 
     const handleChange = (e) => {
         setLoginUser({ ...loginUser, [e.target.name]: e.target.value });
@@ -30,41 +21,30 @@ const Login = () => {
         setCheck(!check);
     }
 
-    const submitHandle = (e) => {
-        e.preventDefault();
-        console.log(loginUser);
-        console.log(check);
-    }
-
     const validateInputs = (e) => {
         e.preventDefault();
+        const {email, boleta, password} = loginUser;
+        const terms = check;
 
-        const mail = document.getElementById("mail-input").value;
-        const boleta = document.getElementById("boleta-input").value;
-        const password = document.getElementById("password-input").value;
-        const terms = document.getElementById("terms").value;
-
-        toast.success(terms);
+        console.log(terms);
+        console.log(email);
 
         //Comprobamos datos vacíos
-        if (mail == "") {
+        if (!email) {
             toast.error("Por favor, proporciona un Correo");
-        } if (boleta == "") {
+        } if (!boleta) {
             toast.error("Por favor, proporciona una Boleta");
-        } if (password == "") {
+        } if (!password) {
             toast.error("Por favor, proporciona una Contraseña");
-        } if (!terms) {
-            toast.success(terms);
+        } if (!terms) {            
             toast.error("Debes aceptar los Términos");
         } else {
             //Comprobamos datos válidos
-            if (mail != mailRegex){
+            if (!mailRegex.test(email)){
                 toast.error("Correo no válido");
-            }if (boleta != boletaRegex){
+            }if (!boletaRegex.test(boleta)){
                 toast.error("Boleta no válido");
-            }if (password != passwordRegex){
-                toast.error("Contraseña no válido");
-            } else {
+            }else {
                 toast("Campos válidos");
             }
         }

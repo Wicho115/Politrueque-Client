@@ -13,7 +13,7 @@ import articleJSON from "../../helpers/ArticleSample";
 
 const EditArticle = () => {
 
-    const [article, setArticle] = useState([]);
+    const [article, setArticle] = useState({});
 
     useEffect(() => {
         setArticle(articleJSON);
@@ -29,7 +29,7 @@ const EditArticle = () => {
                 <FormsContainer>
                     {/* Aqui van los datos generales que se piden para un artículo */}
                     <div className="centrar">
-                        <FileInput instuctions="Esta es la imágen de su artículo" defaultImg={article.img} imgFormat="article"/>
+                        <FileInput instuctions="Esta es la imágen de su artículo" defaultImg={articleJSON.img} imgFormat="article"/>
                     </div>
                     <hr />
                     <div className="columna_doble_fomulario">
