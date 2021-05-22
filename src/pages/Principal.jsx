@@ -73,7 +73,7 @@ const Principal = () => {
               Intercambio y Donativo. Puedes acceder a ellas mediente la barra
               de navegación o haciendo clic en el siguiente botón.
             </p>
-            <Button>
+            <Button refer="/articles?t=sell">
               <i className="fa fa-shopping-bag" />
               &nbsp;Ver los Artículos
             </Button>
@@ -92,7 +92,7 @@ const Principal = () => {
               Si quieres saber acerca de los términos y condiciones de
               Politrueque, haz clic en el siguiente botón:
             </p>
-            <Button refer="/otra">
+            <Button refer="/terms">
               Ver términos y Condiciones &nbsp;{" "}
               <i className="fa fa-info-circle" />
             </Button>

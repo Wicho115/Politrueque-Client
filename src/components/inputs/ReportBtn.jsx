@@ -17,7 +17,7 @@ const ReportBtn = ({ refer, userData }) => {
     return (
         <>
             <div className="alinear-izquierda" style={divStyle}>
-                <Link to={refer} style={buttonStyle}><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Reportar</Link>
+                <Link to={refer} style={buttonStyle}><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></Link>
             </div>
         </>
     );

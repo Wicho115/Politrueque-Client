@@ -76,6 +76,9 @@ const ArticlePage = () => {
           </div>
           {/* [C] Botones que solo salen si el artículo es del usuario */}
           <div className="alinear-izquierda">
+            <Button refer="/article/edit?art=">
+              Editar &nbsp; <i className="fa fa-pencil" />
+            </Button>&nbsp;&nbsp;&nbsp;
             <Button refer="/article/delete?art=">
               Eliminar &nbsp; <i className="fa fa-trash" />
             </Button>&nbsp;&nbsp;&nbsp;

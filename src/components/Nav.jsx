@@ -1,17 +1,17 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../img/PoliTrue.png";
 
 import userJSON from '../helpers/UserSample';
 
 const Nav = (props) => {
-  
+
 
   const [user, setUSer] = useState({})
 
-  useEffect(() =>{
+  useEffect(() => {
     setUSer(userJSON.user);
-  },[])
+  }, [])
 
   return (
     <header>
@@ -43,15 +43,7 @@ const Nav = (props) => {
                 </li>
                 {/* [A] Solo si se ha iniciado sesión se muestra esta parte (Artículos, Añadir Artículo) */}
                 <li className="nav-item dropdown active">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    id="navbarDropdown"
-                    role="button"
-                    href="/articles"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
+                  <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" href="/articles" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                     <i className="fa fa-shopping-bag" />
                     &nbsp;Artículos
                   </a>
@@ -85,15 +77,7 @@ const Nav = (props) => {
                 {/* [A] Termina If */}
                 {/* [B] Solo si se ha iniciado sesión Y es administrador (Reportes, Añadir Reporte) */}
                 <li className="nav-item dropdown active">
-                  <a
-                    className="nav-link dropdown-toggle"
-                    id="navbarDropdown"
-                    role="button"
-                    href="/reports"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
+                  <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" href="/reports" data-toggle="dropdown">
                     <i className="fa fa-flag-o" />
                     &nbsp;Reportes
                   </a>
@@ -112,11 +96,24 @@ const Nav = (props) => {
                   </div>
                 </li>
                 {/* [B] Termina If */}
-                <li className="nav-item active">
-                  <Link to="/about" className="nav-link">
-                    <i className="fa fa-question-circle" />
-                    &nbsp;Acerca de
-                  </Link>
+                <li className="nav-item dropdown active">
+                  <a className="nav-link dropdown-toggle" id="navbarDropdown" role="button" href="/about" data-toggle="dropdown">
+                    <i className="fa fa-info" />
+                    &nbsp;Información
+                  </a>
+                  <div
+                    className="dropdown-menu"
+                    aria-labelledby="navbarDropdown"
+                  >
+                    <Link to="/about" className="dropdown-item">
+                      <i className="fa fa-question-circle" />
+                      &nbsp;Acerca de
+                    </Link>
+                    <Link to="/help" className="dropdown-item">
+                      <i className="fa fa-info-circle" />
+                      &nbsp;Soporte
+                    </Link>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -149,11 +146,17 @@ const Nav = (props) => {
                   >
                     <Link to="/user" className="dropdown-item">
                       <i className="fa fa-id-card-o" />
-                      &nbsp;Perfil
+                      &nbsp;Mi Perfil
                     </Link>
-                    <Link to="/user/articles?u=algo" className="dropdown-item">
+                    <Link to="/user" className="dropdown-item">
                       <i className="fa fa-cubes" />
                       &nbsp;Mis Artículos
+                    </Link>
+                    {/* Si es un admin */}
+                    <div className="dropdown-divider" />
+                    <Link to="/registeruser?t=u" className="dropdown-item">
+                      <i className="fa fa-plus-square-o" />
+                      &nbsp;Registrar Usuario
                     </Link>
                     <div className="dropdown-divider" />
                     <Link to="/logout" className="dropdown-item">

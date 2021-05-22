@@ -9,7 +9,8 @@ import User from "../pages/Users/User";
 import ArticlePage from "../pages/Articles/ArticlePage";
 import ArticlesPage from "../pages/Articles/Articles";
 import CreateArticle from "../pages/Articles/CreateArticle";
-import EditArticle from "../pages/Articles/EditArticle";
+import EditNonVerArticle from "../pages/Articles/EditNonVerArticle";
+import EditPublishedArticle from "../pages/Articles/EditPublishedArticle";
 import VerifyArticles from "../pages/Articles/VerifyArticles";
 import VerifyArticlePage from "../pages/Articles/VerifyArticlePage";
 import ReportPage from "../pages/Reports/ReportPage";
@@ -17,10 +18,10 @@ import ReportsPage from "../pages/Reports/Reports";
 import CreateReport from "../pages/Reports/CreateReport";
 import EditReport from "../pages/Reports/EditReport";
 import LogIn from "../pages/Index/Login";
-import AdminLogIn from "../pages/Index/AdminLogin";
 import AccountRequest from "../pages/Index/AccountRequest";
 import RegisterUser from "../pages/Index/RegisterUser";
 import EditProfile from "../pages/Users/EditProfile";
+import Support from "../pages/Index/Support";
 
 const adminRoutes = (
   <Switch>
@@ -50,11 +51,17 @@ const adminRoutes = (
 
     <Route exact strict path="/article">
       <Container>
-        <ArticlePage />        
+        <ArticlePage />
       </Container>
     </Route>
 
     {/* Rutas por Revisar */}
+
+    <Route exact strict path="/help">
+      <Container>
+        <Support />
+      </Container>
+    </Route>
 
     <Route exact strict path="/user/edit">
       <Container>
@@ -86,15 +93,21 @@ const adminRoutes = (
       </Container>
     </Route>
 
+    <Route exact strict path="/article/verify/edit">
+      <Container>
+        <EditNonVerArticle />
+      </Container>
+    </Route>
+
     <Route exact strict path="/article/new">
       <Container>
-        <CreateArticle />        
+        <CreateArticle />
       </Container>
     </Route>
 
     <Route exact strict path="/article/edit">
       <Container>
-        <EditArticle />        
+        <EditPublishedArticle />        
       </Container>
     </Route>
 
@@ -106,25 +119,19 @@ const adminRoutes = (
 
     <Route exact strict path="/report/new">
       <Container>
-        <CreateReport />        
+        <CreateReport />
       </Container>
     </Route>
 
     <Route exact strict path="/report/edit">
       <Container>
-        <EditReport />        
+        <EditReport />
       </Container>
     </Route>
 
     <Route exact strict path="/login">
       <Container>
         <LogIn />
-      </Container>
-    </Route>
-
-    <Route exact strict path="/adminlogin">
-      <Container>
-        <AdminLogIn />
       </Container>
     </Route>
 

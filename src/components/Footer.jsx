@@ -38,7 +38,7 @@ const Footer = () => {
           </p>
           <small>
             
-            Copyright © 2020, Nautilus. Todos los derechos reservados.
+            Copyright © 2021, Politrueque. Todos los derechos reservados.
           </small>
         </div>
         <div className="contenedor_footer">

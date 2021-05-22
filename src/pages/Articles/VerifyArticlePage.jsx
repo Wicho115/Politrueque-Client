@@ -70,7 +70,7 @@ const VerifyArticlePage = () => {
                     </div>
 
                     <div className="alinear-izquierda">
-                        <Button refer="/article/edit?art=">
+                        <Button refer="/article/verify/edit?art=">
                             Editar &nbsp; <i className="fa fa-pencil" />
                         </Button>&nbsp;&nbsp;&nbsp;
                         <Button refer="/article/delete?art=">

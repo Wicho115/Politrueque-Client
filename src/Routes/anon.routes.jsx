@@ -6,8 +6,8 @@ import NotFound from '../pages/NotFound';
 import About from '../pages/Index/About';
 import TermANDCond from '../pages/Index/term&cond';
 import LogIn from "../pages/Index/Login";
-import AdminLogIn from "../pages/Index/AdminLogin";
 import AccountRequest from "../pages/Index/AccountRequest";
+import Support from "../pages/Index/Support";
 
 const anonRoutes = (
   <Switch>
@@ -31,15 +31,15 @@ const anonRoutes = (
 
     {/* Rutas por Revisar */}
 
-    <Route exact strict path="/login">
+    <Route exact strict path="/help">
       <Container>
-        <LogIn />
+        <Support />
       </Container>
     </Route>
 
-    <Route exact strict path="/adminlogin">
+    <Route exact strict path="/login">
       <Container>
-        <AdminLogIn />
+        <LogIn />
       </Container>
     </Route>
 

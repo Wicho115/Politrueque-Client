@@ -34,7 +34,7 @@ const EditArticle = () => {
                     <hr />
                     <div className="columna_doble_fomulario">
                         <FormInput small="¿Qué es el artículo?" label="Nombre">
-                            <input type="text" name="nombre" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" readOnly defaultValue={article.name} />
+                            <input type="text" name="nombre" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" defaultValue={article.name} />
                         </FormInput>
                         <FormInput small="¿Cuántas unidades de tu artículo tendrás?" label="Cantidad">
                             <input type="number" name="stock" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" defaultValue={article.stock} />
@@ -50,7 +50,7 @@ const EditArticle = () => {
                     </div>
                     <div className="columna_doble_fomulario">
                         <FormInput small="¿En que categoría se encontrará tu artículo?" label="Categoría">
-                            <select className="custom-select" id="inputGroupSelect01" disabled>
+                            <select className="custom-select" id="inputGroupSelect01">
                                 <option value={1}>Matemáticas</option>
                                 <option value={2}>Química</option>
                                 <option value={3}>Física</option>
@@ -62,14 +62,14 @@ const EditArticle = () => {
                             </select>
                         </FormInput>
                         <FormInput small="¿En qué estado se encuentra tu artículo?" label="Estado">
-                            <select className="custom-select" id="inputGroupSelect01" disabled>
+                            <select className="custom-select" id="inputGroupSelect01">
                                 <option value={1}>Nuevo</option>
                                 <option value={2}>Usado</option>
                             </select>
                         </FormInput>
                     </div>
                     <div className="columna_doble_fomulario">
-                        <FormInput small="¿Qué deseas hacer con tu artículo?" label="Acción">
+                        <FormInput small="Tu artículo se visualizará en:" label="Acción">
                             <select className="custom-select" id="inputGroupSelect01" disabled>
                                 <option value={1}>Vender</option>
                                 <option value={2}>Intercambiar</option>

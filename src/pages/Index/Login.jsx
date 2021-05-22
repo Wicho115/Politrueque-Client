@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import QuickNav from "../../components/QuickNav";
+import CustomToast from "../../components/CustomToast";
 
 const Login = () => {
 
@@ -21,31 +22,28 @@ const Login = () => {
         setCheck(!check);
     }
 
-    const validateInputs = (e) => {
+    const handleSub = (e) => {
         e.preventDefault();
         const {email, boleta, password} = loginUser;
         const terms = check;
 
-        console.log(terms);
-        console.log(email);
-
         //Comprobamos datos vacíos
         if (!email) {
-            toast.error("Por favor, proporciona un Correo");
-        } if (!boleta) {
-            toast.error("Por favor, proporciona una Boleta");
-        } if (!password) {
-            toast.error("Por favor, proporciona una Contraseña");
-        } if (!terms) {            
-            toast.error("Debes aceptar los Términos");
+            toast.error(<CustomToast type="error" message="Por favor, proporciona un Correo" />);
+        } else if (!boleta) {
+            toast.error(<CustomToast type="error" message="Por favor, proporciona una Boleta" />);
+        } else if (!password) {
+            toast.error(<CustomToast type="error" message="Por favor, proporciona una Contraseña" />);
+        } else if (!terms) {            
+            toast.error(<CustomToast type="error" message="Debes aceptar los términos" />);
         } else {
             //Comprobamos datos válidos
             if (!mailRegex.test(email)){
-                toast.error("Correo no válido");
-            }if (!boletaRegex.test(boleta)){
-                toast.error("Boleta no válido");
+                toast.error(<CustomToast type="error" message="Correo no válido" />);
+            }else if (!boletaRegex.test(boleta)){
+                toast.error(<CustomToast type="error" message="Boleta no válida" />);
             }else {
-                toast("Campos válidos");
+                toast.success(<CustomToast type="success" message="Campos válidos" />);
             }
         }
     }
@@ -64,10 +62,10 @@ const Login = () => {
                         </nav>
                     </div>
                     <div className="formulario">
-                        <form action="#" method="GET" onSubmit={validateInputs}>
+                        <form action="#" method="GET" onSubmit={handleSub}>
                             <div className="form-group">
                                 <label htmlFor="exampleInputEmail1">Correo Electrónico</label>
-                                <input onChange={handleChange} type="email" name="email" className="form-control" id="mail-input" aria-describedby="emailHelp" />
+                                <input onChange={handleChange} type="email" name="email" className="form-control" id="mail-input"/>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Boleta</label>

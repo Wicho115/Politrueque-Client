@@ -52,19 +52,13 @@ const CreateReport = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <hr />
                             </div>
 
                             <form action="#" method="POST">
-                                <div className="columna_doble_fomulario">
-                                    <FormInput small="Título del Reporte" label="Título">
-                                        <input type="text" className="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                                    </FormInput>
-                                    <FormInput small="¿A qué va dirigido el Reporte?" label="Tipo">
-                                        <select className="custom-select" name="tipoArticuloNum" id="inputGroupSelect01" disabled>
-                                            <option value={2}>Artículo</option>
-                                        </select>
-                                    </FormInput>
-                                </div>
+                                <FormInput small="Título del Reporte" label="Título">
+                                    <input type="text" className="form-control" name="title" id="exampleInputEmail1" />
+                                </FormInput>
                                 <div className="form-group">
                                     <DescriptionInput
                                         toDescribe="Cuerpo del Reporte"
@@ -114,19 +108,13 @@ const CreateReport = () => {
                                         </div>
                                     </div>
                                 </div>
+                                <hr />
                             </div>
 
                             <form action="#" method="POST">
-                                <div className="columna_doble_fomulario">
-                                    <FormInput small="Título del Reporte" label="Título">
-                                        <input type="text" className="form-control" name="title" id="exampleInputEmail1" aria-describedby="emailHelp" />
-                                    </FormInput>
-                                    <FormInput small="¿A qué va dirigido el Reporte?" label="Tipo">
-                                        <select className="custom-select" name="tipoArticuloNum" id="inputGroupSelect01" disabled>
-                                            <option value={1}>Usuario</option>
-                                        </select>
-                                    </FormInput>
-                                </div>
+                                <FormInput small="Título del Reporte" label="Título">
+                                    <input type="text" className="form-control" name="title" id="exampleInputEmail1" />
+                                </FormInput>
                                 <div className="form-group">
                                     <DescriptionInput
                                         toDescribe="Cuerpo del Reporte"

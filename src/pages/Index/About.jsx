@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import CardContainer from "../../components/cards/CardContainer";
 import Card from "../../components/cards/Card";
@@ -19,7 +18,7 @@ const About = () => {
           </nav>
         </div>
         <CardContainer>
-          <Card title="¿Qué es Politrueque?" subtitle="Esto es Politrueque">
+          <Card title="¿Qué es Politrueque?">
             <p className="card-text">
               Politrueque es un proyecto web independiente, creado por la
               pequeña empresa “Nautilus”, proveniente del Centro de Estudios
@@ -110,12 +109,6 @@ const About = () => {
                 &nbsp;Visitar
               </a>
           </Card>
-          <br />
-          {/*Este es el mapa*/}
-          <Card title="" subtitle="">
-            Mapa Vocacional próximamente
-          </Card>
-          <br />
         </CardContainer>
       </article>
     </>

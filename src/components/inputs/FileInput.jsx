@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Files from 'react-files';
 import { useMutation, gql } from '@apollo/client'
 
+import PoliArticle from "../../img/PoliArticulo.png";
+
 const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
 
     const [url, seturl] = useState(defaultImg);
@@ -69,7 +71,7 @@ const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
                 return (
                     <>
                         <div className="col-ml-4 img-previa">
-                            <img src={url} className="card-img img-thumbnail img-artículo" alt="" />
+                            <img src={PoliArticle} className="card-img img-thumbnail img-artículo" alt="" />
                         </div>
                     </>
                 );
@@ -78,7 +80,6 @@ const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
                 return (
                     <>
                         <div className="col-ml-4 img-previa">
-                            <p>c</p>
                             <img src={url} className="card-img img-thumbnail img-artículo" alt="" />
                         </div>
                     </>
