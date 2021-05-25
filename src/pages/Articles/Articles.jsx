@@ -12,12 +12,12 @@ import ArticlesDis from "../../components/articles/ArticlesDis";
 //importar json de articulo (DEV)
 import articlesJSON from "../../helpers/ArticlesSample";
 
-const useQuery = () => {
+const useQueryURL = () => {
     return new URLSearchParams(useLocation().search);
 };
 
 const Articles = () => {
-    const query = useQuery();
+    const query = useQueryURL();
     const type = query.get('t');
 
     const [articles, setArticles] = useState([]);

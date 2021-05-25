@@ -56,7 +56,7 @@ const User = () => {
   }, []);  
 
 
-  const {data, loading, error} = useQuery(GET_ARTICLES);
+  const {data, loading, error} = useQuery(GET_ACTUAL_USER);
   if(data){
     console.table(data.getArticles);
   }  
