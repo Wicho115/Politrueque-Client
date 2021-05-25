@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Container from "../components/Container";
 import Principal from "../pages/Principal";
 import NotFound from "../pages/NotFound";
@@ -22,6 +22,9 @@ import AccountRequest from "../pages/Index/AccountRequest";
 import RegisterUser from "../pages/Index/RegisterUser";
 import EditProfile from "../pages/Users/EditProfile";
 import Support from "../pages/Index/Support";
+import Test from '../pages/Test/test';
+import Auth from '../auth/auth';
+import Logout from '../pages/Index/Logout';
 
 const adminRoutes = (
   <Switch>
@@ -144,6 +147,18 @@ const adminRoutes = (
     <Route exact strict path="/registeruser">
       <Container>
         <RegisterUser />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/test">
+      <Container>
+        <Test/>
+      </Container>
+    </Route>
+
+    <Route exact strict path="/logout">
+      <Container>      
+        <Logout/>
       </Container>
     </Route>
 

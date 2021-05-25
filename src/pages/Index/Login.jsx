@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Auth from '../../auth/auth'
 
 import QuickNav from "../../components/QuickNav";
 import CustomToast from "../../components/CustomToast";
+import auth from "../../auth/auth";
 
 const Login = () => {
 
@@ -22,8 +24,10 @@ const Login = () => {
         setCheck(!check);
     }
 
-    const handleSub = (e) => {
+    const handleSub = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('token');
+        if(token) return toast.error(<CustomToast type="error" message="You are already logged in" />);
         const {email, boleta, password} = loginUser;
         const terms = check;
 
@@ -33,20 +37,28 @@ const Login = () => {
         } else if (!boleta) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona una Boleta" />);
         } else if (!password) {
-            toast.error(<CustomToast type="error" message="Por favor, proporciona una Contraseña" />);
+             toast.error(<CustomToast type="error" message="Por favor, proporciona una Contraseña" />);
         } else if (!terms) {            
-            toast.error(<CustomToast type="error" message="Debes aceptar los términos" />);
+             toast.error(<CustomToast type="error" message="Debes aceptar los términos" />);
         } else {
             //Comprobamos datos válidos
             if (!mailRegex.test(email)){
-                toast.error(<CustomToast type="error" message="Correo no válido" />);
+                return toast.error(<CustomToast type="error" message="Correo no válido" />);
             }else if (!boletaRegex.test(boleta)){
-                toast.error(<CustomToast type="error" message="Boleta no válida" />);
-            }else {
-                toast.success(<CustomToast type="success" message="Campos válidos" />);
+                return toast.error(<CustomToast type="error" message="Boleta no válida" />);
+            }else {                
+                const json = await Auth.login(loginUser)
+                if(json.error){                    
+                    return toast.error(<CustomToast type="error" message="Correo o contraseña invalidos" />);
+                } 
+                toast.success(<CustomToast type="success" message="Campos válidos" />);  
+                window.location.reload();
             }
         }
     }
+
+    if(auth.user) return (<Redirect to="/"/>)
+    
 
     return (
         <>
@@ -69,7 +81,7 @@ const Login = () => {
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Boleta</label>
-                                <input onChange={handleChange} type="text" name="boleta" className="form-control" id="boleta-input" maxlength={10} />
+                                <input onChange={handleChange} type="text" name="boleta" className="form-control" id="boleta-input" maxLength={10} />
                             </div>
                             <div className="form-group">
                                 <label htmlFor="exampleInputPassword1">Contraseña</label>

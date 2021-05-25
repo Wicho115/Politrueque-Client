@@ -6,28 +6,28 @@ const CustomToast = ({ type, message }) => {
         case "success":
             return (
                 <div>
-                    <i class="fa fa-check-circle-o"></i>  {message}
+                    <i className="fa fa-check-circle-o"></i>  {message}
                 </div>
             );
 
         case "error":
             return (
                 <div>
-                    <i class="fa fa-arrow-right"></i> {message}
+                    <i className="fa fa-arrow-right"></i> {message}
                 </div>
             );
 
         case "warning":
             return (
                 <div>
-                    <i class="fa fa-exclamation-triangle"></i> {message}
+                    <i className="fa fa-exclamation-triangle"></i> {message}
                 </div>
             );
 
         default:
             return (
                 <div>
-                    <i class="fa fa-check-circle-o"></i> Algo Ocurrió
+                    <i className="fa fa-check-circle-o"></i> Algo Ocurrió
                 </div>
             );
     }

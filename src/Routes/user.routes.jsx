@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import Container from "../components/Container";
 import Principal from "../pages/Principal";
 import NotFound from "../pages/NotFound";
@@ -11,10 +11,12 @@ import ArticlesPage from "../pages/Articles/Articles";
 import CreateArticle from "../pages/Articles/CreateArticle";
 import EditNonVerArticle from "../pages/Articles/EditNonVerArticle";
 import EditPublishedArticle from "../pages/Articles/EditPublishedArticle";
-import LogIn from "../pages/Index/Login";
 import AccountRequest from "../pages/Index/AccountRequest";
 import EditProfile from "../pages/Users/EditProfile";
 import Support from "../pages/Index/Support";
+import Auth from '../auth/auth';
+import Logout from '../pages/Index/Logout';
+import Login from "../pages/Index/Login";
 
 const userRoutes = (
   <Switch>
@@ -84,17 +86,23 @@ const userRoutes = (
       <Container>
         <EditNonVerArticle />        
       </Container>
-    </Route>
-
-    <Route exact strict path="/login">
-      <Container>
-        <LogIn />
-      </Container>
-    </Route>
+    </Route>    
 
     <Route exact strict path="/accountrequest">
       <Container>
         <AccountRequest />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/login">
+      <Container>
+        <Login/>
+      </Container>
+    </Route>
+
+    <Route exact strict path="/logout">
+      <Container>
+         <Logout/>
       </Container>
     </Route>
 

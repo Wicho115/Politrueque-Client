@@ -6,20 +6,45 @@ import Section from "../../components/Section";
 import Report from "../../components/reports/Report";
 import UserCard from "../../components/cards/UserCard";
 import Quicknav from "../../components/QuickNav";
+import {useQuery, gql} from '@apollo/client'
 
 //importar json de usuario (DEV)
 import userJSON from "../../helpers/UserSample";
 
-const useQuery = () => {
+const GET_ACTUAL_USER = gql`
+  query{
+    bye{
+      _id,
+      email,
+      img,
+      username,
+      gender,
+      Articles{
+        _id,
+        name,
+        description,
+        action_id
+      },
+      Reports{
+        _id,
+        title,
+        description,
+        ref_id    
+      }
+    }
+  }
+`
+
+const useQueryURL = () => {
   return new URLSearchParams(useLocation().search);
 };
 
 const User = () => {
-  const query = useQuery();
+  const query = useQueryURL();  
 
   const [user, setUser] = useState({});
   const [articles, setArticles] = useState([]);
-  const [reports, setReports] = useState([])
+  const [reports, setReports] = useState([]);  
 
   useEffect(() => {
       setUser(userJSON.user);
@@ -28,7 +53,13 @@ const User = () => {
 
       setReports(userJSON.reports);
 
-  }, []);
+  }, []);  
+
+
+  const {data, loading, error} = useQuery(GET_ARTICLES);
+  if(data){
+    console.table(data.getArticles);
+  }  
 
   return (
     <>

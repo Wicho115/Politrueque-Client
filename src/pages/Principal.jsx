@@ -6,19 +6,8 @@ import CardContainer from "../components/cards/CardContainer";
 import Card from "../components/cards/Card";
 import Button from "../components/Button";
 
-const localStorage = require('localStorage');
 
 const Principal = () => {
-
-  useEffect(() =>{    
-    fetch(`http://10.129.199.45:5000/login`)
-    .then((data) => {
-      return data.json();
-    })
-    .then((value) => {
-      console.log(value);
-    })
-  }, [])
 
   return (
     <>

@@ -6,13 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import {ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client';
 import {setContext} from '@apollo/client/link/context';
 import {createUploadLink} from 'apollo-upload-client';
-const localStorage = require('localStorage');
 
 
 const uploadLink = createUploadLink({
     useGETForQueries : true,
     uri:'http://localhost:5000/graphql',
-    credentials : "include",   
+    credentials : "omit",    
 });
 
 const authLink = setContext((_, {headers}) =>{

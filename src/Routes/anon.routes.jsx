@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Container from '../components/Container';
 import Principal from '../pages/Principal';
 import NotFound from '../pages/NotFound';
@@ -8,6 +8,7 @@ import TermANDCond from '../pages/Index/term&cond';
 import LogIn from "../pages/Index/Login";
 import AccountRequest from "../pages/Index/AccountRequest";
 import Support from "../pages/Index/Support";
+import Logout from '../pages/Index/Logout'
 
 const anonRoutes = (
   <Switch>
@@ -46,6 +47,12 @@ const anonRoutes = (
     <Route exact strict path="/accountrequest">
       <Container>
         <AccountRequest />
+      </Container>
+    </Route>
+
+    <Route exact strict path="/logout">
+      <Container>
+         <Redirect to="/login"/>
       </Container>
     </Route>
 

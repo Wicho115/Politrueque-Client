@@ -2,27 +2,34 @@ import "./App.css";
 import React, { useEffect, useState } from "react";
 import {BrowserRouter as Router} from "react-router-dom";
 
-import user from "./helpers/sample";
 
 import userRoutes from './Routes/user.routes';
 import adminRoutes from './Routes/admin.routes';
 import anonRoutes from './Routes/anon.routes'
+import Auth from "./auth/auth";
 
 const App = () => {
   const [routes, setRoutes] = useState(null);
 
   useEffect(() => {
-    switch (user.id) {
-      case 1:
-        setRoutes(userRoutes);
-        break;
-      case 2:
-        setRoutes(adminRoutes);
-        break;
-      default:
-        setRoutes(anonRoutes);
-        break;
-    }
+    console.log('Primer useEffect');
+    const token = localStorage.getItem('token');
+    if(token === undefined) localStorage.removeItem('token');
+    Auth.validate().then((id) =>{   
+      console.log(`Este es el id ${id}`);   
+      switch (id) {
+        case 1:
+          setRoutes(userRoutes);
+          break;
+        case 2:
+          setRoutes(adminRoutes);
+          break;
+        default:
+          setRoutes(anonRoutes);
+          break;
+      }
+    });
+    
   }, []);
 
   return <Router>{routes}</Router>;

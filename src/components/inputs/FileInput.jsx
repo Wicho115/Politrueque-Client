@@ -1,31 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Files from 'react-files';
-import { useMutation, gql } from '@apollo/client'
+import Femenino from '../../img/DefaultFE.png'
 
 import PoliArticle from "../../img/PoliArticulo.png";
 
-const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
-
-    const [url, seturl] = useState(defaultImg);
-    const [image, setImage] = useState(null)
-
-    useEffect(() => {
-        seturl(defaultImg);
-    }, [])
-
-    const GET_FILE = gql`
-        mutation($file:Upload!){
-            uploadFile(file:$file){
-                url
-            }
-        }
-    `;
+const FileInput = ({ instuctions, defaultImg, imgFormat, upperChange }) => {
+    
+    const [url, seturl] = useState();
+    const [name, setName] = useState(null);
 
     const handleChange = (files) => {
-        if (files[0] !== undefined) {
-            console.log(files[0]);
-            seturl(files[0].preview.url);
-            setImage(files[0]);
+        if (files[0] !== undefined) {    
+            setName(files[0].name)
+            seturl(files[0].preview.url);    
+            upperChange(files);
         }
     }
 
@@ -34,18 +22,7 @@ const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
         console.log(err.code);
         console.log(err.message);
     }
-
-    const [UploadFile] = useMutation(GET_FILE, {
-        onCompleted: (data) => console.log(data),
-        onError: function (err) { console.log(err) },
-
-    })
-
-    const handleSub = () => {
-        const file = image;
-        if (!file) return;
-        UploadFile({ variables: { file } })
-    }
+  
 
     const handleFormat = (imgFormat) => {
         switch (imgFormat) {
@@ -53,7 +30,10 @@ const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
                 return (
                     <>
                         <div className="col-ml-4 img-previa">
-                            <img src={url} className="card-img img-perfil" alt="" />
+                            <img src={(() =>{
+                                if(!url) return defaultImg;
+                                return url;
+                            })()} className="card-img img-perfil" alt="" />
                         </div>
                     </>
                 );
@@ -62,7 +42,10 @@ const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
                 return (
                     <>
                         <div className="col-ml-4 img-previa">
-                            <img src={url} className="card-img img-thumbnail img-artículo" alt="" />
+                            <img src={(() =>{
+                                if(!url) return defaultImg;
+                                return url;
+                            })()} className="card-img img-thumbnail img-artículo" alt="" />
                         </div>
                     </>
                 );
@@ -71,7 +54,10 @@ const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
                 return (
                     <>
                         <div className="col-ml-4 img-previa">
-                            <img src={PoliArticle} className="card-img img-thumbnail img-artículo" alt="" />
+                            <img src={(() =>{
+                                if(!url) return PoliArticle;
+                                return url;
+                            })()} className="card-img img-thumbnail img-artículo" alt="" />
                         </div>
                     </>
                 );
@@ -80,7 +66,10 @@ const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
                 return (
                     <>
                         <div className="col-ml-4 img-previa">
-                            <img src={url} className="card-img img-thumbnail img-artículo" alt="" />
+                            <img src={(() =>{
+                                if(!url) return defaultImg;
+                                return url;
+                            })()} className="card-img img-thumbnail img-artículo" alt="" />
                         </div>
                     </>
                 );
@@ -105,7 +94,10 @@ const FileInput = ({ instuctions, defaultImg, imgFormat }) => {
                             maxFileSize={5000000}
                             minFileSize={3000}
                         >
-                            <label className="custom-file-label">Seleccionar Archivo</label>
+                            <label className="custom-file-label">{(() =>{
+                                if(!name)return "Seleccionar un archivo"
+                                return name;
+                            })()}</label>
                         </Files>
 
                     </div>
