@@ -6,7 +6,7 @@ const ArticleSample = {
     description:"Esta es una descripcion",
     category:"Dibujo Técnico",
     state : true,
-    action_id:1,
+    action_id:2,
     avaliable : true,
     price:500,
     exchange:"Otro objeto"

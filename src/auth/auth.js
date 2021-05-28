@@ -8,7 +8,7 @@ class Auth{
     async login(data){
         console.log(data);
         console.log('entrando al login');
-        const response = await fetch('http://localhost:5000/auth/login',{
+        const response = await fetch('http://26.185.54.28:5000/auth/login',{
             method : 'POST',
             headers :{
                 'Content-Type' : 'application/json'
@@ -27,7 +27,7 @@ class Auth{
         if(!token){
             return console.log('No hay token en logout');
         }
-        const response = await fetch(`http://localhost:5000/auth/logout?token=${token}`,{
+        const response = await fetch(`http://26.185.54.28:5000/auth/logout?token=${token}`,{
             headers : {
                 'Authorization' : `Bearer ${token}`
             }
@@ -44,7 +44,7 @@ class Auth{
         if(!token){            
             return 0;
         }
-        const response = await fetch(`http://localhost:5000/auth/validate?token=${token}`,{
+        const response = await fetch(`http://26.185.54.28:5000/auth/validate?token=${token}`,{
             headers : {
                 'Authorization' : `Bearer ${token}`
             }

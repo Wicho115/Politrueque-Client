@@ -35,7 +35,7 @@ const Login = () => {
     const handleSub = async (e) => {
         e.preventDefault();
         const token = localStorage.getItem('token');
-        if(token) return toast.error(<CustomToast type="error" message="You are already logged in" />);
+        if(token) return toast.error(<CustomToast type="error" message="Ya has iniciado sesión" />);
         const {email, boleta, password} = loginUser;
         const terms = check;
 

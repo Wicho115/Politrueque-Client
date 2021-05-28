@@ -12,43 +12,65 @@ import CustomToast from "../../components/CustomToast";
 const CreateArticle = () => {
 
     const [newArticle, setNewArticle] = useState({});
+    const [action, setAction] = useState(1);
+    const [state, setState] = useState(1);
+    const [category, setCategory] = useState(1);
+    const [stock, setStock] = useState(1);
+
+    const priceRegex = /^[1-9]([0-9])*(\.(\d){1,2})?$/;
 
     const handleChange = (e) => {
-        console.log("cambio");
-        setNewArticle({ ...newArticle, [e.target.name]: e.target.value });        
+        setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
     };
 
-    const handlePrice = () => {
+    const handleState = (e) => {
+        setState(e.target.value);
+    }
+
+    const handleCategory = (e) => {
+        setCategory(e.target.value);
+    }
+
+    const handleStock = (e) => {
+        setStock(e.target.value);
+    }
+
+    const handlePrice = (e) => {
+
         const opciones = {
             //Texto pequeño, Texto input
-            1: ["¿Cuánto costará tu artículo?", "Precio"],
-            2: ["¿Qué te gustaría recibir a cambio?", "Artículo"],
-            3: ["Este será un artículo de donativo, muchas gracias", "N/A"]
+            1: ["¿Cuánto costará tu artículo?", "Precio", "$ MXN"],
+            2: ["¿Qué te gustaría recibir a cambio?", "Artículo", "Artículo"],
+            3: ["Este será un artículo de donativo, muchas gracias", "N/A", "Donativo"]
         }
 
-        const opcion = document.getElementById("id_action").value;
+        const opcion = e.target.value;
+        setAction(parseInt(e.target.value));
 
         document.getElementById("small").innerHTML = opciones[opcion][0];
         document.getElementById("label").innerHTML = opciones[opcion][1];
-        
+        document.getElementById("price").placeholder = opciones[opcion][2];
 
         switch (opcion) {
             case "3":
                 document.getElementById("warning").innerHTML = "Solamente podrás modificar la  cantidad y la descripción posteriormente.";
                 document.getElementById("price").value = "Donativo";
                 document.getElementById("price").disabled = true;
+                setNewArticle({...newArticle, price:""})
                 break;
 
             case "2":
                 document.getElementById("warning").innerHTML = "Solamente podrás modificar la  cantidad, la descripción y el intercambio posteriormente.";
                 document.getElementById("price").disabled = false;
                 document.getElementById("price").value = "";
+                setNewArticle({...newArticle, price:""})
                 break;
 
             default:
                 document.getElementById("warning").innerHTML = "Solamente podrás modificar la  cantidad, la descripción y el precio posteriormente.";
                 document.getElementById("price").disabled = false;
                 document.getElementById("price").value = "";
+                setNewArticle({...newArticle, price:""})
                 break;
         }
 
@@ -57,13 +79,7 @@ const CreateArticle = () => {
     const handleSub = (e) => {
         e.preventDefault();
 
-        const {name, stock, description, id_action, price} = newArticle;
-
-        console.log(name);
-        console.log(stock);
-        console.log(description);
-        console.log(id_action);
-        console.log(price);
+        const { name, description, price } = newArticle;
 
         //Comprobamos datos vacíos
         if (!name) {
@@ -72,20 +88,28 @@ const CreateArticle = () => {
             toast.error(<CustomToast type="error" message="Por favor, proporciona una Cantidad" />);
         } else if (!description) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona una Descripción" />);
-        } else if (!price) {
-            switch (id_action) {
-                case "1":
-                    toast.error(<CustomToast type="error" message="Por favor, proporciona un Precio" />);
-                    break;
-                case "2":
-                    toast.error(<CustomToast type="error" message="Por favor, proporciona un Artículo" />);
-                    break;
-                default:
-                    toast.error(<CustomToast type="error" message="Error, recarga la página" />);
-                    break;
+        } else if (!category) {
+            toast.error(<CustomToast type="error" message="Por favor, proporciona una Categoría" />);
+        } else if (!state) {
+            toast.error(<CustomToast type="error" message="Por favor, proporciona un Estado" />);
+        } else if (!action) {
+            toast.error(<CustomToast type="error" message="Por favor, proporciona una Acción" />);
+        } else if (!price && action != 3) {
+            if (action === 1) {
+                toast.error(<CustomToast type="error" message="Por favor, proporciona un Precio" />)
+            } if (action === 2) {
+                toast.error(<CustomToast type="error" message="Por favor, proporciona un Artículo" />)
             }
-        } else {
-            toast.success(<CustomToast type="success" message="Campos llenos" />)
+        } //Comprobamos cámpos válidos
+        else {
+            if (action === 1 &&!priceRegex.test(price)) {
+                toast.error(<CustomToast type="error" message="Por favor, proporciona un Precio válido" />)
+            } else {
+                toast.success(<CustomToast type="success" message="Campos llenos" />);
+                //const payload = { ...newArticle, action_id: action }
+                //console.log(payload);
+            }
+            
         }
 
 
@@ -109,10 +133,10 @@ const CreateArticle = () => {
                         {/* Aqui van los datos generales que se piden para un artículo */}
                         <div className="columna_doble_fomulario">
                             <FormInput small="¿Qué es el artículo?" label="Nombre">
-                                <input onChange={handleChange} type="text" name="name" className="form-control" id="name"/>
+                                <input onChange={handleChange} type="text" name="name" className="form-control" id="name" placeholder="Nombre del Artículo" />
                             </FormInput>
                             <FormInput small="¿Cuántas unidades de tu artículo tendrás? ( 1 a 100 )" label="Cantidad">
-                                <input onChange={handleChange} type="number" name="stock" className="form-control" id="stock" min={1} max={100} />
+                                <input onChange={handleStock} type="number" name="stock" className="form-control" id="stock" min={1} max={100} defaultValue={1} placeholder="#" />
                             </FormInput>
                         </div>
                         <div className="form-group">
@@ -120,24 +144,26 @@ const CreateArticle = () => {
                                 toDescribe="Descripción del Artículo"
                                 suggestion="Preguntas de Sugerencia: ¿Cómo es este artículo? ¿En qué estado se encuentra? ¿Para qué sirve?"
                                 minmax="Mínino 20 Caracteres - Máximo 200 Caracteres">
-                                <textarea onChange={handleChange} className="form-control" name="description" id="description" rows={3} minlength={20} maxlength={500} />
+                                <textarea onChange={handleChange} className="form-control" name="description" id="description" rows={3} minLength={20} maxLength={500} placeholder="Descripción del Artículo" />
                             </DescriptionInput>
                         </div>
                         <div className="columna_doble_fomulario">
                             <FormInput small="¿En que categoría se encontrará tu artículo?" label="Categoría">
-                                <select onChange={handleChange} className="custom-select" name="category" id="category">
+                                <select onChange={handleCategory} className="custom-select" name="category" id="category">
                                     <option value={1}>Matemáticas</option>
                                     <option value={2}>Química</option>
                                     <option value={3}>Física</option>
                                     <option value={4}>Inglés</option>
-                                    <option value={5}>Dibujo Técnico</option>
-                                    <option value={6}>Programación</option>
-                                    <option value={7}>Máquinas con Sistemas Automatizados</option>
-                                    <option value={8}>Sistemas Digitales</option>
+                                    <option value={5}>Historia</option>
+                                    <option value={6}>Filosofía</option>
+                                    <option value={7}>Dibujo Técnico</option>
+                                    <option value={8}>Programación</option>
+                                    <option value={9}>Máquinas con Sistemas Automatizados</option>
+                                    <option value={10}>Sistemas Digitales</option>
                                 </select>
                             </FormInput>
                             <FormInput small="¿En qué estado se encuentra tu artículo?" label="Estado">
-                                <select onChange={handleChange} className="custom-select" name="state" id="state">
+                                <select onChange={handleState} className="custom-select" name="state" id="state">
                                     <option value={1}>Nuevo</option>
                                     <option value={2}>Usado</option>
                                 </select>
@@ -145,8 +171,8 @@ const CreateArticle = () => {
                         </div>
                         <div className="columna_doble_fomulario">
                             <FormInput small="¿Qué deseas hacer con tu artículo?" label="Acción">
-                                <select onChange={handlePrice} className="custom-select" name="id_action" id="id_action">
-                                    <option selected value={1}>Vender</option>
+                                <select value={action} onChange={handlePrice} className="custom-select" name="action_id" id="action_id">
+                                    <option value={1}>Vender</option>
                                     <option value={2}>Intercambiar</option>
                                     <option value={3}>Donar</option>
                                 </select>
@@ -158,7 +184,7 @@ const CreateArticle = () => {
                                     <div className="input-group-prepend">
                                         <label className="input-group-text" id="label">Precio</label>
                                     </div>
-                                    <input onChange={handleChange} type="text" name="price" className="form-control" id="price" />
+                                    <input onChange={handleChange} type="text" name="price" className="form-control" id="price" placeholder="$ MXN" />
                                 </div>
                             </div>
                         </div>
