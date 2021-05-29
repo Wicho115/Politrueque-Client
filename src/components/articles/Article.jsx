@@ -26,10 +26,10 @@ const handleCategory = (category) => {
 
 const Article = ({data, user}) =>{
 
-    const {title, img, description, category} = data;
+    const {title, img, description, category, _id} = data;
 
     return(
-        <Link to="/article" className="enlace-artículo">
+        <Link to={`/article?a=${_id}`} className="enlace-artículo">
           <div className="card mb-3 enlace">
             <div className="row no-gutters">
               <div className="col-ml-4">

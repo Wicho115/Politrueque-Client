@@ -1,33 +1,81 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import { gql, useQuery } from '@apollo/client';
 
 import Button from "../../components/Button";
 
-import reportJSON from "../../helpers/ReportSample";
-import userJSON from "../../helpers/UserSample";
-import articleJSON from "../../helpers/ArticleSample";
+import masculino from '../../img/DefaultMA.png';
+import femenino from '../../img/DefaultFE.png';
 
-const useQuery = () => {
+const GET_REPORT = gql`
+    query getReport($id : String!){
+        getReport(id : $id){
+            _id,
+            type,
+            author{
+                _id,
+                username,
+                img    
+            }
+            title,
+            description,
+            ref_id,
+            User_ref{
+                _id,
+                username,
+                email,
+                gender
+            },
+            Article_ref{
+                _id,
+                name,
+                description,
+                category,
+            propietary{
+                username
+            }
+        }
+        }
+    }
+
+`
+
+const useQueryURL = () => {
     return new URLSearchParams(useLocation().search);
 };
 
 const ReportPage = () => {
-    const query = useQuery();
-    const type = query.get('t');
+    const query = useQueryURL();
+    const report_id = query.get('r');
 
-    const [report, setReport] = useState({});
-    const [user, setUser] = useState({});
-    const [article, setArticle] = useState({});
+    let report = {}
+    let user = {}
+    let article = {}
+    let type = '';
 
-    useEffect(() => {
-        setReport(reportJSON);
-        setUser(userJSON.user);
-        setArticle(articleJSON);
-    }, []);
+    const { data, loading, error } = useQuery(GET_REPORT, { variables: { id: report_id } })
+
+    if (loading) return (<h1>Loading</h1>);
+    if(error) return <h1>{error.message}</h1>
+    if (data) {
+        const report_data = data.getReport;
+        type = report_data.type;
+        article = report_data.Article_ref;
+        user = report_data.User_ref;
+        report = report_data;
+    }
+
+    const handleUserImage = () =>{
+        if(!user.img){
+            if(user.gender === "H") return masculino;
+            if(user.gender === "M") return femenino;
+        }
+        return user.img;
+    }
 
     switch (type) {
-        case 'a':
+        case 'articulo':
             return (
                 <article className="conenedor_terciario_1">
                     <div className="artículos_display">
@@ -35,7 +83,7 @@ const ReportPage = () => {
                         <div className="card mb-3" style={{ maxWidth: 1000 }}>
                             <div className="card-body">
                                 <h5 className="card-title">{report.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Autor: {report.author}</h6>
+                                <h6 className="card-subtitle mb-2 text-muted">Autor: {report.author.username}</h6>
                                 <h6 className="card-subtitle mb-2 text-muted">Creado el {report.createdAt}</h6>
                             </div>
                             {/* [A] Si es el autor */}
@@ -51,7 +99,7 @@ const ReportPage = () => {
                             {/* [A] Termina If */}
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item">
-                                    {report.content}
+                                    {report.description}
                                 </li>
                             </ul>
                             <div className="card-body">
@@ -73,7 +121,7 @@ const ReportPage = () => {
                                             <div className="card-body">
                                                 <h5 className="card-title">{article.name}</h5>
                                                 <p className="card-text">{article.description}</p>
-                                                <p className="card-text">Propietario: {article.propietary}</p>
+                                                <p className="card-text">Propietario: {article.propietary.username}</p>
                                                 <p className="card-text"><small className="text-muted">Categoría: {article.category}</small></p>
                                             </div>
                                         </div>
@@ -81,12 +129,11 @@ const ReportPage = () => {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </article>
             );
 
-        case 'u':
+        case 'usuario':
             return (
                 <article className="conenedor_terciario_1">
                     <div className="artículos_display">
@@ -94,8 +141,8 @@ const ReportPage = () => {
                         <div className="card mb-3" style={{ maxWidth: 1000 }}>
                             <div className="card-body">
                                 <h5 className="card-title">{report.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Autor: {report.author}</h6>
-                                <h6 className="card-subtitle mb-2 text-muted">Creado el {report.createdAt}</h6>
+                                <h6 className="card-subtitle mb-2 text-muted">Autor: {report.author.username}</h6>
+                                <h6 className="card-subtitle mb-2 text-muted">Creado el {(report.createdAt) ? 'Si' : 'No'}</h6>
                             </div>
                             {/* [A] Si es el autor */}
                             {/* Botones que solo salen si el artículo es del usuario */}
@@ -110,7 +157,7 @@ const ReportPage = () => {
                             {/* [A] Termina If */}
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item">
-                                    {report.content}
+                                    {report.description}
                                 </li>
                             </ul>
                             <div className="card-body">
@@ -127,14 +174,14 @@ const ReportPage = () => {
                                     <div className="row no-gutters">
                                         <div className="col-ml-4" style={{ margin: "0.5rem" }}>
                                             <img
-                                                src={user.img}
+                                                src={handleUserImage()}
                                                 className="card-img img-perfil"
                                                 alt="pfp"
                                             />
                                         </div>
                                         <div className="col-md-8">
                                             <div className="card-body">
-                                                <h5 className="card-title">{user.name}</h5>
+                                                <h5 className="card-title">{user.username}</h5>
                                                 <p className="card-text">
                                                     <small className="text-muted">Artículos del Usuario: 1</small>
                                                 </p>
@@ -153,7 +200,7 @@ const ReportPage = () => {
             );
 
         default:
-            return (<Redirect to="reports?t=u" />);
+            return (<Redirect to="/reports?t=u" />);
 
     };
 

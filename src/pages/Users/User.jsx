@@ -8,8 +8,6 @@ import UserCard from "../../components/cards/UserCard";
 import Quicknav from "../../components/QuickNav";
 import {useQuery, gql} from '@apollo/client'
 
-//importar json de usuario (DEV)
-import userJSON from "../../helpers/UserSample";
 
 const GET_ACTUAL_USER = gql`
   query{
@@ -23,7 +21,8 @@ const GET_ACTUAL_USER = gql`
         _id,
         name,
         description,
-        action_id
+        action_id,
+        category
       },
       Reports{
         _id,
@@ -42,23 +41,18 @@ const useQueryURL = () => {
 const User = () => {
   const query = useQueryURL();  
 
-  const [user, setUser] = useState({});
-  const [articles, setArticles] = useState([]);
-  const [reports, setReports] = useState([]);  
-
-  useEffect(() => {
-      setUser(userJSON.user);
-
-      setArticles(userJSON.articles);
-
-      setReports(userJSON.reports);
-
-  }, []);  
+  let user = {};
+  let articles = [];
+  let reports = [];
 
 
   const {data, loading, error} = useQuery(GET_ACTUAL_USER);
   if(data){
-    console.table(data.getArticles);
+    const user_data = data.bye;
+    articles = user_data.Articles;    
+    reports = user_data.Reports;    
+    user = {...user_data, Reports : null, Articles : null};    
+    console.log(articles);
   }  
 
   return (
@@ -70,33 +64,33 @@ const User = () => {
           {/* Datos generales del Usuario */}
           <UserCard user={user} />
 
-          <Section>Contacto de {user.name}</Section>
+          <Section>Contacto de {user.username}</Section>
 
           <Card title="Correo electronico">
-            <p className="card-text">{user.mail}</p>
+            <p className="card-text">{user.email}</p>
           </Card>
 
           <br />
 
           {/* [A] Si tiene artículos */}
-          {(articles.length > 0) ? <Section>Artículos de {user.name}</Section> : null}
+          {(articles.length > 0) ? <Section>Artículos de {user.username}</Section> : null}
           {/* [A] Termina If */}
 
           {/* Ponemos todos los artículos del usuario */}
           {articles.map((art) =>{
-              return(<Article data={art} user={user.name} />);
+              return(<Article data={art} user={user.username} />);
           })}          
           {/* */}
 
           {/* Sección de Reportes que solo los Admins tienen */}
           {/* [B] Si hay reportes */}
-          {(reports.length > 0 ? <Section>Reportes de {user.name}</Section> : null)}
+          {(reports.length > 0 ? <Section>Reportes de {user.username}</Section> : null)}
           {/* [B] Termina If */}
           {/* A partir de aqui van los reportes del Admin */}
           {/* Los reportes del usuario */}
 
           {reports.map((rep, index, arr) =>{
-              return (<><Report report={rep} user={user.name}/>{(index < (arr.length-1)) ? <br/> : null}</>);
+              return (<><Report report={rep} user={user.username}/>{(index < (arr.length-1)) ? <br/> : null}</>);
           })}
           {/* */}
         </div>
