@@ -14,53 +14,25 @@ import articleJSON from "../../helpers/ArticleSample";
 
 const EditArticle = () => {
 
-    const [article, setArticle] = useState({});
-    const [editedArticle, setEditedArticle] = useState({});
-    const [name, setName] = useState(article.name);
-    const [stock, setStock] = useState(article.stock);
-    const [description, setDescription] = useState(article.description);
-    const [category, setCategory] = useState(article.category);
-    const [action, setAction] = useState(article.action_id);
-    const [state, setState] = useState(article.state);
-    const [price, setPrice] = useState(article.price);
-
-    console.log("inicio");
+    const name = articleJSON.name
+    const [editedArticle, setEditedArticle] = useState(articleJSON);
 
     const priceRegex = /^[1-9]([0-9])*(\.(\d){1,2})?$/;
 
     useEffect(() => {
-        setArticle(articleJSON);
+        setEditedArticle(articleJSON);
     }, []);
 
     const handleChange = (e) => {
         setEditedArticle({ ...editedArticle, [e.target.name]: e.target.value });
     };
 
-    const handleState = (e) => {
-        setState(e.target.value);
-    }
-
-    const handleCategory = (e) => {
-        setCategory(e.target.value);
-    }
-
-    const handleStock = (e) => {
-        setStock(e.target.value);
-    }
-
-    const handlePrice = (e) =>{
-
-    }
-
     const handleSub = (e) => {
         e.preventDefault();
 
-        console.log("---");
-        console.log(editedArticle);
-        console.log("---");
-        console.log("A");
+        const { name, stock, description, category, action_id, state, price } = editedArticle;
 
-        const { name, description, price } = editedArticle;
+        console.log(editedArticle);
 
         //Comprobamos datos vacíos
         if (!name) {
@@ -73,22 +45,20 @@ const EditArticle = () => {
             toast.error(<CustomToast type="error" message="Por favor, proporciona una Categoría" />);
         } else if (!state) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona un Estado" />);
-        } else if (!action) {
+        } else if (!action_id) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona una Acción" />);
-        } else if (!price && action != 3) {
-            if (action === 1) {
+        } else if (!price && action_id != 3) {
+            if (action_id === 1) {
                 toast.error(<CustomToast type="error" message="Por favor, proporciona un Precio" />)
-            } if (action === 2) {
+            } if (action_id === 2) {
                 toast.error(<CustomToast type="error" message="Por favor, proporciona un Artículo" />)
             }
         } //Comprobamos cámpos válidos
         else {
-            if (action === 1 && !priceRegex.test(price)) {
+            if (action_id === 1 && !priceRegex.test(price)) {
                 toast.error(<CustomToast type="error" message="Por favor, proporciona un Precio válido" />)
             } else {
                 toast.success(<CustomToast type="success" message="Campos llenos" />);
-                //const payload = { ...newArticle, action_id: action }
-                //console.log(payload);
             }
 
         }
@@ -100,8 +70,9 @@ const EditArticle = () => {
         <>
             {/* Contenedor para editar un artículo */}
             <div className="conetnedor_secundario_2">
+                <ToastContainer />
                 <SecondNav>
-                    <a className="nav-link">Modificar Artículo: {article.name}</a>
+                    <a className="nav-link">Modificar Artículo: {name}</a>
                 </SecondNav>
                 <FormsContainer>
                     <form onSubmit={handleSub}>
@@ -112,10 +83,10 @@ const EditArticle = () => {
                         <hr />
                         <div className="columna_doble_fomulario">
                             <FormInput small="¿Qué es el artículo?" label="Nombre">
-                                <input onChange={handleChange} type="text" name="name" className="form-control" id="name" placeholder="Nombre del Artículo" defaultValue={article.name} />
+                                <input value={editedArticle.name} onChange={handleChange} type="text" name="name" className="form-control" id="name" placeholder="Nombre del Artículo"  />
                             </FormInput>
                             <FormInput small="¿Cuántas unidades de tu artículo tendrás?" label="Cantidad">
-                                <input onChange={handleStock} type="number" name="stock" className="form-control" id="stock" min={1} max={100} defaultValue={1} placeholder="#" defaultValue={article.stock} />
+                                <input value={editedArticle.stock} onChange={handleChange} type="number" name="stock" className="form-control" id="stock" min={1} max={100} placeholder="#"  />
                             </FormInput>
                         </div>
                         <div className="form-group">
@@ -123,32 +94,34 @@ const EditArticle = () => {
                                 toDescribe="Descripción del Artículo"
                                 suggestion="Preguntas de Sugerencia: ¿Cómo es este artículo? ¿En qué estado se encuentra? ¿Qué color es?"
                                 minmax="Mínino 20 Caracteres - Máximo 200 Caracteres">
-                                <textarea onChange={handleChange} className="form-control" name="description" id="description" rows={3} minLength={20} maxLength={500} placeholder="Descripción del Artículo" defaultValue={article.description} />
+                                <textarea onChange={handleChange} className="form-control" name="description" id="description" rows={3} minLength={20} maxLength={500} placeholder="Descripción del Artículo" value={editedArticle.description} />
                             </DescriptionInput>
                         </div>
                         <div className="columna_doble_fomulario">
                             <FormInput small="¿En que categoría se encontrará tu artículo?" label="Categoría">
-                                <select onChange={handleCategory} className="custom-select" name="category" id="category">
+                                <select value={editedArticle.category} onChange={handleChange} className="custom-select" name="category" id="category">
                                     <option value={1}>Matemáticas</option>
                                     <option value={2}>Química</option>
                                     <option value={3}>Física</option>
                                     <option value={4}>Inglés</option>
-                                    <option value={5}>Dibujo Técnico</option>
-                                    <option value={6}>Programación</option>
-                                    <option value={7}>Máquinas con Sistemas Automatizados</option>
-                                    <option value={8}>Sistemas Digitales</option>
+                                    <option value={5}>Historia</option>
+                                    <option value={6}>Filosofía</option>
+                                    <option value={7}>Dibujo Técnico</option>
+                                    <option value={8}>Programación</option>
+                                    <option value={9}>Máquinas con Sistemas Automatizados</option>
+                                    <option value={10}>Sistemas Digitales</option>
                                 </select>
                             </FormInput>
                             <FormInput small="¿En qué estado se encuentra tu artículo?" label="Estado">
-                                <select onChange={handleState} className="custom-select" name="state" id="state">
-                                    <option value={1}>Nuevo</option>
-                                    <option value={2}>Usado</option>
+                                <select value={editedArticle.state} onChange={handleChange} className="custom-select" name="state" id="state">
+                                    <option value={true}>Nuevo</option>
+                                    <option value={false}>Usado</option>
                                 </select>
                             </FormInput>
                         </div>
                         <div className="columna_doble_fomulario">
                             <FormInput small="Tu artículo se visualizará en:" label="Acción">
-                                <select value={action} onChange={handlePrice} className="custom-select" name="action_id" id="action_id" disabled>
+                                <select value={editedArticle.action_id} className="custom-select" name="action_id" id="action_id" disabled>
                                     <option value={1}>Vender</option>
                                     <option value={2}>Intercambiar</option>
                                     <option value={3}>Donar</option>
@@ -156,7 +129,7 @@ const EditArticle = () => {
                             </FormInput>
                             {/* Aqui es lo que depende de la acción que se vaya a hacer */}
                             <FormInput small="¿Cuánto costará tu artículo?" label="Precio">
-                                <input onChange={handleChange} type="text" name="price" className="form-control" id="price" placeholder="$ MXN" defaultValue={article.price} />
+                                <input value={editedArticle.price} onChange={handleChange} type="text" name="price" className="form-control" id="price" placeholder="$ MXN"  />
                             </FormInput>
                         </div>
                         <div className="form-group centrar">

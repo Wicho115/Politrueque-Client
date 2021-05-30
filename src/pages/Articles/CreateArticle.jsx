@@ -13,7 +13,7 @@ const CreateArticle = () => {
 
     const [newArticle, setNewArticle] = useState({});
     const [action, setAction] = useState(1);
-    const [state, setState] = useState(1);
+    const [state, setState] = useState(true);
     const [category, setCategory] = useState(1);
     const [stock, setStock] = useState(1);
 
@@ -81,10 +81,12 @@ const CreateArticle = () => {
 
         const { name, description, price } = newArticle;
 
+        console.log(stock);
+
         //Comprobamos datos vacíos
-        if (!name) {
+        /*if (!name) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona un Nombre" />);
-        } else if (!stock) {
+        } else*/ if (!stock) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona una Cantidad" />);
         } else if (!description) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona una Descripción" />);
@@ -164,8 +166,8 @@ const CreateArticle = () => {
                             </FormInput>
                             <FormInput small="¿En qué estado se encuentra tu artículo?" label="Estado">
                                 <select onChange={handleState} className="custom-select" name="state" id="state">
-                                    <option value={1}>Nuevo</option>
-                                    <option value={2}>Usado</option>
+                                    <option value={true}>Nuevo</option>
+                                    <option value={false}>Usado</option>
                                 </select>
                             </FormInput>
                         </div>

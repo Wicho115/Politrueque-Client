@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import { gql, useQuery } from '@apollo/client';
 
 import Button from "../../components/Button";
+import Loading from "../../components/Loading";
 
 import masculino from '../../img/DefaultMA.png';
 import femenino from '../../img/DefaultFE.png';
@@ -56,7 +57,7 @@ const ReportPage = () => {
 
     const { data, loading, error } = useQuery(GET_REPORT, { variables: { id: report_id } })
 
-    if (loading) return (<h1>Loading</h1>);
+    if (loading) return (<Loading />);
     if(error) return <h1>{error.message}</h1>
     if (data) {
         const report_data = data.getReport;

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import 'react-toastify/dist/ReactToastify.css';
+import React from "react";
 
 import QuickNav from "../components/QuickNav";
 import CardContainer from "../components/cards/CardContainer";
@@ -11,7 +10,7 @@ const Principal = () => {
 
   return (
     <>
-      <QuickNav/>
+      <QuickNav />
       <article className="conenedor_terciario_1">
         <div className="navegación_secundaria_1">
           <nav className="nav nav-pills nav-fill">
@@ -86,7 +85,7 @@ const Principal = () => {
               <i className="fa fa-info-circle" />
             </Button>
           </Card>
-        </CardContainer>        
+        </CardContainer>
       </article>
     </>
   );
