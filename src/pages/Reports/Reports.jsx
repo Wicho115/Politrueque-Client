@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link, Redirect } from "react-router-dom";
+import { useQuery, gql } from '@apollo/client';
 
 import QuickNav from "../../components/QuickNav";
 import CardContainer from "../../components/cards/CardContainer";
@@ -10,21 +11,41 @@ import ListPageBeg from "../../components/ListPageBeg";
 import ReportsDis from "../../components/reports/ReportsDis";
 
 //importar json de articulo (DEV)
-import reportsJSON from "../../helpers/ReportsSample";
+//import reportsJSON from "../../helpers/ReportsSample";
 
-const useQuery = () => {
+const GET_REPORTS = gql`
+  query{
+    getReportsByType( type: "u" ){
+        _id,
+        author,
+        description,
+        title,
+        type
+    }
+}
+`
+
+const useQueryURL = () => {
     return new URLSearchParams(useLocation().search);
 };
 
 const Reports = () => {
-    const query = useQuery();
+    const query = useQueryURL();
     const type = query.get('t');
 
-    const [reports, setReports] = useState([]);
+    let reports = [];
 
-    useEffect(() => {
+    const { data, loading, error } = useQuery(GET_REPORTS);
+    if (data) {
+        const reports_data = data.getReportsByTypes;
+        reports = reports_data;
+    }
+
+    //const [reports, setReports] = useState([]);
+
+    /*useEffect(() => {
         setReports(reportsJSON);
-    }, []);
+    }, []);*/
 
     switch (type) {
         case 'user':
@@ -41,18 +62,27 @@ const Reports = () => {
                             <br />
                             {/* Mostrar los reportes de la categoría */}
 
+                            {(reports.length === 0) ?
+                                <div className="error">
+                                    <br />
+                                    <h3 className="reintentar">
+                                        Lo sentimos, No hay reportes disponibles por el momento, intenta recargar la página o vuelve más tarde.
+                                    </h3>
+                                    <br />
+                                </div> : null}
+
                             {reports.map((rpt) => {
                                 return (<ReportsDis
-                                            to="/report?t=u"
-                                            title={rpt.title}
-                                            author={rpt.author}
-                                            content={rpt.content}
-                                            createdAt={rpt.createdAt} />);
+                                    to="/report?t=u"
+                                    title={rpt.title}
+                                    author={rpt.author}
+                                    content={rpt.content}
+                                    createdAt={rpt.createdAt} />);
                             })}
 
                             {/*  */}
                             <br />
-                            <ListPageEnd to="/" category="reporte"/>
+                            <ListPageEnd to="/" category="reporte" />
                         </CardContainer>
                     </article>
                 </>
@@ -71,24 +101,33 @@ const Reports = () => {
                             <br />
                             {/* Mostrar los reportes de la categoría */}
 
+                            {(reports.length === 0) ?
+                                <div className="error">
+                                    <br />
+                                    <h3 className="reintentar">
+                                        Lo sentimos, No hay reportes disponibles por el momento, intenta recargar la página o vuelve más tarde.
+                                    </h3>
+                                    <br />
+                                </div> : null}
+
                             {reports.map((rpt) => {
                                 return (<ReportsDis
-                                            to="/report?t=a"
-                                            title={rpt.title}
-                                            author={rpt.author}
-                                            content={rpt.content}
-                                            createdAt={rpt.createdAt} />);
+                                    to="/report?t=a"
+                                    title={rpt.title}
+                                    author={rpt.author}
+                                    content={rpt.content}
+                                    createdAt={rpt.createdAt} />);
                             })}
 
                             {/*  */}
                             <br />
-                            <ListPageEnd to="/" category="reporte"/>
+                            <ListPageEnd to="/" category="reporte" />
                         </CardContainer>
                     </article>
                 </>
             );
         default:
-            return (<Redirect to="reports?t=user"/>);
+            return (<Redirect to="reports?t=user" />);
     }
 
 }

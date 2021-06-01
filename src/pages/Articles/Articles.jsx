@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link, Redirect } from "react-router-dom";
+import { useQuery, gql } from '@apollo/client';
 
 import QuickNav from "../../components/QuickNav";
 import CardContainer from "../../components/cards/CardContainer";
@@ -9,8 +10,37 @@ import ListPageEnd from "../../components/ListPageEnd";
 import ListPageBeg from "../../components/ListPageBeg";
 import ArticlesDis from "../../components/articles/ArticlesDis";
 
-//importar json de articulo (DEV)
-import articlesJSON from "../../helpers/ArticlesSample";
+const GET_ARTICLES = gql`
+  query{
+    getArticles( action_id: 1 ){
+        _id,
+        action_id,
+        available,
+        category,
+        description,
+        name,
+        propietary{
+        username
+        }
+    }
+}
+`
+
+/*const GET_ARTICLES = gql`
+  query getArticles($action_id: Int!){
+    getArticles( action_id: $action_id ){
+        _id,
+        action_id,
+        available,
+        category,
+        description,
+        name,
+        propietary{
+        username
+        }
+    }
+}
+`*/
 
 const useQueryURL = () => {
     return new URLSearchParams(useLocation().search);
@@ -18,16 +48,20 @@ const useQueryURL = () => {
 
 const Articles = () => {
     const query = useQueryURL();
-    const type = query.get('t');
+    const action_id = query.get('t');
 
-    const [articles, setArticles] = useState([]);
+    let articles = [];
 
-    useEffect(() => {
-        setArticles(articlesJSON);
-    }, []);
+    const { data, loading, error } = useQuery(GET_ARTICLES);
+    //const { data, loading, error } = useQuery(GET_ARTICLES, { variables: { action_id } });
+    if (data) {
+        const articles_data = data.getArticles;
+        console.log(articles_data);
+        articles = articles_data;
+    }
 
-    switch (type) {
-        case 'sell':
+    switch (action_id) {
+        case '1':
             return (
                 <>
                     <QuickNav />
@@ -42,25 +76,34 @@ const Articles = () => {
                             <br />
                             {/* Donde se imprime cada uno de los artículos */}
 
+                            {(articles.length === 0) ?
+                                <div className="error">
+                                    <br />
+                                    <h3 className="reintentar">
+                                        Lo sentimos, No hay artículos disponibles por el momento, intenta recargar la página o vuelve más tarde.
+                                    </h3>
+                                    <br />
+                                </div> : null}
+
                             {articles.map((art) => {
                                 return (<ArticlesDis
-                                            to="/article"
-                                            img={art.img}
-                                            alt={art.name}
-                                            name={art.name}
-                                            description={art.description}
-                                            propertary={art.propietary}
-                                            category={art.category} />);
+                                    to="/article?a="
+                                    img={art.img}
+                                    alt={art.name}
+                                    name={art.name}
+                                    description={art.description}
+                                    propertary={art.propietary.username}
+                                    category={art.category} />);
                             })}
 
                             {/* */}
                             <br />
-                            <ListPageEnd to="/article/new" category="artículo"/>
+                            <ListPageEnd to="/article/new" category="artículo" />
                         </CardContainer>
                     </article>
                 </>
             );
-        case 'exchange':
+        case '2':
             return (
                 <>
                     <QuickNav />
@@ -74,26 +117,35 @@ const Articles = () => {
                             <ListPageBeg to="/article/new" category="Artículo" type="Intercambio" />
                             <br />
                             {/* Donde se imprime cada uno de los artículos */}
-                            
+
+                            {(articles.length === 0) ?
+                                <div className="error">
+                                    <br />
+                                    <h3 className="reintentar">
+                                        Lo sentimos, No hay artículos disponibles por el momento, intenta recargar la página o vuelve más tarde.
+                                    </h3>
+                                    <br />
+                                </div> : null}
+
                             {articles.map((art) => {
                                 return (<ArticlesDis
-                                            to="/article"
-                                            img={art.img}
-                                            alt={art.name}
-                                            name={art.name}
-                                            description={art.description}
-                                            propertary={art.propietary}
-                                            category={art.category} />);
+                                    to="/article"
+                                    img={art.img}
+                                    alt={art.name}
+                                    name={art.name}
+                                    description={art.description}
+                                    propertary={art.propietary.username}
+                                    category={art.category} />);
                             })}
 
                             {/* */}
                             <br />
-                            <ListPageEnd to="/article/new" category="artículo"/>
+                            <ListPageEnd to="/article/new" category="artículo" />
                         </CardContainer>
                     </article>
                 </>
             );
-        case 'donate':
+        case '3':
             return (
                 <>
                     <QuickNav />
@@ -107,27 +159,36 @@ const Articles = () => {
                             <ListPageBeg to="/article/new" category="Artículo" type="Donativo" />
                             <br />
                             {/* Donde se imprime cada uno de los artículos */}
-                            
+
+                            {(articles.length === 0) ?
+                                <div className="error">
+                                    <br />
+                                    <h3 className="reintentar">
+                                        Lo sentimos, No hay artículos disponibles por el momento, intenta recargar la página o vuelve más tarde.
+                                    </h3>
+                                    <br />
+                                </div> : null}
+
                             {articles.map((art) => {
                                 return (<ArticlesDis
-                                            to="/article"
-                                            img={art.img}
-                                            alt={art.name}
-                                            name={art.name}
-                                            description={art.description}
-                                            propertary={art.propietary}
-                                            category={art.category} />);
+                                    to="/article"
+                                    img={art.img}
+                                    alt={art.name}
+                                    name={art.name}
+                                    description={art.description}
+                                    propertary={art.propietary.username}
+                                    category={art.category} />);
                             })}
 
                             {/* */}
                             <br />
-                            <ListPageEnd to="/article/new" category="artículo"/>
+                            <ListPageEnd to="/article/new" category="artículo" />
                         </CardContainer>
                     </article>
                 </>
             );
         default:
-            return (<Redirect to="articles?t=sell"/>);
+            return (<Redirect to="articles?t=1" />);
     }
 
 }

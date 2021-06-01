@@ -1,21 +1,92 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { gql, useQuery } from '@apollo/client';
 
 import Button from "../../components/Button";
 import ReportBtn from "../../components/inputs/ReportBtn";
+import Loading from "../../components/Loading";
 
-import ArticleJSON from "../../helpers/ArticleSample";
+//import ArticleJSON from "../../helpers/ArticleSample";
+
+const GET_ARTICLE = gql`
+    query getArticle($id : String!){
+      getArticle(id : $id){
+            _id,
+            action_id,
+            available,
+            category,
+            description,
+            exchange_product,
+            
+            name,
+            price,
+            propietary{
+                _id,
+                username 
+            },
+            state,
+            stock        
+        }
+    }
+
+`
+
+const useQueryURL = () => {
+  return new URLSearchParams(useLocation().search);
+};
 
 const ArticlePage = () => {
-  const [article, setArticle] = useState({});
+  const query = useQueryURL();
+  const article_id = query.get('a');
 
-  useEffect(() => {
+  let article = {};
+
+  //const [article, setArticle] = useState({});
+
+  /*useEffect(() => {
     setArticle(ArticleJSON);
-  }, []);
+  }, []);*/
+
+  const { data, loading, error } = useQuery(GET_ARTICLE, { variables: { id: article_id } })
+
+  if (loading) return (<Loading />);
+  if (error) return <h1>{error.message}</h1>
+  if (data) {
+    const article_data = data.getArticle;
+    article = article_data;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setArticle({ ...article, avaliable: false });
+    //setArticle({ ...article, avaliable: false });
   };
+
+  const handleCategory = (category) => {
+    switch (category) {
+        case 1:
+            return ("Matemáticas");
+        case 2:
+            return ("Química");
+        case 3:
+            return ("Física");
+        case 4:
+            return ("Inglés");
+        case 5:
+            return ("Historia");
+        case 6:
+            return ("Filosofía");
+        case 7:
+            return ("Dibujo Técnico");
+        case 8:
+            return ("Programación");
+        case 9:
+            return ("Máquinas con Sistemas Automatizados");
+        case 10:
+            return ("Sistemas Digitales");
+        default:
+            return ("Otro");
+    }
+}
 
   const handleChange = (e) => {
     console.log(e.target);
@@ -88,13 +159,13 @@ const ArticlePage = () => {
             className="list-group list-group-flush"
             style={{ marginTop: "0.5rem" }}
           >
-            <li className="list-group-item">Propietario: {article.propietary}</li>
+            <li className="list-group-item">Propietario: {article.propietary.username}</li>
             <li className="list-group-item">
               {handleArticle()}
             </li>
             <li className="list-group-item">Cantidad: {article.stock}</li>
             <li className="list-group-item">Estado: {article.state ? "Nuevo" : "Usado"}</li>
-            <li className="list-group-item">Categoría: {article.category}</li>
+            <li className="list-group-item">Categoría: {handleCategory(article.category)}</li>
           </ul>
           {/* [D] Si NO es el propietario */}
           <div className="card-body">
