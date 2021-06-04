@@ -1,28 +1,155 @@
-import React, { useEffect, useState } from "react";
-
+import React, { useState } from "react";
+import { useLocation, Link} from "react-router-dom";
 import Card from "../../components/cards/Card";
 import FormsContainer from "../../components/FormsContainer";
 import Comment from "../../components/articles/Comment";
 import Button from "../../components/Button";
 
-import articleJSON from "../../helpers/NonVerArticleSample";
+import { gql, useMutation, useQuery } from '@apollo/client'
+import auth from "../../auth/auth";
+
+const GET_NV_ARTICLE = gql`
+query getArticle($id : String!){
+  getNVArticle(id : $id){
+    _id,
+    name,
+    description,
+    action_id,
+    available,
+    price,
+    img,
+    exchange_product,
+    category,
+    stock,
+    Propietary{
+      _id,
+      username
+    },
+    Comments{
+      _id,
+      author_id,
+      content,
+      Author{
+        _id,
+        username
+      }
+    }
+  }
+}
+`
+
+const CREATE_COMMENT = gql`
+mutation createComment($payload : CreateCommentInput!){
+  createComment(payload : $payload){
+    _id,
+    content,
+    author_id,
+    content
+  }
+}`
+
+const DELETE_COMMENT = gql`
+mutation delete($id : String!){
+  deleteComment(id : $id){
+    _id,
+    content
+  }
+}`
+
+const VERIFY_ARTICLE = gql`
+mutation verify($id : String!){
+  confirmArticle(id : $id){
+    _id
+  }
+}
+`
+
+const DELETE_ARTICLE = gql`
+mutation deleteNVA($id : String!){
+    deleteNVArticle(id :$id){
+        _id 
+    }
+}
+`
+
+const useQueryURL = () => {
+    return new URLSearchParams(useLocation().search);
+};
 
 const VerifyArticlePage = () => {
-    const [article, setArticle] = useState({});
-    const [comments, setComments] = useState([]);
+    const query = useQueryURL();
+    const id = query.get('a');
+    const [comment, setComment] = useState('')
+    let article = {};
+    let comments = [];
 
-    useEffect(() => {
-        setArticle(articleJSON);
-        setComments(articleJSON.comments);
-    }, []);
+    const [createComment, { loading: mutationLoading }] = useMutation(CREATE_COMMENT, {
+        onCompleted:
+            () => console.log('se termino')
+    });
+
+    const [deleteComment, { loading: deleteLoading }] = useMutation(DELETE_COMMENT);
+    const [verifyArticle] = useMutation(VERIFY_ARTICLE, {
+        variables: { id },
+        onCompleted: (data) => {  
+            window.location.assign(`${window.location.origin}/article?a=${data.confirmArticle._id}`)    
+        }
+    })
+
+    const [deleteArticle] = useMutation(DELETE_ARTICLE, {variables : {id}, 
+        onCompleted : (data) =>{
+        if(!auth.privileges) {            
+            window.location.assign(`${window.location.origin}/articles?t=1`)
+        }else{
+            window.location.assign(`${window.location.origin}/articles/verify`)
+        }
+    }})
+
+    const { data, loading, error } = useQuery(GET_NV_ARTICLE, { variables: { id } })
+
+    if (loading) return <h1>Loading...</h1>
+    if (mutationLoading) return <h1>Loading...</h1>
+    if (deleteLoading) return <h1>Loading...</h1>
+    if (error) return <h1>{error.message}</h1>
+
+    if (data) {
+        article = data.getNVArticle;
+        comments = data.getNVArticle.Comments;
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        setArticle({ ...article, avaliable: false });
+        if (comment.length < 15) return;
+        createComment({
+            variables: {
+                payload:
+                    { content: comment, NVArticle_id: article._id }
+            },
+            refetchQueries: [{ query: GET_NV_ARTICLE, variables: { id } }],
+            awaitRefetchQueries: false
+        })
+
     };
 
+    const handleDeleteArticle = () =>{
+        deleteArticle();
+    }
+
+    const handleDelete = comment_id => {
+        deleteComment({
+            variables: { id: comment_id },
+            refetchQueries: [{ query: GET_NV_ARTICLE, variables: { id } }],
+            awaitRefetchQueries: false
+        })
+    };
+
+    const handleVerify = e => {
+        verifyArticle();
+    }
+
     const handleChange = (e) => {
-        console.log(e.target);
+
+        setComment(e.target.value);
     };
 
     const handleArticle = () => {
@@ -37,13 +164,12 @@ const VerifyArticlePage = () => {
                 return (`???`);
         }
     }
-
     return (
         <article className="conenedor_terciario_1">
             <div className="artículos_display">
                 <div className="card mb-3">
 
-                    {article.avaliable ? null : (
+                    {article.available ? null : (
                         <div className="marcado">
                             <p>&nbsp; Lo sentimos, este artículo ya no está disponible.</p>
                         </div>
@@ -55,10 +181,6 @@ const VerifyArticlePage = () => {
                         </div>
                         <div className="col-md-8">
                             <div className="card-body">
-                                <Button>
-                                    Editar &nbsp; <i className="fa fa-file-image-o" />
-                                </Button>
-                                <p />
                                 <h5 className="card-title">
                                     Nombre de artículo: {article.name}
                                 </h5>
@@ -68,25 +190,33 @@ const VerifyArticlePage = () => {
                             </div>
                         </div>
                     </div>
-
                     <div className="alinear-izquierda">
-                        <Button refer="/article/verify/edit?art=">
-                            Editar &nbsp; <i className="fa fa-pencil" />
-                        </Button>&nbsp;&nbsp;&nbsp;
-                        <Button refer="/article/delete?art=">
-                            Eliminar &nbsp; <i className="fa fa-trash" />
-                        </Button>&nbsp;&nbsp;&nbsp;
+                        {(auth.user._id != article.Propietary._id) ? null : <>
+                            <Button refer={`/article/verify/edit?art=${article._id}`}>
+                                Editar &nbsp; <i className="fa fa-pencil" />
+                            </Button>&nbsp;&nbsp;&nbsp;</>}
+                        {(() => {
+                            if (!auth.privileges?.canDeleteArticles) {
+                                if ((auth.user._id != article.Propietary._id)) return null;
+                            }
+                            return <>
+                            <button onClick={handleDeleteArticle}> Eliminar <i className="fa fa-trash" /> </button>
+                            </>
+                        })()}
                     </div>
 
                     <ul
                         className="list-group list-group-flush"
                         style={{ marginTop: "0.5rem" }}
                     >
-                        <li className="list-group-item">Propietario: {article.propietary}</li>
+                        <li className="list-group-item">Propietario: <Link to={`/user?u=${article.Propietary._id}`}>{article.Propietary.username}</Link></li>
                         <li className="list-group-item"> {handleArticle()} </li>
                         <li className="list-group-item">Cantidad: {article.stock}</li>
                         <li className="list-group-item">Estado: {article.state ? "Nuevo" : "Usado"}</li>
                         <li className="list-group-item">Categoría: {article.category}</li>
+                        {(!auth.privileges?.canAcceptArticles) ? null :
+                            <li className="list-group-item"><button onClick={handleVerify}>Verificar</button></li>}
+
                     </ul>
                 </div>
 
@@ -98,26 +228,30 @@ const VerifyArticlePage = () => {
                             <Card>
                                 {comments.map((com) => {
                                     return (<Comment
-                                        author={com.author}
+                                        key={com._id}
+                                        id={com._id}
+                                        author={com.Author}
                                         content={com.content}
-                                        createdAt={com.createdAt} />);
+                                        Click={handleDelete} />);
                                 })}
                             </Card>
 
+                            {(!auth.privileges) ? null :<>
                             <hr />
 
                             <p className="card-text">Agregar un Comentario</p>
 
                             <FormsContainer>
                                 <div style={{ margin: "1rem" }}>
-                                    <textarea type="text" name="usuario" className="form-control" id="exampleInputName" aria-describedby="emailHelp" rows={3} />
+                                    <textarea onChange={handleChange} type="text" name="usuario" className="form-control" id="exampleInputName" aria-describedby="emailHelp" rows={3} />
                                     <small id="emailHelp" className="form-text text-muted">Máximo 100 caracteres</small>
                                     <br />
                                     <div className="alinear-izquierda">
-                                        <button className="btn btn-primary" style={{ backgroundColor: 'rgb(128,0, 64)', borderColor: 'rgb(128,0, 64)' }}>Comentar</button>
+                                        <button onClick={handleSubmit} className="btn btn-primary" style={{ backgroundColor: 'rgb(128,0, 64)', borderColor: 'rgb(128,0, 64)' }}>Comentar</button>
                                     </div>
                                 </div>
-                            </FormsContainer>
+                            </FormsContainer></>
+                            }
 
                         </li>
                     </ul>

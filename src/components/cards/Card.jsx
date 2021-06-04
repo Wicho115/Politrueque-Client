@@ -5,7 +5,6 @@ const Card= ({title, subtitle, children}) =>{
         <div className="card">
             <div className="card-body">
             <h5 className="card-title">{title}</h5>
-            <hr />
             <h6 className="card-subtitle mb-2 text-muted">{subtitle}</h6>                                  
                     {children}
             </div>

@@ -1,6 +1,15 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import auth from '../auth/auth'
 
 const QuickNav = () => {
+
+  const [user, setUser] = useState(null)
+  const [privileges, setPrivileges] = useState(null);
+
+  useEffect(() => {
+    setUser(auth.user);
+    setPrivileges(auth.privileges);
+  }, [])
   return (
     <>      
       {/* Parte de la navegación Rápida */}
@@ -33,16 +42,18 @@ const QuickNav = () => {
                 <div className="card-header navegacion-rápida-título">
                   Cuenta
                 </div>
-                <div className="card-body navegacion-rápida-cuerpo">
-                  {/* En caso de no tener una sesión */}
-                  <p className="card-text navegacion-rápida-link">
+                <div className="card-body navegacion-rápida-cuerpo">                 
+                  {(!user) ? 
+                  (<>
+                    <p className="card-text navegacion-rápida-link">
                     <a href="/login">Iniciar sesión</a>
                   </p>
                   <p className="card-text navegacion-rápida-link">
                     <a href="/accountrequest">Registrarse</a>
                   </p>
-                  {/* */}
-                  {/* Teniendo una sesión */}
+                  </>)                  
+                  : 
+                  (<>
                   <p className="card-text navegacion-rápida-link">
                     <a href="/user">
                       Perfil
@@ -56,10 +67,11 @@ const QuickNav = () => {
                   <p className="card-text navegacion-rápida-link">
                     <a href="/logout">Cerrar Sesión</a>
                   </p>
-                  {/* */}
+                  </>)}                  
                 </div>
               </div>
               {/* Parte de los artículos solo con sesión */}
+              {(!user) ? null : 
               <div className="card mb-3 navegacion-rápida-contenedor">
                 <div className="card-header navegacion-rápida-título">
                   Artículos
@@ -78,22 +90,21 @@ const QuickNav = () => {
                     <a href="/article/new">Añadir un Articulo</a>
                   </p>
                 </div>
-              </div>
-              {/* */}
-              {/* Parte de solo admins, reportes */}
+              </div>}
+              {(!privileges) ? null :
               <div className="card mb-3 navegacion-rápida-contenedor">
-                <div className="card-header navegacion-rápida-título">
-                  Reportes
-                </div>
-                <div className="card-body navegacion-rápida-cuerpo">
-                  <p className="card-text navegacion-rápida-link">
-                    <a href="/reports?t=user">Usuarios</a>
-                  </p>
-                  <p className="card-text navegacion-rápida-link">
-                    <a href="/reports?t=articles">Artículos</a>
-                  </p>
-                </div>
+              <div className="card-header navegacion-rápida-título">
+                Reportes
               </div>
+              <div className="card-body navegacion-rápida-cuerpo">
+                <p className="card-text navegacion-rápida-link">
+                  <a href="/reports?t=usuario">Usuarios</a>
+                </p>
+                <p className="card-text navegacion-rápida-link">
+                  <a href="/reports?t=articulo">Artículos</a>
+                </p>
+              </div>
+            </div>}              
               {/* */}
             </div>
           </div>

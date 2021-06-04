@@ -24,12 +24,17 @@ const handleCategory = (category) => {
   }
 }
 
-const Article = ({data, user}) =>{
+const Article = ({data, user, number}) =>{
 
-    const {title, img, description, category, _id} = data;
+    const {title, img, description, category, _id, available} = data;
+
+    const handleLink = () =>{
+      if(number == 1) return `/article?a=${_id}`
+      if(number == 2) return `/article/verify?a=${_id}`
+    }
 
     return(
-        <Link to={`/article?a=${_id}`} className="enlace-artículo">
+        <Link to={handleLink()} className="enlace-artículo">
           <div className="card mb-3 enlace">
             <div className="row no-gutters">
               <div className="col-ml-4">

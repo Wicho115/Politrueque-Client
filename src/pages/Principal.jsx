@@ -5,6 +5,8 @@ import CardContainer from "../components/cards/CardContainer";
 import Card from "../components/cards/Card";
 import Button from "../components/Button";
 
+import auth from '../auth/auth'
+
 
 const Principal = () => {
 
@@ -30,42 +32,43 @@ const Principal = () => {
             </p>
           </Card>
           <br />
-          <Card title="Cuentas de Politrueque">
-            <p className="card-text">
-              Para poder hacer uso completo de Politrueque, deberás tener una
-              cuenta, si ya cuentas con una, inicia sesión. Si no cuentas con
-              una puedes solicitarla de una manera muy rápida.
+          {(!auth.user) ?
+            <Card title="Cuentas de Politrueque">
+              <p className="card-text">
+                Para poder hacer uso completo de Politrueque, deberás tener una
+                cuenta, si ya cuentas con una, inicia sesión. Si no cuentas con
+                una puedes solicitarla de una manera muy rápida.
+          </p>
+              <Button refer="/login">
+                <i className="fa fa-sign-in" />
+            &nbsp;Iniciar Sesión
+          </Button>
+
+              <a
+                href="https://forms.gle/LKFd8gMFGCC3tt2N7"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-primary"
+                style={{
+                  backgroundColor: "rgb(255,255,255)",
+                  borderColor: "rgb(128,0, 64)",
+                  color: "rgb(128,0, 64)",
+                }} >
+                <i className="fa fa-envelope" />
+              &nbsp; ¡Enviar mi Solicitud!
+          </a>
+            </Card> : <Card title="Artículos Disponibles">
+              <p className="card-text">
+                Podrás encontrar diversos artículos en las secciones de Venta,
+                Intercambio y Donativo. Puedes acceder a ellas mediente la barra
+                de navegación o haciendo clic en el siguiente botón.
             </p>
-            <Button refer="/login">
-              <i className="fa fa-sign-in" />
-              &nbsp;Iniciar Sesión
-            </Button>
-            {" "}
-            <a
-              href="https://forms.gle/LKFd8gMFGCC3tt2N7"
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-primary"
-              style={{
-                backgroundColor: "rgb(255,255,255)",
-                borderColor: "rgb(128,0, 64)",
-                color: "rgb(128,0, 64)",
-              }} >
-              <i className="fa fa-envelope" />
-                &nbsp; ¡Enviar mi Solicitud!
-            </a>
-          </Card>
-          <Card title="Artículos Disponibles">
-            <p className="card-text">
-              Podrás encontrar diversos artículos en las secciones de Venta,
-              Intercambio y Donativo. Puedes acceder a ellas mediente la barra
-              de navegación o haciendo clic en el siguiente botón.
-            </p>
-            <Button refer="/articles?t=sell">
-              <i className="fa fa-shopping-bag" />
+              <Button refer="/articles?t=1">
+                <i className="fa fa-shopping-bag" />
               &nbsp;Ver los Artículos
             </Button>
-          </Card>
+            </Card>}
+
           <br />
           <Card title="Términos y Condiciones" subtitle="Recuerda">
             <p className="card-text">
@@ -81,7 +84,7 @@ const Principal = () => {
               Politrueque, haz clic en el siguiente botón:
             </p>
             <Button refer="/terms">
-              Ver términos y Condiciones &nbsp;{" "}
+              Ver términos y Condiciones &nbsp;
               <i className="fa fa-info-circle" />
             </Button>
           </Card>

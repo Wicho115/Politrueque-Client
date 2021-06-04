@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Redirect,useLocation } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Auth from '../../auth/auth'
@@ -8,15 +8,8 @@ import QuickNav from "../../components/QuickNav";
 import CustomToast from "../../components/CustomToast";
 import auth from "../../auth/auth";
 
-const useQueryURL = () => {
-    return new URLSearchParams(useLocation().search);
-};
 
 const Login = () => {
-
-    const query = useQueryURL();
-    const a = query.get('a');
-    console.log(a);
 
     const [loginUser, setLoginUser] = useState({});
     const [check, setCheck] = useState(false);

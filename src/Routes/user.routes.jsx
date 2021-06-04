@@ -17,6 +17,7 @@ import Support from "../pages/Index/Support";
 import Auth from '../auth/auth';
 import Logout from '../pages/Index/Logout';
 import Login from "../pages/Index/Login";
+import VerifyArticlePage from "../pages/Articles/VerifyArticlePage";
 
 const userRoutes = (
   <Switch>
@@ -79,6 +80,12 @@ const userRoutes = (
     <Route exact strict path="/article/edit">
       <Container>
         <EditPublishedArticle />        
+      </Container>
+    </Route>
+
+    <Route exact strict path="/article/verify">
+      <Container>
+        <VerifyArticlePage />
       </Container>
     </Route>
 

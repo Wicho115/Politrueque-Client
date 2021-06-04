@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,13 +9,34 @@ import DescriptionInput from "../../components/inputs/DescriptionInput";
 import FileInput from "../../components/inputs/FileInput";
 import CustomToast from "../../components/CustomToast";
 
+import {gql, useMutation} from '@apollo/client'
+import { Redirect } from "react-router";
+import auth from "../../auth/auth";
+
+const CREATE_ARTICLE = gql`
+mutation CArticle($payload : CreateArticleInput!, $action : ActionInput!){
+  createArticle(action : $action, payload : $payload){
+    _id
+  }
+}`
+
 const CreateArticle = () => {
 
     const [newArticle, setNewArticle] = useState({});
-    const [action, setAction] = useState(1);
+    const [action_id, setAction] = useState(1);
     const [state, setState] = useState(true);
     const [category, setCategory] = useState(1);
     const [stock, setStock] = useState(1);
+    const [img, setImg] = useState(null);      
+
+    const [createArticle] = useMutation(CREATE_ARTICLE, {onCompleted : (data) =>{  
+        if(auth.privileges){
+            window.location.assign(`${window.location.origin}/article/verify?a=${data.createArticle._id}`)
+        }else{
+            window.location.assign(`${window.location.origin}/user`)
+        }
+        
+    } })
 
     const priceRegex = /^[1-9]([0-9])*(\.(\d){1,2})?$/;
 
@@ -23,16 +44,20 @@ const CreateArticle = () => {
         setNewArticle({ ...newArticle, [e.target.name]: e.target.value });
     };
 
-    const handleState = (e) => {
+    const handleFileChange = files =>{
+        setImg(files[0]);
+    }
+
+    const handleState = (e) => {    
         setState(e.target.value);
     }
 
     const handleCategory = (e) => {
-        setCategory(e.target.value);
+        setCategory(parseInt(e.target.value));
     }
 
     const handleStock = (e) => {
-        setStock(e.target.value);
+        setStock(parseInt(e.target.value));
     }
 
     const handlePrice = (e) => {
@@ -81,12 +106,10 @@ const CreateArticle = () => {
 
         const { name, description, price } = newArticle;
 
-        console.log(stock);
-
         //Comprobamos datos vacíos
-        /*if (!name) {
+        if (!name) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona un Nombre" />);
-        } else*/ if (!stock) {
+        } else if (!stock) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona una Cantidad" />);
         } else if (!description) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona una Descripción" />);
@@ -94,22 +117,29 @@ const CreateArticle = () => {
             toast.error(<CustomToast type="error" message="Por favor, proporciona una Categoría" />);
         } else if (!state) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona un Estado" />);
-        } else if (!action) {
+        } else if (!action_id) {
             toast.error(<CustomToast type="error" message="Por favor, proporciona una Acción" />);
-        } else if (!price && action != 3) {
-            if (action === 1) {
+        } else if (!price && action_id != 3) {
+            if (action_id === 1) {
                 toast.error(<CustomToast type="error" message="Por favor, proporciona un Precio" />)
-            } if (action === 2) {
+            } if (action_id === 2) {
                 toast.error(<CustomToast type="error" message="Por favor, proporciona un Artículo" />)
             }
         } //Comprobamos cámpos válidos
         else {
-            if (action === 1 &&!priceRegex.test(price)) {
+            if (action_id === 1 &&!priceRegex.test(price)) {
                 toast.error(<CustomToast type="error" message="Por favor, proporciona un Precio válido" />)
             } else {
                 toast.success(<CustomToast type="success" message="Campos llenos" />);
-                //const payload = { ...newArticle, action_id: action }
-                //console.log(payload);
+                let action = {action_id, exchange_article : "", price : 0};
+                let payload = { ...newArticle, stock, category, state : (state === "true"), img };
+                delete payload.price;
+                if(action_id === 1){
+                    action.price=parseInt(price);
+                }else if(action_id === 2){
+                    action.exchange_article = price;
+                }   
+                createArticle({variables : {action, payload}, awaitRefetchQueries : true});
             }
             
         }
@@ -121,7 +151,6 @@ const CreateArticle = () => {
         <>
             {/* Contenedor para agregar un nuevo artículo */}
             <div className="conetnedor_secundario_2">
-                <ToastContainer />
                 <SecondNav>
                     <a className="nav-link">Agregar un Nuevo Artículo</a>
                 </SecondNav>
@@ -129,7 +158,7 @@ const CreateArticle = () => {
                     <form onSubmit={handleSub}>
                         {/* Imágen del Artículo */}
                         <div className="centrar">
-                            <FileInput instuctions="Por favor, seleccione la imágen del artículo:" defaultImg="none" imgFormat="new-article" />
+                            <FileInput instuctions="Por favor, seleccione la imágen del artículo:" defaultImg="none" imgFormat="new-article" upperChange={handleFileChange} />
                         </div>
                         <hr />
                         {/* Aqui van los datos generales que se piden para un artículo */}
@@ -173,7 +202,7 @@ const CreateArticle = () => {
                         </div>
                         <div className="columna_doble_fomulario">
                             <FormInput small="¿Qué deseas hacer con tu artículo?" label="Acción">
-                                <select value={action} onChange={handlePrice} className="custom-select" name="action_id" id="action_id">
+                                <select value={action_id} onChange={handlePrice} className="custom-select" name="action_id" id="action_id">
                                     <option value={1}>Vender</option>
                                     <option value={2}>Intercambiar</option>
                                     <option value={3}>Donar</option>

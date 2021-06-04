@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Redirect, useLocation } from "react-router-dom";
 import Card from "../../components/cards/Card";
 import Article from "../../components/articles/Article";
 import Section from "../../components/Section";
 import Report from "../../components/reports/Report";
 import UserCard from "../../components/cards/UserCard";
 import Quicknav from "../../components/QuickNav";
-import {useQuery, gql} from '@apollo/client'
+import { useQuery, gql } from '@apollo/client'
+import auth from '../../auth/auth'
 
-
-const GET_ACTUAL_USER = gql`
-  query{
-    bye{
+const GET_USER = gql`
+query getU($_id : String!){
+  getUserByID(_id : $_id){
       _id,
       email,
       img,
@@ -20,6 +20,7 @@ const GET_ACTUAL_USER = gql`
       Articles{
         _id,
         name,
+        img,
         description,
         action_id,
         category
@@ -29,31 +30,56 @@ const GET_ACTUAL_USER = gql`
         title,
         description,
         ref_id    
+      },
+     	NonAvailableArticles{
+        _id,
+        name,
+        description,
+        action_id,
+        img,
+        category
+      },
+      NVArticles{
+        _id,
+        name,
+        description,
+        action_id,
+        img,
+        category
       }
     }
-  }
+}
 `
-
 const useQueryURL = () => {
   return new URLSearchParams(useLocation().search);
 };
 
 const User = () => {
-  const query = useQueryURL();  
+  const query = useQueryURL();
+  let _id = query.get('u');
 
   let user = {};
   let articles = [];
   let reports = [];
+  let NAarticles = [];
+  let NVArticles = [];
 
+  if (!_id) _id = auth.user._id
+  const { data, loading, error } = useQuery(GET_USER, { variables: { _id } })
 
-  const {data, loading, error} = useQuery(GET_ACTUAL_USER);
-  if(data){
-    const user_data = data.bye;
-    articles = user_data.Articles;    
-    reports = user_data.Reports;    
-    user = {...user_data, Reports : null, Articles : null};    
-    console.log(articles);
-  }  
+  if (error) return (<Redirect to="/error" />)
+
+  if (!data) {
+    return <h1>No hay</h1>
+  }
+
+  const user_data = data.getUserByID;
+  articles = user_data.Articles;
+  reports = user_data.Reports;
+  NAarticles = user_data.NonAvailableArticles;
+  NVArticles = user_data.NVArticles;
+  user = { ...user_data, Reports: null, Articles: null, NonAvailableArticles: null };
+  console.log(articles);
 
   return (
     <>
@@ -61,7 +87,6 @@ const User = () => {
       <article className="conenedor_terciario_1">
         <div className="artículos_display">
           <Section>Datos del usuario</Section>
-          {/* Datos generales del Usuario */}
           <UserCard user={user} />
 
           <Section>Contacto de {user.username}</Section>
@@ -71,28 +96,33 @@ const User = () => {
           </Card>
 
           <br />
-
-          {/* [A] Si tiene artículos */}
           {(articles.length > 0) ? <Section>Artículos de {user.username}</Section> : null}
-          {/* [A] Termina If */}
 
-          {/* Ponemos todos los artículos del usuario */}
-          {articles.map((art) =>{
-              return(<Article data={art} user={user.username} />);
-          })}          
-          {/* */}
-
-          {/* Sección de Reportes que solo los Admins tienen */}
-          {/* [B] Si hay reportes */}
-          {(reports.length > 0 ? <Section>Reportes de {user.username}</Section> : null)}
-          {/* [B] Termina If */}
-          {/* A partir de aqui van los reportes del Admin */}
-          {/* Los reportes del usuario */}
-
-          {reports.map((rep, index, arr) =>{
-              return (<><Report report={rep} user={user.username}/>{(index < (arr.length-1)) ? <br/> : null}</>);
+          {articles.map((art) => {
+            return (<Article key={art._id} data={art} user={user.username} number={1} />);
           })}
-          {/* */}
+
+          {((reports.length > 0 && auth.privileges) ? <Section>Reportes de {user.username}</Section> : null)}
+
+          {reports.map((rep, index, arr) => {
+            if (auth.privileges) return (<Report key={rep._id} report={rep} user={user.username} />);
+          })}
+          <br />
+
+          {(NAarticles.length > 0) ? <Section>Artículos Vendidos de {user.username}</Section> : null}
+
+          {NAarticles.map((art) => {
+            return (<Article key={art._id} data={art} user={user.username} number={1}/>)
+          })}
+
+          <br />
+
+          {(NVArticles.length > 0 && (auth.user._id == user._id)) ? <Section>Artículos no verificados de {user.username}</Section> : null}
+
+          {NVArticles.map((art) => {
+            if((auth.user._id == user._id))
+            return (<Article key={art._id} data={art} user={user.username} number={2}/>)
+          })}
         </div>
       </article>
     </>

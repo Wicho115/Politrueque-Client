@@ -1,16 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import auth from "../../auth/auth";
 
 import Card from "../cards/Card";
 
-const Comment = ({ author, content, createdAt }) => {
+const Comment = ({ author, content, Click, id }) => {
+
+    const handleClick = (e) =>{
+        Click(id);
+    }
 
     return (
         <>
             <Card>
                 <p className="card-text">{content}</p>
-                <hr />
+                <hr/>
                 <div style={{  textAlign: "right" }}>
-                    <small className="text-muted">Comentado el {createdAt} por {author}</small>
+                    <small className="text-muted">Comentado por <Link to={`/user?u=${author._id}`}>{author.username}</Link></small>
+                    {(author._id != auth.user._id) ? null : <button onClick={handleClick}> Eliminar</button>}
+                    
                 </div>
             </Card>
             <br />

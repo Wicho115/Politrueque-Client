@@ -7,17 +7,36 @@ import SecondNav from "../../components/SecondNav";
 import ArticleToVer from "../../components/articles/ArticleToVer";
 import QuickNav from "../../components/QuickNav";
 import ListPageEnd from "../../components/ListPageEnd";
+import {gql, useQuery} from '@apollo/client'
 
 //importar json de articulo (DEV)
-import articlesJSON from "../../helpers/ArticlesSample";
+//import articlesJSON from "../../helpers/ArticlesSample";
+
+const GET_VERIFY_ARTICLES = gql`
+    query{
+    getNonVerifiedArticles{
+        _id,
+        name,
+        description,
+        img,
+        category,
+        Propietary{
+        username
+        }
+    }
+    }
+`
 
 const Articles = () => {
 
-    const [articles, setArticles] = useState([]);
+    let articles = [];
 
-    useEffect(() => {
-        setArticles(articlesJSON);
-    }, []);
+    const {data, loading, error} = useQuery(GET_VERIFY_ARTICLES);
+
+    if(data){
+        articles = data.getNonVerifiedArticles;
+        console.log(data.getNonVerifiedArticles)
+    }
 
     return (
         <>
@@ -31,12 +50,13 @@ const Articles = () => {
 
                     {articles.map((art) => {
                         return (<ArticleToVer
-                            to="/article/verify"
+                            key={art._id}
+                            to={`/article/verify?a=${art._id}`}
                             img={art.img}
                             alt={art.name}
                             name={art.name}
                             description={art.description}
-                            propertary={art.propietary}
+                            propertary={art.Propietary.username}
                             category={art.category} />);
                     })}
 

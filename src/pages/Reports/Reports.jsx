@@ -14,15 +14,17 @@ import ReportsDis from "../../components/reports/ReportsDis";
 //import reportsJSON from "../../helpers/ReportsSample";
 
 const GET_REPORTS = gql`
-  query{
-    getReportsByType( type: "u" ){
+  query getReports($type : String!){
+    getReportsByType(type : $type){
         _id,
-        author,
         description,
         title,
         type
+        author{
+         username
+        }
     }
-}
+  }
 `
 
 const useQueryURL = () => {
@@ -35,10 +37,11 @@ const Reports = () => {
 
     let reports = [];
 
-    const { data, loading, error } = useQuery(GET_REPORTS);
+    const { data, loading, error } = useQuery(GET_REPORTS, {variables : {type}});
     if (data) {
-        const reports_data = data.getReportsByTypes;
-        reports = reports_data;
+        
+        reports = data.getReportsByType;        
+        console.log(reports);
     }
 
     //const [reports, setReports] = useState([]);
@@ -48,78 +51,74 @@ const Reports = () => {
     }, []);*/
 
     switch (type) {
-        case 'user':
+        case 'usuario':
             return (
                 <>
                     <QuickNav />
                     <article className="conenedor_terciario_1">
                         <SecondNav>
-                            <Link className="nav-link active" to="/reports?t=user" style={{ backgroundColor: 'rgb(128,0,64)', borderRadius: '7.5px' }}>Reportes de Usuarios</Link>
-                            <Link className="nav-link" to="/reports?t=article">Reportes de Artículos</Link>
+                            <Link className="nav-link active" to="/reports?t=usuario" style={{ backgroundColor: 'rgb(128,0,64)', borderRadius: '7.5px' }}>Reportes de Usuarios</Link>
+                            <Link className="nav-link" to="/reports?t=articulo">Reportes de Artículos</Link>
                         </SecondNav>
                         <CardContainer>
                             <ListPageBeg to="/" category="Reporte" type="Usuario" />
                             <br />
                             {/* Mostrar los reportes de la categoría */}
 
-                            {(reports.length === 0) ?
+                            {(!reports) ?
                                 <div className="error">
                                     <br />
                                     <h3 className="reintentar">
                                         Lo sentimos, No hay reportes disponibles por el momento, intenta recargar la página o vuelve más tarde.
                                     </h3>
                                     <br />
-                                </div> : null}
-
-                            {reports.map((rpt) => {
-                                return (<ReportsDis
-                                    to="/report?t=u"
-                                    title={rpt.title}
-                                    author={rpt.author}
-                                    content={rpt.content}
-                                    createdAt={rpt.createdAt} />);
-                            })}
-
-                            {/*  */}
+                                </div> : 
+                                    reports.map((rpt) => {
+                                        return (<ReportsDis
+                                            key= {rpt._id}
+                                            to={`/report?r=${rpt._id}`}
+                                            title={rpt.title}
+                                            author={rpt.author.username}
+                                            content={rpt.content}/>);
+                                    })
+                                }                                                                                                         
                             <br />
                             <ListPageEnd to="/" category="reporte" />
                         </CardContainer>
                     </article>
                 </>
             );
-        case 'article':
+        case 'articulo':
             return (
                 <>
                     <QuickNav />
                     <article className="conenedor_terciario_1">
                         <SecondNav>
-                            <Link className="nav-link" to="/reports?t=user">Reportes de Usuarios</Link>
-                            <Link className="nav-link active" to="/reports?t=article" style={{ backgroundColor: 'rgb(128,0,64)', borderRadius: '7.5px' }}>Reportes de Artículos</Link>
+                            <Link className="nav-link" to="/reports?t=usuario">Reportes de Usuarios</Link>
+                            <Link className="nav-link active" to="/reports?t=articulo" style={{ backgroundColor: 'rgb(128,0,64)', borderRadius: '7.5px' }}>Reportes de Artículos</Link>
                         </SecondNav>
                         <CardContainer>
                             <ListPageBeg to="/" category="Reporte" type="Artículo" />
                             <br />
                             {/* Mostrar los reportes de la categoría */}
 
-                            {(reports.length === 0) ?
+                            {(!reports) ?
                                 <div className="error">
                                     <br />
                                     <h3 className="reintentar">
                                         Lo sentimos, No hay reportes disponibles por el momento, intenta recargar la página o vuelve más tarde.
                                     </h3>
                                     <br />
-                                </div> : null}
-
-                            {reports.map((rpt) => {
-                                return (<ReportsDis
-                                    to="/report?t=a"
-                                    title={rpt.title}
-                                    author={rpt.author}
-                                    content={rpt.content}
-                                    createdAt={rpt.createdAt} />);
-                            })}
-
-                            {/*  */}
+                                </div> : 
+                                reports.map((rpt) => {
+                                    return (<ReportsDis
+                                        key= {rpt._id}
+                                        to={`/report?r=${rpt._id}`}
+                                        title={rpt.title}
+                                        author={rpt.author.username}
+                                        content={rpt.content}/>);
+                                })
+                                }
                             <br />
                             <ListPageEnd to="/" category="reporte" />
                         </CardContainer>
@@ -127,7 +126,13 @@ const Reports = () => {
                 </>
             );
         default:
-            return (<Redirect to="reports?t=user" />);
+            return ( <div className="error">
+            <br />
+            <h3 className="reintentar">
+                Lo sentimos, No hay reportes disponibles por el momento, intenta recargar la página o vuelve más tarde.
+            </h3>
+            <br />
+        </div>);
     }
 
 }

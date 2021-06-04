@@ -6,6 +6,8 @@ import ReportBtn from "../../components/inputs/ReportBtn";
 import masculino from '../../img/DefaultMA.png';
 import femenino from '../../img/DefaultFE.png';
 
+import auth from '../../auth/auth';
+
 const UserCard = ({ user }) => {
 
   const getImg = () =>{
@@ -35,13 +37,15 @@ const UserCard = ({ user }) => {
             <p className="card-text">
               <small className="text-muted">Escuela: CECYT no.9 JDB</small>
             </p>
-            {/* Si es el perfil del usuario */}
-            <Button refer="/user/edit">
+            {(user._id != auth.user._id) ? null : <Button refer="/user/edit">
               Editar Foto de Perfil &nbsp; <i className="fa fa-file-image-o" />
-            </Button>
+            </Button>}
+            
             <div >
-              {/* NO se muestra si el perfil es del usuario */}
-              <ReportBtn refer="/report/new?t=u" userData={user} />
+            {(user._id != auth.user._id) ? (<>{(() =>{
+                if(auth.privileges?.canReportUsers){return <ReportBtn refer={`/report/new?t=u&id=${user._id}`} userData={user} />}
+              })()}</>) : null}
+
             </div>
           </div>
 

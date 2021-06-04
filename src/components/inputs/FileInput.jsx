@@ -19,7 +19,6 @@ const FileInput = ({ instuctions, defaultImg, imgFormat, upperChange }) => {
 
     const handleError = (err, file) => {
         console.log("Archivo incompatible");
-        console.log(err.code);
         console.log(err.message);
     }
   

@@ -18,7 +18,7 @@ class Auth{
         console.log('Acá espero');
         const json = await response.json();            
         console.log(json);
-        localStorage.setItem('token', json.access_token)
+        if(!json.error) localStorage.setItem('token', json.access_token)
         return json;
     }
 
@@ -40,10 +40,10 @@ class Auth{
     }
 
     async validate(){
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token');       
         if(!token){            
             return 0;
-        }
+        }        
         const response = await fetch(`http://26.185.54.28:5000/auth/validate?token=${token}`,{
             headers : {
                 'Authorization' : `Bearer ${token}`

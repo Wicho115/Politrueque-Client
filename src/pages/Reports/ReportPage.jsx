@@ -8,6 +8,7 @@ import Loading from "../../components/Loading";
 
 import masculino from '../../img/DefaultMA.png';
 import femenino from '../../img/DefaultFE.png';
+import auth from "../../auth/auth";
 
 const GET_REPORT = gql`
     query getReport($id : String!){
@@ -26,13 +27,15 @@ const GET_REPORT = gql`
                 _id,
                 username,
                 email,
-                gender
+                gender,
+                img
             },
             Article_ref{
                 _id,
                 name,
                 description,
                 category,
+                img
             propietary{
                 username
             }
@@ -65,6 +68,8 @@ const ReportPage = () => {
         article = report_data.Article_ref;
         user = report_data.User_ref;
         report = report_data;
+        console.log(report.author._id);
+        console.log(auth.user._id);
     }
 
     const handleUserImage = () =>{
@@ -84,27 +89,24 @@ const ReportPage = () => {
                         <div className="card mb-3" style={{ maxWidth: 1000 }}>
                             <div className="card-body">
                                 <h5 className="card-title">{report.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Autor: {report.author.username}</h6>
-                                <h6 className="card-subtitle mb-2 text-muted">Creado el {report.createdAt}</h6>
+                                <h6 className="card-subtitle mb-2 text-muted">Autor: {report.author.username}</h6>                                
                             </div>
-                            {/* [A] Si es el autor */}
-                            {/* Botones que solo salen si el artículo es del usuario */}
-                            <div className="card-body" style={{ textAlign: 'right' }}>
+                           
+                            {(auth.user._id != report.author._id) ? null : <div className="card-body" style={{ textAlign: 'right' }}>
                                 <Button refer="/report/edit?art=">
                                     Editar &nbsp; <i className="fa fa-pencil" />
                                 </Button>
                                 <Button refer="/report/delete?art=">
                                     Eliminar &nbsp; <i className="fa fa-trash" />
                                 </Button>
-                            </div>
-                            {/* [A] Termina If */}
+                            </div>}                                                        
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item">
                                     {report.description}
                                 </li>
                             </ul>
                             <div className="card-body">
-                                <Button refer="/user?u=" fill={true}>
+                                <Button refer={`/user?u=${report.author._id}`} fill={true}>
                                     Contactar al Autor
                                 </Button>
                             </div>
@@ -142,27 +144,23 @@ const ReportPage = () => {
                         <div className="card mb-3" style={{ maxWidth: 1000 }}>
                             <div className="card-body">
                                 <h5 className="card-title">{report.title}</h5>
-                                <h6 className="card-subtitle mb-2 text-muted">Autor: {report.author.username}</h6>
-                                <h6 className="card-subtitle mb-2 text-muted">Creado el {(report.createdAt) ? 'Si' : 'No'}</h6>
+                                <h6 className="card-subtitle mb-2 text-muted">Autor: {report.author.username}</h6>                               
                             </div>
-                            {/* [A] Si es el autor */}
-                            {/* Botones que solo salen si el artículo es del usuario */}
-                            <div className="card-body" style={{ textAlign: 'right' }}>
+                            {(auth.user._id != report.author._id) ? null : <div className="card-body" style={{ textAlign: 'right' }}>
                                 <Button refer="/report/edit?art=">
                                     Editar &nbsp; <i className="fa fa-pencil" />
                                 </Button>
                                 <Button refer="/report/delete?art=">
                                     Eliminar &nbsp; <i className="fa fa-trash" />
                                 </Button>
-                            </div>
-                            {/* [A] Termina If */}
+                            </div>} 
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item">
                                     {report.description}
                                 </li>
                             </ul>
                             <div className="card-body">
-                                <Button refer="/user?u=" fill={true}>
+                                <Button refer={`/user?u=${report.author._id}`} fill={true}>
                                     Contactar al Autor
                                 </Button>
                             </div>

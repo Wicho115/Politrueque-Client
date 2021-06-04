@@ -11,36 +11,21 @@ import ListPageBeg from "../../components/ListPageBeg";
 import ArticlesDis from "../../components/articles/ArticlesDis";
 
 const GET_ARTICLES = gql`
-  query{
-    getArticles( action_id: 1 ){
+  query Articles($id : Int!){
+    getArticles(action_id : $id){
         _id,
         action_id,
-        available,
         category,
-        description,
         name,
+        img,
+        description,
+        price,
         propietary{
-        username
+            username
         }
     }
 }
 `
-
-/*const GET_ARTICLES = gql`
-  query getArticles($action_id: Int!){
-    getArticles( action_id: $action_id ){
-        _id,
-        action_id,
-        available,
-        category,
-        description,
-        name,
-        propietary{
-        username
-        }
-    }
-}
-`*/
 
 const useQueryURL = () => {
     return new URLSearchParams(useLocation().search);
@@ -49,14 +34,13 @@ const useQueryURL = () => {
 const Articles = () => {
     const query = useQueryURL();
     const action_id = query.get('t');
+    const id = parseInt(action_id);
 
     let articles = [];
 
-    const { data, loading, error } = useQuery(GET_ARTICLES);
-    //const { data, loading, error } = useQuery(GET_ARTICLES, { variables: { action_id } });
+    const { data, loading, error } = useQuery(GET_ARTICLES, { variables: { id } });
     if (data) {
-        const articles_data = data.getArticles;
-        console.log(articles_data);
+        const articles_data = data.getArticles;        
         articles = articles_data;
     }
 
@@ -67,9 +51,9 @@ const Articles = () => {
                     <QuickNav />
                     <article className="conenedor_terciario_1">
                         <SecondNav>
-                            <Link className="nav-link active" to="/articles?t=sell" style={{ backgroundColor: 'rgb(128,0,64)', borderRadius: '7.5px' }}>Artículos en Venta</Link>
-                            <Link className="nav-link" to="/articles?t=exchange">Artículos de Intercambio</Link>
-                            <Link className="nav-link" to="/articles?t=donate">Artículos de Donativo</Link>
+                            <Link className="nav-link active" to="/articles?t=1" style={{ backgroundColor: 'rgb(128,0,64)', borderRadius: '7.5px' }}>Artículos en Venta</Link>
+                            <Link className="nav-link" to="/articles?t=2">Artículos de Intercambio</Link>
+                            <Link className="nav-link" to="/articles?t=3">Artículos de Donativo</Link>
                         </SecondNav>
                         <CardContainer>
                             <ListPageBeg to="/article/new" category="Artículo" type="Venta" />
@@ -87,7 +71,8 @@ const Articles = () => {
 
                             {articles.map((art) => {
                                 return (<ArticlesDis
-                                    to="/article?a="
+                                    key = {art._id}
+                                    to={`/article?a=${art._id}`}
                                     img={art.img}
                                     alt={art.name}
                                     name={art.name}
@@ -109,9 +94,9 @@ const Articles = () => {
                     <QuickNav />
                     <article className="conenedor_terciario_1">
                         <SecondNav>
-                            <Link className="nav-link" to="/articles?t=sell">Artículos en Venta</Link>
-                            <Link className="nav-link active" to="/articles?t=exchange" style={{ backgroundColor: 'rgb(128,0,64)', borderRadius: '7.5px' }}>Artículos de Intercambio</Link>
-                            <Link className="nav-link" to="/articles?t=donate">Artículos de Donativo</Link>
+                            <Link className="nav-link" to="/articles?t=1">Artículos en Venta</Link>
+                            <Link className="nav-link active" to="/articles?t=2" style={{ backgroundColor: 'rgb(128,0,64)', borderRadius: '7.5px' }}>Artículos de Intercambio</Link>
+                            <Link className="nav-link" to="/articles?t=3">Artículos de Donativo</Link>
                         </SecondNav>
                         <CardContainer>
                             <ListPageBeg to="/article/new" category="Artículo" type="Intercambio" />
@@ -129,7 +114,8 @@ const Articles = () => {
 
                             {articles.map((art) => {
                                 return (<ArticlesDis
-                                    to="/article"
+                                    key = {art._id}
+                                    to={`/article?a=${art._id}`}
                                     img={art.img}
                                     alt={art.name}
                                     name={art.name}
@@ -151,9 +137,9 @@ const Articles = () => {
                     <QuickNav />
                     <article className="conenedor_terciario_1">
                         <SecondNav>
-                            <Link className="nav-link" to="/articles?t=sell">Artículos en Venta</Link>
-                            <Link className="nav-link" to="/articles?t=exchange">Artículos de Intercambio</Link>
-                            <Link className="nav-link active" to="/articles?t=donate" style={{ backgroundColor: 'rgb(128,0,64)', borderRadius: '7.5px' }}>Artículos de Donativo</Link>
+                            <Link className="nav-link" to="/articles?t=1">Artículos en Venta</Link>
+                            <Link className="nav-link" to="/articles?t=2">Artículos de Intercambio</Link>
+                            <Link className="nav-link active" to="/articles?t=3" style={{ backgroundColor: 'rgb(128,0,64)', borderRadius: '7.5px' }}>Artículos de Donativo</Link>
                         </SecondNav>
                         <CardContainer>
                             <ListPageBeg to="/article/new" category="Artículo" type="Donativo" />
@@ -171,7 +157,8 @@ const Articles = () => {
 
                             {articles.map((art) => {
                                 return (<ArticlesDis
-                                    to="/article"
+                                    key = {art._id}
+                                    to={`/article?a=${art._id}`}
                                     img={art.img}
                                     alt={art.name}
                                     name={art.name}
@@ -179,8 +166,6 @@ const Articles = () => {
                                     propertary={art.propietary.username}
                                     category={art.category} />);
                             })}
-
-                            {/* */}
                             <br />
                             <ListPageEnd to="/article/new" category="artículo" />
                         </CardContainer>

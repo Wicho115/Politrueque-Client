@@ -7,6 +7,7 @@ import userRoutes from './Routes/user.routes';
 import adminRoutes from './Routes/admin.routes';
 import anonRoutes from './Routes/anon.routes'
 import Auth from "./auth/auth";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const [routes, setRoutes] = useState(null);
@@ -32,7 +33,7 @@ const App = () => {
     
   }, []);
 
-  return <Router>{routes}</Router>;
+  return <Router><ToastContainer />{routes}</Router>;
 };
 
 export default App;

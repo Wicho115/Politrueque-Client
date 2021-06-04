@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../img/PoliTrue.png";
 
-import userJSON from '../helpers/UserSample';
 import auth from "../auth/auth";
 
 const Nav = (props) => {
-
 
   const [user, setUser] = useState(null)
   const [privileges, setPrivileges] = useState(null);
@@ -28,15 +26,15 @@ const Nav = (props) => {
             className="dropdown-menu"
             aria-labelledby="navbarDropdown"
           >
-            <Link to="/articles?t=sell" className="dropdown-item">
+            <Link to="/articles?t=1" className="dropdown-item">
               <i className="fa fa-shopping-cart" />
                       &nbsp;Venta
                     </Link>
-            <Link to="/articles?t=exchange" className="dropdown-item">
+            <Link to="/articles?t=2" className="dropdown-item">
               <i className="fa fa-handshake-o" />
                       &nbsp;Intercambio
                     </Link>
-            <Link to="/articles?t=donate" className="dropdown-item" href="#">
+            <Link to="/articles?t=3" className="dropdown-item" href="#">
               <i className="fa fa-heart-o" />
                       &nbsp;Donaciones
                     </Link>
@@ -73,11 +71,11 @@ const Nav = (props) => {
             className="dropdown-menu"
             aria-labelledby="navbarDropdown"
           >
-            <Link to="/reports?t=user" className="dropdown-item">
+            <Link to="/reports?t=usuario" className="dropdown-item">
               <i className="fa fa-user-circle" />
           &nbsp;Usuarios
         </Link>
-            <Link to="/reports?t=article" className="dropdown-item">
+            <Link to="/reports?t=articulo" className="dropdown-item">
               <i className="fa fa-shopping-bag" />
           &nbsp;Artículos
         </Link>
