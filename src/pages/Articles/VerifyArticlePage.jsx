@@ -200,7 +200,8 @@ const VerifyArticlePage = () => {
                                 if ((auth.user._id != article.Propietary._id)) return null;
                             }
                             return <>
-                            <button onClick={handleDeleteArticle}> Eliminar <i className="fa fa-trash" /> </button>
+                            <button onClick={handleDeleteArticle} className="btn btn-primary" style={{ backgroundColor:"#FFFFFF", color:"#800040", borderColor:"#800040" }} > Eliminar <i className="fa fa-trash" /> </button>
+                            &nbsp;&nbsp;&nbsp;
                             </>
                         })()}
                     </div>
@@ -215,7 +216,7 @@ const VerifyArticlePage = () => {
                         <li className="list-group-item">Estado: {article.state ? "Nuevo" : "Usado"}</li>
                         <li className="list-group-item">Categoría: {article.category}</li>
                         {(!auth.privileges?.canAcceptArticles) ? null :
-                            <li className="list-group-item"><button onClick={handleVerify}>Verificar</button></li>}
+                            <li className="list-group-item"><button onClick={handleVerify} className="btn btn-primary" style={{ backgroundColor: 'rgb(128,0, 64)', borderColor: 'rgb(128,0, 64)' }}>Verificar</button></li>}
 
                     </ul>
                 </div>

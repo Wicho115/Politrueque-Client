@@ -167,10 +167,10 @@ const ArticlePage = () => {
               Editar &nbsp; <i className="fa fa-pencil" />
             </Button>&nbsp;&nbsp;&nbsp;</>
             })()}
-           <button
+           <button className="btn btn-primary" style={{ backgroundColor:"#FFFFFF", color:"#800040", borderColor:"#800040" }}
               onClick={(e) => deleteArticle({ variables: {id : article._id} })}>
               Eliminar &nbsp; <i className="fa fa-trash" />
-            </button>
+            </button>&nbsp;&nbsp;&nbsp;
           </div>}
           <ul
             className="list-group list-group-flush"
