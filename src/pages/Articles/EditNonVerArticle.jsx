@@ -126,7 +126,8 @@ const EditArticle = () => {
                 //succes
                 toast.success(<CustomToast type="success" message="Campos llenos" />);
                 const payload = {
-                    id,description,name,stock : parseInt(stock),category : parseInt(category),state,img,price,exchange_product
+                    id,description,name,stock : parseInt(stock),category : parseInt(category),state,img,
+                    price : parseInt(price),exchange_product
                 }
                 updateArticle({variables : {payload}, refetchQueries : [{query : GET_NV_ARTICLE, variables : {id}}]})
             }

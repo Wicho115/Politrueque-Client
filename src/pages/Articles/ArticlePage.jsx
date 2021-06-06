@@ -40,7 +40,7 @@ mutation deleteArticle($id : String!){
   }
 }`
 
-const SELL_ARTICLE =   gql`
+const SELL_ARTICLE = gql`
 mutation g($id : String!){
   sellArticle(id : $id){
     _id
@@ -72,19 +72,21 @@ const ArticlePage = () => {
       window.location.assign(`${window.location.origin}/articles?t=${data.deleteArticle.action_id}`)
     }, onError: (err) => console.error(err.message)
   })
-  const [sellArticle, {loading : Mloagin2}] = useMutation(SELL_ARTICLE, {onCompleted : (data) =>{
-    window.location.reload();
-  }})
+  const [sellArticle, { loading: Mloagin2 }] = useMutation(SELL_ARTICLE, {
+    onCompleted: (data) => {
+      window.location.reload();
+    }
+  })
 
   if (loading) return (<Loading />);
   if (error) return <h1>{error.message}</h1>
   if (data) {
-    const article_data = data.getArticle;    
+    const article_data = data.getArticle;
     article = article_data;
   }
 
-  const Sell = e =>{
-    sellArticle({variables : {id : article_id}})
+  const Sell = e => {
+    sellArticle({ variables: { id: article_id } })
   }
 
   const handleSubmit = (e) => {
@@ -175,13 +177,13 @@ const ArticlePage = () => {
             </div>
           </div>
           {(user?._id !== article.propietary._id) ? null : <div className="alinear-izquierda">
-            {(() =>{
-              if(article.available) return<> <Button refer={`/article/edit?art=${article._id}`}>
-              Editar &nbsp; <i className="fa fa-pencil" />
-            </Button>&nbsp;&nbsp;&nbsp;</>
+            {(() => {
+              if (article.available) return <> <Button refer={`/article/edit?art=${article._id}`}>
+                Editar &nbsp; <i className="fa fa-pencil" />
+              </Button>&nbsp;&nbsp;&nbsp;</>
             })()}
-           <button className="btn btn-primary" style={{ backgroundColor:"#FFFFFF", color:"#800040", borderColor:"#800040" }}
-              onClick={(e) => deleteArticle({ variables: {id : article._id} })}>
+            <button className="btn btn-primary" style={{ backgroundColor: "#FFFFFF", color: "#800040", borderColor: "#800040" }}
+              onClick={(e) => deleteArticle({ variables: { id: article._id } })}>
               Eliminar &nbsp; <i className="fa fa-trash" />
             </button>&nbsp;&nbsp;&nbsp;
           </div>}
@@ -198,18 +200,21 @@ const ArticlePage = () => {
             <li className="list-group-item">Categoría: {handleCategory(article.category)}</li>
           </ul>
           {(user?._id != article.propietary._id) ? <>
-            <div className="card-body">
-              <Button refer={`/user?u=${article.propietary._id}`} fill={true}>
-                Contactar al Propietario
+            {(() => {
+              if (article.available) return (
+                <div className="card-body">
+                  <Button refer={`/user?u=${article.propietary._id}`} fill={true}>
+                    Contactar al Propietario
             </Button>
-            </div>
+                </div>)
+            })()}
           </> : <>
             {(() => {
               if (article.available)
                 return (<div className="card-body">
                   <form onSubmit={handleSubmit}>
                     <button
-                    onClick={Sell}
+                      onClick={Sell}
                       className="btn btn-primary"
                       style={{
                         backgroundColor: "rgb(128,0, 64)",
