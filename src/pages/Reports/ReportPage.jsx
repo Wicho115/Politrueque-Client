@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 
 import Button from "../../components/Button";
 import Loading from "../../components/Loading";
@@ -42,8 +42,14 @@ const GET_REPORT = gql`
         }
         }
     }
-
 `
+
+const DELETE_REPORT = gql`
+mutation g($id : String!){
+  deleteReport(id : $id){
+    type
+  }
+}`
 
 const useQueryURL = () => {
     return new URLSearchParams(useLocation().search);
@@ -58,7 +64,11 @@ const ReportPage = () => {
     let article = {}
     let type = '';
 
-    const { data, loading, error } = useQuery(GET_REPORT, { variables: { id: report_id } })
+    const { data, loading, error } = useQuery(GET_REPORT, { variables: { id: report_id } });
+    const [deleteReport, {loading : Mloading}] = useMutation(DELETE_REPORT, { variables: { id: report_id }, 
+    onCompleted : (data) =>{
+        window.location.assign(`${window.location.origin}/reports?t=${data.deleteReport.type}`)
+    }});
 
     if (loading) return (<Loading />);
     if(error) return <h1>{error.message}</h1>
@@ -70,6 +80,10 @@ const ReportPage = () => {
         report = report_data;
         console.log(report.author._id);
         console.log(auth.user._id);
+    }
+
+    const handleDelete = e =>{
+        deleteReport();
     }
 
     const handleUserImage = () =>{
@@ -93,12 +107,12 @@ const ReportPage = () => {
                             </div>
                            
                             {(auth.user._id != report.author._id) ? null : <div className="card-body" style={{ textAlign: 'right' }}>
-                                <Button refer="/report/edit?art=">
+                                <Button refer={`/report/edit?art=${report._id}`}>
                                     Editar &nbsp; <i className="fa fa-pencil" />
                                 </Button>
-                                <Button refer="/report/delete?art=">
+                                <button onClick={handleDelete}>
                                     Eliminar &nbsp; <i className="fa fa-trash" />
-                                </Button>
+                                    </button>                                    
                             </div>}                                                        
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item">
@@ -147,12 +161,12 @@ const ReportPage = () => {
                                 <h6 className="card-subtitle mb-2 text-muted">Autor: {report.author.username}</h6>                               
                             </div>
                             {(auth.user._id != report.author._id) ? null : <div className="card-body" style={{ textAlign: 'right' }}>
-                                <Button refer="/report/edit?art=">
+                            <Button refer={`/report/edit?art=${report._id}`}>
                                     Editar &nbsp; <i className="fa fa-pencil" />
                                 </Button>
-                                <Button refer="/report/delete?art=">
+                                <button onClick={handleDelete}>
                                     Eliminar &nbsp; <i className="fa fa-trash" />
-                                </Button>
+                                    </button>   
                             </div>} 
                             <ul className="list-group list-group-flush">
                                 <li className="list-group-item">

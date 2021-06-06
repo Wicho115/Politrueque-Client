@@ -38,8 +38,14 @@ mutation deleteArticle($id : String!){
   deleteArticle(id : $id){
     action_id
   }
-}
-`
+}`
+
+const SELL_ARTICLE =   gql`
+mutation g($id : String!){
+  sellArticle(id : $id){
+    _id
+  }
+}`
 
 const useQueryURL = () => {
   return new URLSearchParams(useLocation().search);
@@ -66,12 +72,19 @@ const ArticlePage = () => {
       window.location.assign(`${window.location.origin}/articles?t=${data.deleteArticle.action_id}`)
     }, onError: (err) => console.error(err.message)
   })
+  const [sellArticle, {loading : Mloagin2}] = useMutation(SELL_ARTICLE, {onCompleted : (data) =>{
+    window.location.reload();
+  }})
 
   if (loading) return (<Loading />);
   if (error) return <h1>{error.message}</h1>
   if (data) {
     const article_data = data.getArticle;    
     article = article_data;
+  }
+
+  const Sell = e =>{
+    sellArticle({variables : {id : article_id}})
   }
 
   const handleSubmit = (e) => {
@@ -196,6 +209,7 @@ const ArticlePage = () => {
                 return (<div className="card-body">
                   <form onSubmit={handleSubmit}>
                     <button
+                    onClick={Sell}
                       className="btn btn-primary"
                       style={{
                         backgroundColor: "rgb(128,0, 64)",

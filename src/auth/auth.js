@@ -60,6 +60,7 @@ class Auth{
                 return 2
             }
         }else{
+            localStorage.removeItem('token');
             console.log('Devolviendo ultimo 0');
             return 0;
         }    

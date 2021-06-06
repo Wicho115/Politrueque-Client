@@ -105,7 +105,7 @@ const User = () => {
           {((reports.length > 0 && auth.privileges) ? <Section>Reportes de {user.username}</Section> : null)}
 
           {reports.map((rep, index, arr) => {
-            if (auth.privileges) return (<Report key={rep._id} report={rep} user={user.username} />);
+            if (auth.privileges) return (<><Report key={rep._id} report={rep} user={user.username} /><br/></>);
           })}
           <br />
 
