@@ -159,6 +159,7 @@ const CreateArticle = () => {
                         {/* Imágen del Artículo */}
                         <div className="centrar">
                             <FileInput instuctions="Por favor, seleccione la imágen del artículo:" defaultImg="none" imgFormat="new-article" upperChange={handleFileChange} />
+                            <small id="small" className="form-text text-muted">Te recomendamos utilizar una foto vertical</small>
                         </div>
                         <hr />
                         {/* Aqui van los datos generales que se piden para un artículo */}

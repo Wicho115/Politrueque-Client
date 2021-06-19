@@ -81,7 +81,7 @@ const FileInput = ({ instuctions, defaultImg, imgFormat, upperChange }) => {
             <div className="add-img-1">
                 {handleFormat(imgFormat)}
                 <div className="img-input centrar">
-                    <p>{instuctions}</p>
+                    <p>{instuctions}</p>                    
                     <div className="custom-file" style={{ textAlign: 'left' }}>
 
                         <Files
@@ -100,6 +100,7 @@ const FileInput = ({ instuctions, defaultImg, imgFormat, upperChange }) => {
                         </Files>
 
                     </div>
+                    
                 </div>
             </div>
         </>

@@ -165,6 +165,34 @@ const VerifyArticlePage = () => {
                 return (`???`);
         }
     }
+
+    const handleCategory = (category) => {
+        switch (category) {
+            case 1:
+                return ("Matemáticas");
+            case 2:
+                return ("Química");
+            case 3:
+                return ("Física");
+            case 4:
+                return ("Inglés");
+            case 5:
+                return ("Historia");
+            case 6:
+                return ("Filosofía");
+            case 7:
+                return ("Dibujo Técnico");
+            case 8:
+                return ("Programación");
+            case 9:
+                return ("Máquinas con Sistemas Automatizados");
+            case 10:
+                return ("Sistemas Digitales");
+            default:
+                return ("Otro");
+        }
+    }
+
     return (
         <article className="conenedor_terciario_1">
             <div className="artículos_display">
@@ -215,7 +243,7 @@ const VerifyArticlePage = () => {
                         <li className="list-group-item"> {handleArticle()} </li>
                         <li className="list-group-item">Cantidad: {article.stock}</li>
                         <li className="list-group-item">Estado: {article.state ? "Nuevo" : "Usado"}</li>
-                        <li className="list-group-item">Categoría: {article.category}</li>
+                        <li className="list-group-item">Categoría: {handleCategory(article.category)}</li>
                         {(!auth.privileges?.canAcceptArticles) ? null :
                             <li className="list-group-item"><button onClick={handleVerify} className="btn btn-primary" style={{ backgroundColor: 'rgb(128,0, 64)', borderColor: 'rgb(128,0, 64)' }}>Verificar</button></li>}
 
@@ -230,11 +258,9 @@ const VerifyArticlePage = () => {
                             <Card>
                                 {(comments.length === 0) ?
                                     <div className="error">
-                                        <br />
-                                        <h3 className="reintentar">
+                                        <h6 className="reintentar">
                                             No hay comentarios por el momento.
-                                        </h3>
-                                        <br />
+                                        </h6>
                                     </div> : null}
 
                                 {comments.map((com) => {

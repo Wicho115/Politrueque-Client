@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { gql, useMutation, useQuery } from '@apollo/client';
+import {Link} from 'react-router-dom';
 
 import Button from "../../components/Button";
 import ReportBtn from "../../components/inputs/ReportBtn";
@@ -191,7 +192,7 @@ const ArticlePage = () => {
             className="list-group list-group-flush"
             style={{ marginTop: "0.5rem" }}
           >
-            <li className="list-group-item">Propietario: {article.propietary.username}</li>
+            <li className="list-group-item">Propietario: <Link to={`/user?u=${article.propietary._id}`}>{article.propietary.username}</Link></li>
             <li className="list-group-item">
               {handleArticle()}
             </li>

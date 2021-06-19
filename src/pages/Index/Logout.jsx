@@ -15,7 +15,7 @@ const Logout = () =>{
         }
     },[])
     return (<>
-        <h1>{token && 'Gracias por pasarte! Estamos cerrando tu sesión, espera un poco...'}</h1>     
+        <h1>{token && 'Estamos cerrando tu sesión, espera un poco...'}</h1>     
     </>);
 }
 

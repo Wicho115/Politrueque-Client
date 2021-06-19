@@ -69,7 +69,7 @@ const Login = () => {
                     <div className="navegación_secundaria_1">
                         <nav className="nav nav-pills nav-fill">
                             <a className="nav-link active" style={{ backgroundColor: 'rgb(128, 0, 64)', borderRadius: '7.5px' }}>
-                                Miembro de la Comunidad - Iniciar Sesión
+                                Inicio de Sesion
                             </a>
                         </nav>
                     </div>

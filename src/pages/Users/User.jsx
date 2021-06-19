@@ -90,7 +90,7 @@ const User = () => {
       <article className="conenedor_terciario_1">
         <div className="artículos_display">
           <Section>Datos del usuario</Section>
-          <UserCard user={user} />
+          <UserCard user={user} articles={articles.length}/>
 
           <Section>Contacto de {user.username}</Section>
 

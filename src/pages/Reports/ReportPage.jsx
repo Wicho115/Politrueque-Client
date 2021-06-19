@@ -94,6 +94,33 @@ const ReportPage = () => {
         return user.img;
     }
 
+    const handleCategory = (category) => {
+        switch (category) {
+            case 1:
+                return ("Matemáticas");
+            case 2:
+                return ("Química");
+            case 3:
+                return ("Física");
+            case 4:
+                return ("Inglés");
+            case 5:
+                return ("Historia");
+            case 6:
+                return ("Filosofía");
+            case 7:
+                return ("Dibujo Técnico");
+            case 8:
+                return ("Programación");
+            case 9:
+                return ("Máquinas con Sistemas Automatizados");
+            case 10:
+                return ("Sistemas Digitales");
+            default:
+                return ("Otro");
+        }
+    }
+
     switch (type) {
         case 'articulo':
             return (
@@ -139,7 +166,7 @@ const ReportPage = () => {
                                                 <h5 className="card-title">{article.name}</h5>
                                                 <p className="card-text">{article.description}</p>
                                                 <p className="card-text">Propietario: {article.propietary.username}</p>
-                                                <p className="card-text"><small className="text-muted">Categoría: {article.category}</small></p>
+                                                <p className="card-text"><small className="text-muted">Categoría: {handleCategory(article.category)}</small></p>
                                             </div>
                                         </div>
                                     </div>
@@ -195,9 +222,6 @@ const ReportPage = () => {
                                         <div className="col-md-8">
                                             <div className="card-body">
                                                 <h5 className="card-title">{user.username}</h5>
-                                                <p className="card-text">
-                                                    <small className="text-muted">Artículos del Usuario: 1</small>
-                                                </p>
                                                 <p className="card-text">
                                                     <small className="text-muted">Escuela: CECYT no.9 JDB</small>
                                                 </p>

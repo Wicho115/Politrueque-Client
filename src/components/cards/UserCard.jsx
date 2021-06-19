@@ -8,7 +8,7 @@ import femenino from '../../img/DefaultFE.png';
 
 import auth from '../../auth/auth';
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, articles }) => {
 
   const getImg = () =>{
     if(!user.img){
@@ -31,9 +31,11 @@ const UserCard = ({ user }) => {
         <div className="col-md-8" >
           <div className="card-body">
             <h5 className="card-title">{user.username}</h5>
-            <p className="card-text">
-              <small className="text-muted">Artículos del Usuario: 1</small>
-            </p>
+
+            {(articles > 0) ? <p className="card-text">
+              <small className="text-muted">Artículos de {user.username}: {articles}</small>
+            </p> : null}
+            
             <p className="card-text">
               <small className="text-muted">Escuela: CECYT no.9 JDB</small>
             </p>

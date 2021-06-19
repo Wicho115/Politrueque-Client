@@ -12,12 +12,16 @@ const handleCategory = (category) => {
         case 4:
             return ("Inglés");
         case 5:
-            return ("Dibujo Técnico");
+            return ("Historia");
         case 6:
-            return ("Programación");
+            return ("Filosofía");
         case 7:
-            return ("Máquinas con Sistemas Automatizados");
+            return ("Dibujo Técnico");
         case 8:
+            return ("Programación");
+        case 9:
+            return ("Máquinas con Sistemas Automatizados");
+        case 10:
             return ("Sistemas Digitales");
         default:
             return ("Otro");

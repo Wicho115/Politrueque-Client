@@ -12,12 +12,16 @@ const handleCategory = (category) => {
       case 4:
           return ("Inglés");
       case 5:
-          return ("Dibujo Técnico");
+          return ("Historia");
       case 6:
-          return ("Programación");
+          return ("Filosofía");
       case 7:
-          return ("Máquinas con Sistemas Automatizados");
+          return ("Dibujo Técnico");
       case 8:
+          return ("Programación");
+      case 9:
+          return ("Máquinas con Sistemas Automatizados");
+      case 10:
           return ("Sistemas Digitales");
       default:
           return ("Otro");
@@ -26,7 +30,7 @@ const handleCategory = (category) => {
 
 const Article = ({data, user, number}) =>{
 
-    const {title, img, description, category, _id, available} = data;
+    const {name, img, description, category, _id, available} = data;
 
     const handleLink = () =>{
       if(number == 1) return `/article?a=${_id}`
@@ -46,7 +50,7 @@ const Article = ({data, user, number}) =>{
               </div>
               <div className="col-md-8">
                 <div className="card-body">
-                  <h5 className="card-title">{title}</h5>
+                  <h5 className="card-title">{name}</h5>
                   <p className="card-text">{description}</p>
                   <p className="card-text">Propietario: {user}</p>
                   <p className="card-text">
