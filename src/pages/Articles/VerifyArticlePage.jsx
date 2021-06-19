@@ -158,7 +158,7 @@ const VerifyArticlePage = () => {
             case 1:
                 return (`Precio: $${article.price}`);
             case 2:
-                return (`Intercambio por: ${article.exchange}`);
+                return (`Intercambio por: ${article.exchange_product}`);
             case 3:
                 return (`Donativo`);
             default:

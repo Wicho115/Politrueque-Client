@@ -7,7 +7,7 @@ import SecondNav from "../../components/SecondNav";
 import ArticleToVer from "../../components/articles/ArticleToVer";
 import QuickNav from "../../components/QuickNav";
 import ListPageEnd from "../../components/ListPageEnd";
-import {gql, useQuery} from '@apollo/client';
+import { gql, useQuery } from '@apollo/client';
 import Loading from "../../components/Loading";
 
 //importar json de articulo (DEV)
@@ -32,11 +32,11 @@ const Articles = () => {
 
     let articles = [];
 
-    const {data, loading, error} = useQuery(GET_VERIFY_ARTICLES);
+    const { data, loading, error } = useQuery(GET_VERIFY_ARTICLES);
 
     if (loading) return (<Loading />);
 
-    if(data){
+    if (data) {
         articles = data.getNonVerifiedArticles;
         console.log(data.getNonVerifiedArticles)
     }
@@ -50,6 +50,15 @@ const Articles = () => {
                 </SecondNav>
                 <CardContainer>
                     {/* Donde se imprime cada uno de los artículos */}
+
+                    {(articles.length === 0) ?
+                        <div className="error">
+                            <br />
+                            <h3 className="reintentar">
+                                Lo sentimos, No hay artículos disponibles por el momento, intenta recargar la página o vuelve más tarde.
+                            </h3>
+                            <br />
+                        </div> : null}
 
                     {articles.map((art) => {
                         return (<ArticleToVer
@@ -65,7 +74,7 @@ const Articles = () => {
 
                     {/* */}
                 </CardContainer>
-                <ListPageEnd to="/article/new" category="ver-artículo"/>
+                <ListPageEnd to="/article/new" category="ver-artículo" />
             </article>
         </>
     );
