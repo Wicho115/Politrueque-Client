@@ -7,7 +7,8 @@ import SecondNav from "../../components/SecondNav";
 import ArticleToVer from "../../components/articles/ArticleToVer";
 import QuickNav from "../../components/QuickNav";
 import ListPageEnd from "../../components/ListPageEnd";
-import {gql, useQuery} from '@apollo/client'
+import {gql, useQuery} from '@apollo/client';
+import Loading from "../../components/Loading";
 
 //importar json de articulo (DEV)
 //import articlesJSON from "../../helpers/ArticlesSample";
@@ -32,6 +33,8 @@ const Articles = () => {
     let articles = [];
 
     const {data, loading, error} = useQuery(GET_VERIFY_ARTICLES);
+
+    if (loading) return (<Loading />);
 
     if(data){
         articles = data.getNonVerifiedArticles;

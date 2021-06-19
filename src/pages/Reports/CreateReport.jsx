@@ -6,6 +6,7 @@ import SecondNav from "../../components/SecondNav";
 import FormsContainer from "../../components/FormsContainer";
 import FormInput from "../../components/inputs/FormInput";
 import DescriptionInput from "../../components/inputs/DescriptionInput";
+import Loading from "../../components/Loading";
 
 import masculino from '../../img/DefaultMA.png';
 import femenino from '../../img/DefaultFE.png';
@@ -83,7 +84,7 @@ const CreateReport = () => {
         window.location.assign(`${window.location.origin}/report?r=${data.createReport._id}`)
     }});
 
-    if(loading1 || loading2 || Mloading) return <h1>Loading..</h1>
+    if(loading1 || loading2 || Mloading) return (<Loading />);
     if(error1) return <h1>Error || {error1.message}</h1>
     if(error2) return <h1>Error || {error2.message}</h1>
 

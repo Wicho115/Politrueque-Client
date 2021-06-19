@@ -9,6 +9,7 @@ import FormInput from "../../components/inputs/FormInput";
 import DescriptionInput from "../../components/inputs/DescriptionInput";
 import FileInput from "../../components/inputs/FileInput";
 import CustomToast from "../../components/CustomToast";
+import Loading from "../../components/Loading";
 
 import articleJSON from "../../helpers/ArticleSample";
 
@@ -78,8 +79,8 @@ const EditArticle = () => {
     {onCompleted : (data) =>{
         window.location.assign(`${window.location.origin}/article/verify?a=${data.updateNVArticle._id}`)
     }})
-    if(loadingMutation) return <h1>Loading...</h1>
-    if(loading) return <h1>Loading...</h1>
+    if(loadingMutation) return (<Loading />);
+    if (loading) return (<Loading />);
     if(!data)return <h1>No data</h1>;
     if(error) return <h1>Error {error.message}</h1>;
 

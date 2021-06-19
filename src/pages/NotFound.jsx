@@ -12,6 +12,7 @@ const NotFound = () => {
             <div className="error">
                 <br />
                 <h3 className="reintentar">Lo sentimos, no pudimos encontrar la página que estabas buscando. Lamentamos las molestias.</h3>
+                <h5 className="reintentar">Puedes enviarnos un correo a politrueque.oficial@gmail.com para ayudarte a resolver el problema.</h5>
                 <div style={{ textAlign: 'center' }}>
                     <i className="fa fa-frown-o fa-5x" />
                 </div>

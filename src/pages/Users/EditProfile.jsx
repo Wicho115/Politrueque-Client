@@ -3,7 +3,8 @@ import Card from "../../components/cards/Card";
 import Section from "../../components/Section";
 import Quicknav from "../../components/QuickNav";
 import FileInput from "../../components/inputs/FileInput";
-import Button from '../../components/Button'
+import Button from '../../components/Button';
+import Loading from "../../components/Loading";
 
 import { gql, useMutation, useQuery } from '@apollo/client';
 
@@ -63,7 +64,7 @@ const EditProfile = () => {
     })
 
   if (loadingMutation) return <h1>Loading...</h1>
-  if (loading) return <h1>Loading...</h1>
+  if (loading) return (<Loading />);
   if (error) return <h1>{error.message}</h1>
 
   return (
@@ -78,7 +79,7 @@ const EditProfile = () => {
               <FileInput instuctions="Seleccione una imágen de perfil" defaultImg={handleImage()} imgFormat="profile" upperChange={(files) => setImg(files[0])} />
             </div>
             <div className="centrar">
-              <button onClick={handelSub}>GUARDAR CAMBIOS <i className="fa fa-floppy-o" /></button>
+              <button onClick={handelSub} className="btn btn-primary" style={{ backgroundColor: 'rgb(128,0, 64)', borderColor: 'rgb(128,0, 64)' }}>Guardar Cambios &nbsp; <i className="fa fa-floppy-o" /></button>
             </div>
           </Card>
 

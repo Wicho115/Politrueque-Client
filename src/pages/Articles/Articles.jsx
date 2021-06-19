@@ -9,6 +9,7 @@ import SecondNav from "../../components/SecondNav";
 import ListPageEnd from "../../components/ListPageEnd";
 import ListPageBeg from "../../components/ListPageBeg";
 import ArticlesDis from "../../components/articles/ArticlesDis";
+import Loading from "../../components/Loading";
 
 const GET_ARTICLES = gql`
   query Articles($id : Int!){
@@ -39,6 +40,7 @@ const Articles = () => {
     let articles = [];
 
     const { data, loading, error } = useQuery(GET_ARTICLES, { variables: { id } });
+    if (loading) return (<Loading />);
     if (data) {
         const articles_data = data.getArticles;        
         articles = articles_data;

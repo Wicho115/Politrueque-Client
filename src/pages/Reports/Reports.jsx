@@ -9,6 +9,7 @@ import SecondNav from "../../components/SecondNav";
 import ListPageEnd from "../../components/ListPageEnd";
 import ListPageBeg from "../../components/ListPageBeg";
 import ReportsDis from "../../components/reports/ReportsDis";
+import Loading from "../../components/Loading";
 
 //importar json de articulo (DEV)
 //import reportsJSON from "../../helpers/ReportsSample";
@@ -38,6 +39,7 @@ const Reports = () => {
     let reports = [];
 
     const { data, loading, error } = useQuery(GET_REPORTS, {variables : {type}});
+    if (loading) return (<Loading />);
     if (data) {
         
         reports = data.getReportsByType;        

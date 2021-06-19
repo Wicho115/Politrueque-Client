@@ -35,6 +35,9 @@ const QuickNav = () => {
                   <p className="card-text navegacion-rápida-link">
                     <a href="/terms">Términos y condiciones</a>
                   </p>
+                  <p className="card-text navegacion-rápida-link">
+                    <a href="/help">Soporte</a>
+                  </p>
                 </div>
               </div>
               {/* */}
@@ -57,11 +60,6 @@ const QuickNav = () => {
                   <p className="card-text navegacion-rápida-link">
                     <a href="/user">
                       Perfil
-                    </a>
-                  </p>
-                  <p className="card-text navegacion-rápida-link">
-                    <a href="/user/articles?u=algo">
-                      Mis Artículos
                     </a>
                   </p>
                   <p className="card-text navegacion-rápida-link">

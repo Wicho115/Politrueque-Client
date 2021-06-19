@@ -24,6 +24,10 @@ const Error = () => {
           la página anterior e inténtalo de nuevo más tarde. Lamentamos las
           molestias.
         </h3>
+        <h5 className="reintentar">
+          Visita la página de soporte o puedes enviarnos un correo a 
+          politrueque.oficial@gmail.com para ayudarte a resolver el problema.
+        </h5>
         <div style={{ textAlign: "center" }}>
           <i className="fa fa-frown-o fa-5x" />
         </div>

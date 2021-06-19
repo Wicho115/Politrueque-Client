@@ -7,7 +7,8 @@ import Report from "../../components/reports/Report";
 import UserCard from "../../components/cards/UserCard";
 import Quicknav from "../../components/QuickNav";
 import { useQuery, gql } from '@apollo/client'
-import auth from '../../auth/auth'
+import auth from '../../auth/auth';
+import Loading from "../../components/Loading";
 
 const GET_USER = gql`
 query getU($_id : String!){
@@ -66,6 +67,8 @@ const User = () => {
 
   if (!_id) _id = auth.user._id
   const { data, loading, error } = useQuery(GET_USER, { variables: { _id } })
+
+  if (loading) return (<Loading />);
 
   if (error) return (<Redirect to="/error" />)
 

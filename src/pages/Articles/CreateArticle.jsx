@@ -130,7 +130,7 @@ const CreateArticle = () => {
             if (action_id === 1 &&!priceRegex.test(price)) {
                 toast.error(<CustomToast type="error" message="Por favor, proporciona un Precio válido" />)
             } else {
-                toast.success(<CustomToast type="success" message="Campos llenos" />);
+                toast.success(<CustomToast type="success" message="Creando tu artículo, espera..." />);
                 let action = {action_id, exchange_article : "", price : 0};
                 let payload = { ...newArticle, stock, category, state : (state === "true"), img };
                 delete payload.price;

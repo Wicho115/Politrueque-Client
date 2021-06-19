@@ -109,8 +109,8 @@ const ReportPage = () => {
                             {(auth.user._id != report.author._id) ? null : <div className="card-body" style={{ textAlign: 'right' }}>
                                 <Button refer={`/report/edit?art=${report._id}`}>
                                     Editar &nbsp; <i className="fa fa-pencil" />
-                                </Button>
-                                <button onClick={handleDelete}>
+                                </Button> &nbsp;&nbsp;&nbsp;
+                                <button onClick={handleDelete} className="btn btn-primary" style={{backgroundColor: "rgb(255,255,255)" , borderColor: "rgb(128,0, 64)", color: "rgb(128,0, 64)"}}>
                                     Eliminar &nbsp; <i className="fa fa-trash" />
                                     </button>                                    
                             </div>}                                                        

@@ -68,6 +68,11 @@ const Support = () => {
               que Politrueque cuenta con una lista en donde puedes encontrar las materias y con 
               ella sus artículos.
             </p>
+            <hr />
+            <h5 className="card-title">¿Tienes alguna pregunta diferente?</h5>
+            <p className="card-text">
+              Envíanos un correo a politrueque.oficial@gmail.com y uno de nuestros administradores te atenderá en breve.
+            </p>
           </Card>
           <br />
 

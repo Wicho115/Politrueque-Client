@@ -6,6 +6,7 @@ import SecondNav from "../../components/SecondNav";
 import FormsContainer from "../../components/FormsContainer";
 import FormInput from "../../components/inputs/FormInput";
 import DescriptionInput from "../../components/inputs/DescriptionInput";
+import Loading from "../../components/Loading";
 
 const GET_REPORT = gql`
     query getReport($id : String!){

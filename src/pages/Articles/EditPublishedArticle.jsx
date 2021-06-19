@@ -7,7 +7,8 @@ import SecondNav from "../../components/SecondNav";
 import FormsContainer from "../../components/FormsContainer";
 import FormInput from "../../components/inputs/FormInput";
 import DescriptionInput from "../../components/inputs/DescriptionInput";
-import {gql, useMutation, useQuery} from '@apollo/client'
+import {gql, useMutation, useQuery} from '@apollo/client';
+import Loading from "../../components/Loading";
 
 import articleJSON from "../../helpers/ArticleSample";
 
@@ -58,7 +59,7 @@ const EditArticle = () => {
         setArticle(data.getArticle);
         setStock(data.getArticle.stock);
     }});
-    if(loading) return <h1>Loaging..</h1>
+    if (loading) return (<Loading />);
     if(error) return <h1>Error!, {error.message}</h1>
 
 

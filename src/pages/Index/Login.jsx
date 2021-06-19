@@ -52,7 +52,7 @@ const Login = () => {
                 if(json.error){                    
                     return toast.error(<CustomToast type="error" message="Correo o contraseña invalidos" />);
                 } 
-                toast.success(<CustomToast type="success" message="Campos válidos" />);  
+                toast.success(<CustomToast type="success" message="Iniciando Sesión" />);  
                 window.location.reload();
             }
         }
@@ -65,7 +65,6 @@ const Login = () => {
         <>
             <QuickNav />
             <article className="conenedor_terciario_1">
-                <ToastContainer />
                 <div>
                     <div className="navegación_secundaria_1">
                         <nav className="nav nav-pills nav-fill">

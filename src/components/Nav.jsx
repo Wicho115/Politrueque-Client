@@ -109,7 +109,7 @@ const Nav = (props) => {
               <i className="fa fa-id-card-o" />
                       &nbsp;Mi Perfil
                     </Link>            
-            {RegistarUsuario()}
+            {/*RegistarUsuario()*/}
             <div className="dropdown-divider" />
             <Link to="/logout" className="dropdown-item">
               <i className="fa fa-sign-out" />
@@ -121,19 +121,19 @@ const Nav = (props) => {
     }
   }
 
-  const RegistarUsuario = () => {
+  /*const RegistarUsuario = () => {
     if (privileges) {
       return (
         <>
           <div className="dropdown-divider" />
           <Link to="/registeruser?t=u" className="dropdown-item">
             <i className="fa fa-plus-square-o" />
-          &nbsp;Registrar Usuario
+          &nbsp;Reg. Usuario
         </Link>
         </>
       )
     }
-  }
+  }*/
 
   const LoginRender = () => {
     if (!user) {

@@ -4,6 +4,7 @@ import Card from "../../components/cards/Card";
 import FormsContainer from "../../components/FormsContainer";
 import Comment from "../../components/articles/Comment";
 import Button from "../../components/Button";
+import Loading from "../../components/Loading";
 
 import { gql, useMutation, useQuery } from '@apollo/client'
 import auth from "../../auth/auth";
@@ -107,9 +108,9 @@ const VerifyArticlePage = () => {
 
     const { data, loading, error } = useQuery(GET_NV_ARTICLE, { variables: { id } })
 
-    if (loading) return <h1>Loading...</h1>
-    if (mutationLoading) return <h1>Loading...</h1>
-    if (deleteLoading) return <h1>Loading...</h1>
+    if (loading) return (<Loading />);
+    if (mutationLoading) return (<Loading />);
+    if (deleteLoading) return (<Loading />);
     if (error) return <h1>{error.message}</h1>
 
     if (data) {
@@ -193,7 +194,7 @@ const VerifyArticlePage = () => {
                     <div className="alinear-izquierda">
                         {(auth.user._id != article.Propietary._id) ? null : <>
                             <Button refer={`/article/verify/edit?art=${article._id}`}>
-                                Editar &nbsp; <i className="fa fa-pencil" />
+                                Editar  <i className="fa fa-pencil" />
                             </Button>&nbsp;&nbsp;&nbsp;</>}
                         {(() => {
                             if (!auth.privileges?.canDeleteArticles) {
@@ -227,6 +228,15 @@ const VerifyArticlePage = () => {
                             <h5 className="card-title">Comentarios</h5>
 
                             <Card>
+                                {(comments.length === 0) ?
+                                    <div className="error">
+                                        <br />
+                                        <h3 className="reintentar">
+                                            No hay comentarios por el momento.
+                                        </h3>
+                                        <br />
+                                    </div> : null}
+
                                 {comments.map((com) => {
                                     return (<Comment
                                         key={com._id}
